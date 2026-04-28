@@ -1,0 +1,85 @@
+{
+  "name": "The Red Brigade",
+  "parent_faction": "new_antioch",
+  "description": "Bereaved veterans on suicide missions. War dogs, no retreat, Blood Markers at game start.",
+  "restrict_units": [],
+  "limit_overrides": {
+    "Trench Cleric": "0-1",
+    "Sniper Priest": "0-2"
+  },
+  "add_rules": [
+    "Displeasure of the Church: Either 0-1 Trench Cleric + 0-1 Sniper Priest, OR 0-2 Sniper Priests and no Trench Cleric.",
+    "Fury of Saint Ernest: Lieutenant can have Gunslinger Skill for 5D. All models can have Molotov Cocktails at 5D. Cannot have a Troop Flag.",
+    "Glory Hounds: Can include Trench Dogs of the Red Brigade. Dogs from Glory are treated as Red Brigade dogs free. Dog count cannot exceed non-dog model count. First 2 Glorious Deeds per dog earn 2 Glory instead of 1.",
+    "No Retreat: Models cannot take a Retreat ACTION unless forced by a special rule.",
+    "Remember the Fallen: Can skip Reinforcement + Exploration steps in Campaign Phase to recover all Battlekit of killed models (excl. Mercenaries). Recovered gear added to armoury and can be redistributed to eligible models.",
+    "Wear and Tear: Start each game with 1 BLOOD MARKER per 200D of total warband cost (including Battlekit). Opponent distributes markers — no model gets 2 unless all others already have 1."
+  ],
+  "add_armoury": {
+    "Equipment": [
+      ["Blood Cloak", 5, "Limit: 4"]
+    ],
+    "Shields": [
+      ["Red Banner", "2 Glory", "Limit: 1"]
+    ]
+  },
+  "remove_armoury": ["Troop Flag"],
+  "cost_overrides": {
+    "Molotov Cocktail": 5
+  },
+  "stat_overrides": {},
+  "ability_replacements": {},
+  "add_units": [
+    {
+      "type": "Trench Dogs of the Red Brigade",
+      "limit": "No limit (cannot exceed non-dog model count)",
+      "base_cost": 35,
+      "movement": "8\"",
+      "ranged": "-",
+      "melee": "+0 DICE",
+      "armour": "0",
+      "base_size": "25mm",
+      "keywords": ["NEW ANTIOCH"],
+      "abilities": [
+        "Dogs of War: Cannot be Promoted. Counts as a model for Morale Checks.",
+        "Four Paws: +1 DICE to Climb, Jump, Fall, and Dash rolls.",
+        "Grenade Harness: The dog cannot use grenades to Shoot. Any friendly non-dog model within 1\" of the dog at any point during their Activation can use the dog's grenades to Shoot.",
+        "Loyal Hound: Up to 2 dogs + an equal number of non-dog models can have FIRETEAM for +5D each. These Fireteams are in addition to the standard 2 Fireteams and can use Concentrated Attack.",
+        "Special Training: Each dog can take one upgrade for +5D — Attack Dog (+1 DICE Melee), Guard Dog (Limit 1: no INFILTRATOR within 12\", can charge within 4\" without LoS), or Mercy Dog (Limit 2: has Medi-kit, can drag Down friendly models).",
+        "Teeth and Claws: Can make a Melee Attack without a Melee Weapon."
+      ],
+      "base_equipment": [],
+      "restrict_armoury": false,
+      "unit_upgrades": [
+        ["Attack Dog (+1 DICE Melee)", 5, "One upgrade per dog"],
+        ["Guard Dog (no INFILTRATOR within 12\")", 5, "Limit: 1 per warband"],
+        ["Mercy Dog (Medi-kit, drag Down allies)", 5, "Limit: 2 per warband"],
+        ["Frag Grenades", 5, "Dog cannot fire; nearby allies can"],
+        ["Molotov Cocktails", 5, "Dog cannot fire; nearby allies can"]
+      ],
+      "is_elite": false
+    },
+    {
+      "type": "Crimson Communicant",
+      "limit": "0-1",
+      "base_cost": 75,
+      "movement": "6\"",
+      "ranged": "-1 DICE",
+      "melee": "+1 DICE",
+      "armour": "0",
+      "base_size": "40mm",
+      "keywords": ["NEW ANTIOCH", "ELITE", "STRONG", "TOUGH"],
+      "abilities": [
+        "Strength through Pain: Add +1 DICE to Melee Characteristic for each BLOOD MARKER currently on this model. Opponent cannot spend this model's BLOOD MARKERS to add -DICE to Fight rolls.",
+        "Channelled Sorrow (Atonement Bell): Off-hand attack only. No Injury Roll on hit. On Success or Critical Success, move the target D3\" in a straight line in any direction."
+      ],
+      "base_equipment": ["Atonement Bell"],
+      "is_elite": true
+    }
+  ],
+  "variant_unit_upgrades": {
+    "Lieutenant": [
+      ["Gunslinger Skill", 5, "Red Brigade Lieutenant only"]
+    ]
+  }
+}

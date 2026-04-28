@@ -1,0 +1,2362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#2C1A0E">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Warband Forge">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/static/icon-192.png">
+<script defer src="https://stats.warbandforge.com/script.js" data-website-id="UMAMI_WEBSITE_ID"></script>
+<title>Warband Forge</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=IM+Fell+English+SC&display=swap');
+:root {
+  --parchment:#F0E6D0;--parch-mid:#E2D5B8;--parch-dark:#D0C4A4;
+  --ink:#1A1510;--blood:#8B1A1A;--blood-hi:#B22222;
+  --gold:#C9A84C;--gold-dim:#8A7230;--trench:#2A2318;--rust:#6B3A2A;--glory:#6B5DAE;
+  --green:#2D6B2D;--green-dim:#1A4A1A;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:clamp(16px,1.4vw+6px,24px);}
+body{font-family:'Crimson Text',Georgia,serif;background:var(--trench);color:var(--ink);min-height:100dvh;overflow-x:hidden;}
+.screen{display:none;min-height:100dvh;}
+.screen.active{display:flex;flex-direction:column;}
+
+/* ═══ SCREEN 1: FACTION + VARIANT ═══ */
+#screen-faction{align-items:center;justify-content:center;padding:1.5rem;
+  background:radial-gradient(ellipse at 30% 20%,rgba(139,26,26,0.07) 0%,transparent 60%),
+  radial-gradient(ellipse at 70% 80%,rgba(59,47,27,0.12) 0%,transparent 60%),var(--trench);}
+.title-block{text-align:center;margin-bottom:1.5rem;}
+.main-title{font-family:'IM Fell English SC',serif;font-size:clamp(1.5rem,5vw,2.8rem);color:var(--gold);letter-spacing:0.1em;text-shadow:0 2px 8px rgba(0,0,0,0.5);}
+.sub-title{font-family:'Cinzel',serif;font-size:clamp(0.7rem,2vw,1rem);color:var(--parch-dark);letter-spacing:0.2em;text-transform:uppercase;margin-top:0.2rem;}
+.tagline{color:#706050;font-style:italic;margin-top:0.5rem;font-size:0.85rem;}
+.side-header{font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;margin:1rem 0 0.4rem;text-align:center;}
+.side-header.faithful{color:var(--gold-dim);}.side-header.fallen{color:var(--rust);}
+.faction-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0.4rem;max-width:860px;width:100%;}
+.faction-btn{background:linear-gradient(160deg,rgba(240,230,208,0.05),rgba(0,0,0,0.25));border:1px solid var(--gold-dim);color:var(--parchment);padding:0.7rem 0.8rem;cursor:pointer;display:flex;align-items:center;gap:0.6rem;transition:all 0.2s;text-align:left;font-family:inherit;font-size:1rem;}
+.faction-btn:hover{border-color:var(--gold);transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,0.4);}
+.faction-btn .f-icon{font-size:1.2rem;width:1.5rem;text-align:center;flex-shrink:0;}
+.faction-btn .f-name{font-family:'Cinzel',serif;font-size:clamp(0.7rem,1.5vw,0.82rem);font-weight:700;}
+.faction-btn[data-side="Fallen"]{border-color:var(--rust);}.faction-btn[data-side="Fallen"]:hover{border-color:var(--blood-hi);}
+.faction-btn.selected{border-color:var(--gold)!important;background:rgba(201,168,76,0.12);box-shadow:0 0 12px rgba(201,168,76,0.15);}
+.variant-selector{max-width:860px;width:100%;margin-top:1.2rem;display:none;}
+.variant-selector.visible{display:block;}
+.variant-selector h3{font-family:'Cinzel',serif;font-size:0.7rem;color:var(--parchment);letter-spacing:0.12em;margin-bottom:0.4rem;text-align:center;}
+.variant-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.3rem;}
+.variant-opt{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);color:var(--parch-dark);padding:0.5rem 0.6rem;cursor:pointer;font-family:inherit;text-align:left;transition:all 0.12s;font-size:0.9rem;}
+.variant-opt:hover{border-color:var(--gold-dim);background:rgba(201,168,76,0.05);}
+.variant-opt.selected{border-color:var(--gold);color:var(--parchment);background:rgba(201,168,76,0.1);}
+.variant-opt .vo-name{font-family:'Cinzel',serif;font-size:0.72rem;font-weight:700;display:block;}
+.variant-opt .vo-desc{font-size:0.65rem;color:#706050;margin-top:0.1rem;display:block;line-height:1.25;}
+.start-btn{display:none;margin:0;background:var(--gold);color:var(--trench);border:none;padding:0.5rem 2rem;font-family:'Cinzel',serif;font-size:0.85rem;font-weight:700;cursor:pointer;letter-spacing:0.1em;}
+.start-btn.visible{display:block;}.start-btn:hover{background:#D4B85C;}
+
+/* Front page footer */
+.front-footer{max-width:860px;width:100%;margin-top:2rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,0.06);}
+.ff-about{text-align:center;margin-bottom:0.8rem;}
+.ff-heading{font-family:'Cinzel',serif;font-size:0.55rem;color:var(--gold-dim);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.3rem;}
+.ff-about p{font-size:0.72rem;color:#706050;line-height:1.4;margin-bottom:0.2rem;}
+.ff-about a{color:var(--gold-dim);text-decoration:none;}.ff-about a:hover{color:var(--gold);text-decoration:underline;}
+.ff-version{font-family:'Cinzel',serif;font-size:0.55rem;color:#504030;letter-spacing:0.1em;margin-top:0.3rem;}
+.ff-links{display:flex;justify-content:center;gap:0.8rem;flex-wrap:wrap;}
+.ff-kofi{font-family:'Cinzel',serif;font-size:0.65rem;color:var(--parch-dark);text-decoration:none;padding:0.3rem 0.8rem;border:1px solid rgba(255,255,255,0.1);transition:all 0.15s;}
+.ff-kofi:hover{border-color:var(--gold);color:var(--gold);}
+
+/* Share buttons */
+.share-bar{display:flex;gap:0.4rem;flex-wrap:wrap;align-items:center;}
+.share-btn{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:var(--parch-dark);padding:0.2rem 0.5rem;font-family:'Cinzel',serif;font-size:0.55rem;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:0.2rem;letter-spacing:0.04em;}
+.share-btn:hover{border-color:var(--gold);color:var(--gold);}
+.share-label{font-family:'Cinzel',serif;font-size:0.5rem;color:#706050;letter-spacing:0.08em;}
+
+/* ═══ SCREEN 2: BUILDER ═══ */
+#screen-builder{background:var(--parchment);}
+.top-bar{background:var(--trench);border-bottom:3px solid var(--blood);padding:0.4rem 0.6rem;display:flex;align-items:center;gap:0.5rem;color:var(--parchment);position:sticky;top:0;z-index:100;flex-wrap:wrap;}
+.back-btn{background:none;border:1px solid rgba(255,255,255,0.15);color:var(--parch-dark);padding:0.2rem 0.4rem;cursor:pointer;font-family:'Crimson Text',serif;font-size:0.75rem;}
+.back-btn:hover{border-color:var(--gold);color:var(--gold);}
+.wb-title-area{flex:1;min-width:100px;}
+.wb-title-area input{background:none;border:none;border-bottom:1px solid rgba(255,255,255,0.25);color:var(--parchment);font-family:'Cinzel',serif;font-size:clamp(0.85rem,2vw,1rem);outline:none;padding:0.15rem 0;width:100%;}
+.wb-title-area input::placeholder{color:#B0A080;}
+.wb-title-area .wb-faction{font-size:0.65rem;color:#E8D8B0;font-family:'Cinzel',serif;letter-spacing:0.1em;}
+.wb-title-area .wb-variant{font-size:0.6rem;color:#E0C880;font-family:'Cinzel',serif;letter-spacing:0.08em;}
+.resource-bar{display:flex;gap:0.6rem;flex-wrap:wrap;}
+.rs{text-align:center;line-height:1;}
+.rs .v{font-family:'Cinzel',serif;font-size:clamp(0.9rem,2.5vw,1.1rem);font-weight:700;}
+.rs .l{font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;font-family:'Cinzel',serif;}
+.rs.ducats .v{color:var(--gold);}.rs.ducats .l{color:#C8B888;}
+.rs.glory .v{color:var(--glory);}.rs.glory .l{color:#C8B888;}
+.rs.models .v{color:var(--parchment);}.rs.models .l{color:#C8B888;}
+.rs.warn .v{color:var(--blood-hi)!important;}
+.budget-edit{position:relative;}
+.budget-input{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:var(--gold);font-family:'Cinzel',serif;font-size:clamp(0.85rem,2.2vw,1rem);font-weight:700;text-align:center;width:3.5rem;padding:0.1rem;outline:none;-moz-appearance:textfield;}
+.budget-input::-webkit-inner-spin-button,.budget-input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0;}
+.budget-input:focus{border-color:var(--gold);background:rgba(255,255,255,0.12);}
+.budget-input.glory-input{color:var(--glory);width:2.5rem;}
+.eq-item.eq-restricted{opacity:0.3;pointer-events:none;}
+.eq-item.eq-restricted .eq-name{text-decoration:line-through;}
+.eq-item.eq-limit-blocked{opacity:0.35;}
+.eq-item.eq-limit-blocked .eq-name{color:#908070;}
+.eq-item .eq-lock{font-size:0.6rem;color:var(--blood);margin-left:0.1rem;}
+.eq-item .eq-info{font-size:0.6rem;color:#807060;font-style:italic;display:block;margin-left:1.5rem;line-height:1.2;}
+.gp-item{display:flex;align-items:flex-start;gap:0.35rem;padding:0.3rem 0.2rem;cursor:pointer;transition:background 0.1s;}
+.gp-item:hover{background:rgba(107,93,174,0.04);}
+.gp-item input[type=checkbox]{accent-color:var(--glory);cursor:pointer;width:15px;height:15px;margin-top:0.15rem;}
+.gp-item .gp-info{flex:1;}
+.gp-item .gp-name{font-size:0.85rem;font-weight:600;color:var(--glory);}
+.gp-item .gp-desc{font-size:0.72rem;color:#504030;line-height:1.3;margin-top:0.05rem;}
+.gp-item .gp-for{font-size:0.62rem;color:#807060;font-style:italic;}
+.gp-item .gp-cost{font-family:'Cinzel',serif;font-size:0.72rem;color:var(--glory);min-width:2rem;text-align:right;white-space:nowrap;}
+.gp-item.gp-free{background:rgba(107,93,174,0.04);}
+.gp-item.gp-free .gp-name::after{content:' (free)';font-weight:400;font-size:0.62rem;color:#908070;}
+.eq-dual-btn{display:none;margin-left:auto;background:none;border:1px solid var(--blood);color:var(--blood);font-family:'Cinzel',serif;font-size:0.6rem;padding:1px 5px;cursor:pointer;border-radius:2px;white-space:nowrap;}
+.eq-dual-btn.active{background:var(--blood);color:var(--parchment);}
+.eq-item:has(input:checked) .eq-dual-btn{display:inline-block;}
+.ap-item:hover{background:rgba(122,59,30,0.04);}
+.ap-item input[type=checkbox]{accent-color:#7A3B1E;cursor:pointer;width:15px;height:15px;margin-top:0.15rem;}
+.ap-item .ap-info{flex:1;}
+.ap-item .ap-name{font-size:0.85rem;font-weight:600;color:#7A3B1E;}
+.ap-item .ap-type{font-size:0.62rem;color:#907060;font-style:italic;margin-top:0.02rem;}
+.ap-item .ap-desc{font-size:0.72rem;color:#504030;line-height:1.3;margin-top:0.05rem;}
+.ap-item .ap-who{font-size:0.62rem;color:#807060;font-style:italic;}
+.ap-item .ap-cost{font-family:'Cinzel',serif;font-size:0.72rem;color:#7A3B1E;min-width:2rem;text-align:right;white-space:nowrap;}
+.uc-arcana{font-size:0.72rem;color:#7A3B1E;margin-bottom:0.2rem;line-height:1.3;}
+.uc-arcana-item::before{content:'✦ ';color:#7A3B1E;font-size:0.55rem;}
+.rp-arcana{position:relative;padding-left:3mm;margin-bottom:0.8mm;font-family:'IM Fell English',serif;font-size:2mm;line-height:1.35;color:var(--ink);}
+.rp-arcana::before{content:'✦';position:absolute;left:0;color:#7A3B1E;font-size:1.4mm;top:0.1mm;}
+.rp-arcana strong{font-family:'Cinzel',serif;font-size:2.1mm;color:#7A3B1E;}
+.uc-powers{font-size:0.72rem;color:var(--glory);margin-bottom:0.2rem;line-height:1.3;}
+.uc-powers strong{font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.06em;}
+.uc-power-item{margin-left:0.3rem;}
+.uc-power-item::before{content:'✦ ';color:var(--glory);font-size:0.55rem;}
+.uc-sin-aura{font-size:0.7rem;color:var(--rust);font-style:italic;margin-bottom:0.2rem;}
+.export-btn{background:var(--gold);color:var(--trench);border:none;padding:0.3rem 0.7rem;font-family:'Cinzel',serif;font-size:0.72rem;font-weight:700;cursor:pointer;letter-spacing:0.06em;}
+.export-btn:hover{background:#D4B85C;}
+
+.builder-body{display:flex;flex:1;min-height:0;}
+
+/* Roster panel */
+.roster-panel{width:280px;min-width:220px;border-right:2px solid var(--parch-dark);display:flex;flex-direction:column;background:linear-gradient(180deg,var(--parchment),#E6D9BE);}
+.roster-head{padding:0.4rem 0.5rem;border-bottom:1px solid var(--parch-dark);display:flex;justify-content:space-between;align-items:center;}
+.roster-head h2{font-family:'IM Fell English SC',serif;font-size:0.85rem;color:var(--blood);}
+.add-btn{background:var(--blood);color:var(--parchment);border:none;padding:0.25rem 0.6rem;font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.06em;cursor:pointer;}
+.add-btn:hover{background:var(--blood-hi);}
+.variant-banner{padding:0.3rem 0.5rem;background:rgba(107,58,42,0.06);border-bottom:1px solid rgba(107,58,42,0.12);font-size:0.6rem;color:var(--rust);}
+.variant-banner .vb-name{font-family:'Cinzel',serif;font-weight:700;font-size:0.55rem;letter-spacing:0.08em;}
+.variant-banner .vb-rule{margin-top:0.1rem;padding-left:0.4rem;color:#706050;}.variant-banner .vb-rule::before{content:'▸ ';color:var(--rust);}
+.roster-list{flex:1;overflow-y:auto;padding:0.3rem;}
+.r-section{font-family:'IM Fell English SC',serif;font-size:0.65rem;color:var(--blood);padding:0.3rem 0.3rem 0.1rem;border-bottom:1px solid rgba(139,26,26,0.1);margin-top:0.2rem;}
+.r-section.glory-section{color:var(--glory);border-color:rgba(107,93,174,0.15);}
+.r-unit{display:flex;align-items:center;gap:0.3rem;padding:0.35rem 0.3rem;border:1px solid transparent;cursor:pointer;transition:all 0.1s;margin-bottom:1px;}
+.r-unit:hover{background:rgba(139,26,26,0.04);border-color:var(--parch-dark);}
+.r-unit.selected{background:rgba(139,26,26,0.08);border-color:var(--blood);}
+.r-unit .r-mark{color:var(--blood);font-size:0.8rem;width:0.9rem;text-align:center;}
+.r-unit .r-mark.glory-mark{color:var(--glory);}
+.r-unit .r-body{flex:1;min-width:0;}
+.r-unit .r-name{font-size:0.72rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.r-unit .r-type{font-size:0.6rem;color:#706050;}
+.r-unit .r-equip{font-size:0.52rem;color:#908070;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.r-unit .r-cost{font-family:'Cinzel',serif;font-size:0.68rem;color:var(--gold-dim);font-weight:700;white-space:nowrap;}
+.r-unit .r-cost.glory-cost{color:var(--glory);}
+.r-unit .r-del{background:none;border:none;color:#CCC;cursor:pointer;font-size:0.75rem;padding:0.15rem;}
+.r-unit .r-del:hover{color:var(--blood);}
+.roster-empty{padding:1.5rem 0.6rem;text-align:center;color:#908070;font-style:italic;font-size:0.78rem;}
+
+/* Detail panel */
+.detail-panel{flex:1;overflow-y:auto;padding:1rem;}
+.empty-detail{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:#A09080;text-align:center;padding:1.5rem;}
+.empty-detail .ed-icon{font-size:2rem;opacity:0.2;margin-bottom:0.6rem;}
+.empty-detail .ed-text{font-style:italic;font-size:0.9rem;}
+
+/* Type picker */
+.type-picker{max-width:600px;}
+.type-picker h3{font-family:'IM Fell English SC',serif;font-size:0.95rem;color:var(--blood);margin-bottom:0.5rem;}
+.tp-section{font-family:'Cinzel',serif;font-size:0.55rem;color:var(--blood);letter-spacing:0.15em;text-transform:uppercase;margin:0.7rem 0 0.2rem;padding-bottom:0.1rem;border-bottom:1px solid rgba(139,26,26,0.12);}
+.tp-section.glory-sec{color:var(--glory);border-color:rgba(107,93,174,0.15);}
+.tp-unit{display:flex;align-items:center;gap:0.4rem;padding:0.4rem 0.3rem;cursor:pointer;border:1px solid transparent;transition:all 0.1s;margin-bottom:1px;flex-wrap:wrap;}
+.tp-unit:hover{background:rgba(139,26,26,0.04);border-color:var(--parch-dark);}
+.tp-unit.restricted{opacity:0.25;pointer-events:none;}
+.tp-unit.maxed{opacity:0.4;pointer-events:none;}
+.tp-unit .tp-name{font-weight:600;font-size:0.8rem;flex:1;min-width:100px;}
+.tp-unit .tp-stats{font-size:0.6rem;color:#807060;}
+.tp-unit .tp-cost{font-family:'Cinzel',serif;font-size:0.7rem;color:var(--gold-dim);font-weight:700;white-space:nowrap;}
+.tp-unit .tp-cost.glory-cost{color:var(--glory);}
+.tp-unit .tp-count{font-family:'Cinzel',serif;font-size:0.6rem;padding:0.1rem 0.35rem;border-radius:2px;white-space:nowrap;}
+.tp-unit .tp-count.available{background:rgba(45,107,45,0.1);color:var(--green);border:1px solid rgba(45,107,45,0.2);}
+.tp-unit .tp-count.full{background:rgba(139,26,26,0.08);color:var(--blood);border:1px solid rgba(139,26,26,0.15);}
+.tp-unit .tp-count.required{background:rgba(139,26,26,0.12);color:var(--blood-hi);border:1px solid rgba(139,26,26,0.25);font-weight:700;}
+.tp-unit .tp-restricted-note{font-size:0.55rem;color:var(--blood-hi);font-style:italic;width:100%;padding-left:0.3rem;}
+
+/* Unit editor */
+.unit-editor{max-width:700px;}
+.ue-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem;gap:0.5rem;flex-wrap:wrap;}
+.ue-header h3{font-family:'IM Fell English SC',serif;font-size:1rem;color:var(--blood);}
+.ue-cost-live{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:700;white-space:nowrap;}
+.ue-cost-live .ducat-cost{color:var(--gold-dim);}
+.ue-cost-live .glory-cost-val{color:var(--glory);}
+.ue-cost-live .cost-label{font-size:0.6rem;color:#807060;}
+.ue-name-row{display:flex;gap:0.4rem;align-items:center;margin-bottom:0.6rem;}
+.ue-name-row label{font-family:'Cinzel',serif;font-size:0.6rem;color:var(--blood);letter-spacing:0.06em;white-space:nowrap;}
+.ue-name-row input{flex:1;background:none;border:none;border-bottom:1px solid var(--parch-dark);font-family:'Crimson Text',serif;font-size:0.9rem;color:var(--ink);outline:none;padding:0.1rem 0;}
+.ue-stats{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--blood);margin-bottom:0.6rem;background:white;}
+.ue-stat{text-align:center;padding:0.3rem 0.15rem;border-right:1px solid var(--parch-dark);}
+.ue-stat:last-child{border-right:none;}
+.ue-stat .s-label{font-family:'Cinzel',serif;font-size:0.45rem;letter-spacing:0.06em;color:var(--blood);text-transform:uppercase;}
+.ue-stat .s-val{font-family:'Cinzel',serif;font-size:0.9rem;font-weight:700;color:var(--ink);}
+.ue-keywords{display:flex;flex-wrap:wrap;gap:0.15rem;margin-bottom:0.5rem;}
+.kw-tag{font-family:'Cinzel',serif;font-size:0.45rem;padding:0.08rem 0.25rem;letter-spacing:0.05em;background:rgba(139,26,26,0.06);border:1px solid rgba(139,26,26,0.1);color:var(--blood);}
+.kw-tag.added{background:rgba(107,93,174,0.08);border-color:rgba(107,93,174,0.15);color:var(--glory);}
+.ue-abilities{margin-bottom:0.6rem;padding:0.4rem 0;border-top:1px solid var(--parch-dark);border-bottom:1px solid var(--parch-dark);}
+.ue-abilities h4{font-family:'Cinzel',serif;font-size:0.55rem;color:var(--blood);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.15rem;}
+.abil-item{font-size:0.7rem;color:#504030;padding:0.08rem 0 0.08rem 0.6rem;position:relative;line-height:1.25;}
+.abil-item::before{content:'■';position:absolute;left:0;color:var(--blood);font-size:0.4rem;top:0.18rem;}
+.ue-base-eq{font-size:0.68rem;color:#706050;font-style:italic;margin-bottom:0.6rem;}
+.ue-base-eq span{color:var(--ink);font-style:normal;}
+.equip-section{margin-bottom:0.4rem;}
+.eq-cat-title{font-family:'Cinzel',serif;font-size:0.55rem;color:var(--blood);letter-spacing:0.1em;text-transform:uppercase;padding-bottom:0.1rem;border-bottom:1px solid rgba(139,26,26,0.08);margin-bottom:0.15rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none;}
+.eq-cat-title .toggle{font-size:0.6rem;color:#A09080;}
+.eq-items.collapsed{display:none;}
+.eq-item{display:flex;align-items:center;gap:0.35rem;padding:0.25rem 0.15rem;cursor:pointer;transition:background 0.1s;}
+.eq-item:hover{background:rgba(139,26,26,0.03);}
+.eq-item input[type=checkbox]{accent-color:var(--blood);cursor:pointer;width:13px;height:13px;}
+.eq-item .eq-name{flex:1;font-size:0.75rem;}
+.eq-item .eq-cost{font-family:'Cinzel',serif;font-size:0.65rem;color:var(--gold-dim);min-width:2rem;text-align:right;}
+.eq-item .eq-cost.modified{color:var(--blood-hi);font-weight:700;}
+.eq-item .eq-note{font-size:0.55rem;color:#A09080;font-style:italic;}
+.ue-actions{display:flex;gap:0.4rem;margin-top:0.8rem;padding-top:0.5rem;border-top:1px solid var(--parch-dark);}
+.btn-confirm{background:var(--blood);color:var(--parchment);border:none;padding:0.4rem 1rem;font-family:'Cinzel',serif;font-size:0.7rem;font-weight:700;cursor:pointer;letter-spacing:0.06em;}
+.btn-confirm:hover{background:var(--blood-hi);}
+.btn-cancel{background:none;border:1px solid var(--parch-dark);color:#706050;padding:0.4rem 0.7rem;font-family:'Cinzel',serif;font-size:0.7rem;cursor:pointer;}
+.btn-cancel:hover{border-color:var(--blood);color:var(--blood);}
+
+/* ═══ SCREEN 3: CARD PREVIEW — fully responsive ═══ */
+#screen-preview{background:var(--parchment);}
+.preview-bar{background:var(--trench);padding:0.4rem 0.6rem;display:flex;align-items:center;gap:0.6rem;color:var(--parchment);border-bottom:3px solid var(--gold);flex-wrap:wrap;}
+.preview-bar h2{font-family:'IM Fell English SC',serif;font-size:0.85rem;flex:1;}
+.card-grid{display:flex;flex-wrap:wrap;gap:1rem;padding:1rem;max-width:1200px;margin:0 auto;width:100%;justify-content:center;align-items:flex-start;}
+
+/* ═══ SHARED CARD BASE ═══ */
+.unit-card{background:#F0E6D0;position:relative;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 8px rgba(0,0,0,0.15);break-inside:avoid;}
+.unit-card::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(139,26,26,0.008) 2px,rgba(139,26,26,0.008) 4px),radial-gradient(ellipse at 20% 80%,rgba(107,58,42,0.06),transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(139,26,26,0.04),transparent 50%);pointer-events:none;z-index:1;}
+.unit-card::after{content:'';position:absolute;border:0.3mm solid rgba(139,26,26,0.18);pointer-events:none;z-index:2;}
+
+/* A7 troop: 74×105mm */
+.unit-card.card-a7{width:74mm;height:105mm;}
+.unit-card.card-a7::after{inset:2mm;}
+/* A6L elite: 148×105mm */
+.unit-card.card-a6l{width:148mm;height:105mm;}
+.unit-card.card-a6l::after{inset:2.5mm;}
+
+.uc-header{background:#1A1510;display:flex;justify-content:space-between;align-items:flex-end;position:relative;z-index:3;}
+.uc-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:0.5mm;background:linear-gradient(90deg,#8B1A1A,#C9A84C 30%,#C9A84C 70%,#8B1A1A);}
+.uc-name{font-family:'IM Fell English SC',serif;color:#F0E6D0;line-height:1.1;max-width:62%;}
+.uc-custom-name{display:block;font-family:'Crimson Text',serif;color:#C9A84C;font-style:italic;}
+.uc-hright{text-align:right;}
+.uc-badge{font-family:'Cinzel',serif;letter-spacing:0.12em;color:#C9A84C;text-transform:uppercase;}
+.uc-badge.troop{color:#A09080;}
+.uc-cost-val{font-family:'Cinzel',serif;font-weight:700;color:#F0E6D0;}
+.uc-wbar{background:rgba(26,21,16,0.06);border-bottom:0.2mm solid rgba(139,26,26,0.1);display:flex;justify-content:space-between;font-family:'Cinzel',serif;color:#6B3A2A;position:relative;z-index:3;}
+.uc-stats{display:grid;grid-template-columns:repeat(5,1fr);border:0.25mm solid #8B1A1A;position:relative;z-index:3;}
+.uc-st{text-align:center;border-right:0.15mm solid rgba(139,26,26,0.2);background:rgba(255,255,255,0.5);}
+.uc-st:last-child{border-right:none;}
+.uc-st .sl{font-family:'Cinzel',serif;color:#8B1A1A;text-transform:uppercase;}
+.uc-st .sv{font-family:'Cinzel',serif;font-weight:900;color:#1A1510;line-height:1;}
+.uc-st .sv .se{font-weight:400;color:var(--blood);font-size:0.7em;}
+.uc-body{flex:1;position:relative;z-index:3;display:flex;flex-direction:column;min-height:0;overflow:hidden;}
+.uc-wtbl{width:100%;border-collapse:collapse;margin-bottom:0.5mm;}
+.uc-wtbl th{font-family:'Cinzel',serif;text-transform:uppercase;color:var(--blood);text-align:left;border-bottom:0.15mm solid rgba(139,26,26,0.15);font-weight:400;}
+.uc-wtbl td{color:var(--ink);border-bottom:0.1mm solid rgba(139,26,26,0.06);}
+.uc-wtbl td:first-child{font-weight:600;}
+.uc-wtbl .wd{font-family:'Cinzel',serif;font-weight:700;color:var(--blood);white-space:nowrap;}
+.uc-wtbl .wk{color:#706050;font-style:italic;}
+.uc-kw{display:flex;flex-wrap:wrap;}
+.uc-kw .kw{font-family:'Cinzel',serif;border:0.15mm solid rgba(139,26,26,0.15);background:rgba(139,26,26,0.04);color:#8B1A1A;}
+.uc-sec{font-family:'Cinzel',serif;text-transform:uppercase;color:#8B1A1A;border-bottom:0.15mm solid rgba(139,26,26,0.1);}
+.uc-sec.pwr{color:#6B5DAE;border-color:rgba(107,93,174,0.12);}
+.uc-wtbl{width:100%;border-collapse:collapse;}
+.uc-wtbl th{font-family:'Cinzel',serif;color:#8B1A1A;text-transform:uppercase;text-align:left;border-bottom:0.15mm solid rgba(139,26,26,0.1);font-weight:700;}
+.uc-wtbl th:nth-child(2),.uc-wtbl th:nth-child(3){text-align:center;}
+.uc-wtbl td{border-bottom:0.1mm solid rgba(139,26,26,0.05);vertical-align:top;color:#1A1510;}
+.uc-wtbl td:nth-child(2),.uc-wtbl td:nth-child(3){text-align:center;font-family:'Cinzel',serif;}
+.uc-wtbl .wn{font-weight:600;}
+.uc-wtbl .wk{color:#706050;font-style:italic;}
+.uc-gear{color:#1A1510;line-height:1.3;}
+.uc-gear b{font-weight:600;}
+.uc-gear i{color:#706050;font-style:italic;}
+.uc-ab{color:#3A3020;line-height:1.25;position:relative;}
+.uc-ab::before{content:'◆';position:absolute;left:0;color:#8B1A1A;}
+.uc-ab strong{font-family:'Cinzel',serif;color:#1A1510;}
+.uc-pw{color:#4A4070;line-height:1.25;position:relative;}
+.uc-pw::before{content:'✦';position:absolute;left:0;color:#6B5DAE;}
+.uc-pw strong{font-family:'Cinzel',serif;color:#6B5DAE;}
+.uc-pw .ct{font-family:'Cinzel',serif;color:#908070;}
+.uc-aura{color:#6B3A2A;font-style:italic;}
+.uc-foot{border-top:0.2mm solid rgba(139,26,26,0.12);position:relative;z-index:3;background:rgba(26,21,16,0.03);}
+.uc-xp{display:flex;justify-content:space-between;align-items:center;}
+.uc-xpl{font-family:'Cinzel',serif;color:#8B1A1A;text-transform:uppercase;}
+.uc-xpb{display:flex;}
+.xb{border:0.2mm solid #8B1A1A;background:rgba(255,255,255,0.4);}
+.xb.s{border-color:#C9A84C;position:relative;}
+.xb.s::after{content:'★';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(201,168,76,0.3);}
+.uc-fr{display:flex;align-items:center;}
+.uc-fl{font-family:'Cinzel',serif;color:#6B3A2A;text-transform:uppercase;}
+.uc-fline{flex:1;border-bottom:0.15mm dotted rgba(107,58,42,0.3);}
+.uc-scars{display:flex;}
+.uc-sc{border:0.2mm solid #6B3A2A;background:rgba(255,255,255,0.3);}
+.uc-nl{border-bottom:0.12mm dotted rgba(107,58,42,0.18);}
+
+/* ═══ A7 SIZES ═══ */
+.card-a7 .uc-header{padding:1.5mm 3mm 1.2mm;}
+.card-a7 .uc-name{font-size:3.4mm;}
+.card-a7 .uc-custom-name{font-size:2.2mm;margin-bottom:0.2mm;}
+.card-a7 .uc-badge{font-size:1.7mm;}
+.card-a7 .uc-cost-val{font-size:2.8mm;margin-top:0.2mm;}
+.card-a7 .uc-wbar{padding:0.5mm 3mm;font-size:1.5mm;letter-spacing:0.05em;}
+.card-a7 .uc-stats{margin:1.2mm 3mm 0;}
+.card-a7 .uc-st{padding:0.8mm 0.3mm 0.6mm;}
+.card-a7 .uc-st .sl{font-size:1.3mm;letter-spacing:0.08em;margin-bottom:0.2mm;}
+.card-a7 .uc-st .sv{font-size:3mm;}
+.card-a7 .uc-body{padding:1.2mm 3mm 0.5mm;}
+.card-a7 .uc-kw{gap:0.5mm;margin-bottom:0.8mm;}
+.card-a7 .uc-kw .kw{font-size:1.4mm;padding:0.2mm 0.6mm;}
+.card-a7 .uc-sec{font-size:1.4mm;letter-spacing:0.12em;padding-bottom:0.3mm;margin:0.8mm 0 0.4mm;}
+.card-a7 .uc-wtbl th{font-size:1.3mm;padding:0.2mm 0.4mm;}
+.card-a7 .uc-wtbl td{font-size:2.2mm;padding:0.3mm 0.4mm;}
+.card-a7 .uc-wtbl td:nth-child(2),.card-a7 .uc-wtbl td:nth-child(3){font-size:2mm;}
+.card-a7 .uc-wtbl .wk{font-size:1.8mm;}
+.card-a7 .uc-gear{font-size:2.2mm;margin-bottom:0.1mm;}
+.card-a7 .uc-gear i{font-size:1.9mm;}
+.card-a7 .uc-wtbl th{font-size:1.3mm;padding:0.2mm 0.4mm;}
+.card-a7 .uc-wtbl td{font-size:2.1mm;padding:0.3mm 0.4mm;}
+.card-a7 .uc-wtbl .wd{font-size:2.1mm;}
+.card-a7 .uc-wtbl .wk{font-size:1.7mm;}
+.card-a7 .uc-ab{font-size:2.2mm;margin-bottom:0.5mm;padding-left:2mm;}
+.card-a7 .uc-ab::before{font-size:1.2mm;top:0.2mm;}
+.card-a7 .uc-ab strong{font-size:1.9mm;}
+.card-a7 .uc-pw{font-size:2.2mm;margin-bottom:0.5mm;padding-left:2mm;}
+.card-a7 .uc-pw::before{font-size:1.2mm;top:0.1mm;}
+.card-a7 .uc-pw strong{font-size:1.9mm;}
+.card-a7 .uc-pw .ct{font-size:1.4mm;}
+.card-a7 .uc-aura{font-size:2mm;}
+.card-a7 .uc-foot{padding:0.8mm 3mm 1.5mm;}
+.card-a7 .uc-fr{margin-bottom:0.3mm;}
+.card-a7 .uc-fl{font-size:1.3mm;letter-spacing:0.06em;min-width:8mm;}
+.card-a7 .uc-fline{height:2.2mm;margin-left:1mm;}
+.card-a7 .uc-nl{height:2.8mm;}
+
+/* ═══ A6L SIZES ═══ */
+.card-a6l .uc-header{padding:2mm 4mm 1.5mm;}
+.card-a6l .uc-name{font-size:4mm;}
+.card-a6l .uc-custom-name{font-size:2.8mm;margin-bottom:0.3mm;}
+.card-a6l .uc-badge{font-size:2mm;}
+.card-a6l .uc-cost-val{font-size:3.5mm;margin-top:0.3mm;}
+.card-a6l .uc-wbar{padding:0.7mm 4mm;font-size:1.8mm;letter-spacing:0.06em;}
+.card-a6l .uc-stats{margin:1.5mm 4mm 0;}
+.card-a6l .uc-st{padding:1mm 0.5mm 0.8mm;}
+.card-a6l .uc-st .sl{font-size:1.6mm;letter-spacing:0.1em;margin-bottom:0.3mm;}
+.card-a6l .uc-st .sv{font-size:3.8mm;}
+.card-a6l .uc-body{padding:1.5mm 4mm 1mm;flex-direction:row;gap:3mm;}
+.card-a6l .col-l,.card-a6l .col-r{flex:1;min-width:0;}
+.card-a6l .col-div{width:0.2mm;background:rgba(139,26,26,0.1);align-self:stretch;flex-shrink:0;}
+.card-a6l .uc-kw{gap:0.6mm;margin-bottom:1mm;}
+.card-a6l .uc-kw .kw{font-size:1.6mm;padding:0.3mm 0.8mm;}
+.card-a6l .uc-sec{font-size:1.6mm;letter-spacing:0.15em;padding-bottom:0.3mm;margin:1mm 0 0.5mm;}
+.card-a6l .uc-wtbl th{font-size:1.5mm;padding:0.3mm 0.5mm;}
+.card-a6l .uc-wtbl td{font-size:2.5mm;padding:0.4mm 0.5mm;}
+.card-a6l .uc-wtbl td:nth-child(2),.card-a6l .uc-wtbl td:nth-child(3){font-size:2.3mm;}
+.card-a6l .uc-wtbl .wk{font-size:2mm;}
+.card-a6l .uc-gear{font-size:2.5mm;margin-bottom:0.2mm;}
+.card-a6l .uc-gear i{font-size:2.1mm;}
+.card-a6l .uc-wtbl th{font-size:1.5mm;padding:0.3mm 0.5mm;}
+.card-a6l .uc-wtbl td{font-size:2.4mm;padding:0.4mm 0.5mm;}
+.card-a6l .uc-wtbl .wd{font-size:2.4mm;}
+.card-a6l .uc-wtbl .wk{font-size:2mm;}
+.card-a6l .uc-ab{font-size:2.5mm;margin-bottom:0.7mm;padding-left:2.5mm;}
+.card-a6l .uc-ab::before{font-size:1.5mm;top:0.2mm;}
+.card-a6l .uc-ab strong{font-size:2.2mm;}
+.card-a6l .uc-pw{font-size:2.5mm;margin-bottom:0.7mm;padding-left:2.5mm;}
+.card-a6l .uc-pw::before{font-size:1.5mm;top:0.1mm;}
+.card-a6l .uc-pw strong{font-size:2.2mm;}
+.card-a6l .uc-pw .ct{font-size:1.7mm;}
+.card-a6l .uc-aura{font-size:2.3mm;margin-bottom:0.5mm;}
+.card-a6l .uc-foot{padding:1mm 4mm 1.5mm;}
+.card-a6l .uc-xp{margin-bottom:0.5mm;}
+.card-a6l .uc-xpl{font-size:1.5mm;letter-spacing:0.1em;}
+.card-a6l .uc-xpb{gap:0.5mm;}
+.card-a6l .xb{width:2.8mm;height:2.8mm;}
+.card-a6l .xb.s::after{font-size:1.3mm;}
+.card-a6l .uc-fr{margin-bottom:0.4mm;}
+.card-a6l .uc-fl{font-size:1.5mm;letter-spacing:0.08em;min-width:10mm;}
+.card-a6l .uc-fline{height:2.8mm;margin-left:1.5mm;}
+.card-a6l .uc-scars{gap:0.5mm;margin-left:2mm;}
+.card-a6l .uc-sc{width:2.8mm;height:2.8mm;}
+.card-a6l .uc-nl{height:3mm;}
+
+/* ═══ ROSTER SHEET (A4) ═══ */
+#screen-roster{background:var(--parchment);}
+.roster-page{width:210mm;min-height:297mm;background:var(--parchment);position:relative;padding:8mm;margin:0 auto;break-after:page;}
+.roster-page::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(139,26,26,0.005) 3px,rgba(139,26,26,0.005) 6px),radial-gradient(ellipse at 15% 85%,rgba(107,58,42,0.05),transparent 50%);pointer-events:none;}
+.roster-page::after{content:'';position:absolute;inset:4mm;border:0.3mm solid rgba(139,26,26,0.15);pointer-events:none;}
+.roster-page>*{position:relative;z-index:1;}
+.rp-header{background:var(--trench);padding:4mm 5mm 3mm;display:flex;justify-content:space-between;align-items:flex-end;margin:-8mm -8mm 0;position:relative;}
+.rp-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:0.7mm;background:linear-gradient(90deg,var(--blood),var(--gold) 25%,var(--gold) 75%,var(--blood));}
+.rp-sr{margin-top:0;margin-bottom:0;}
+.rp-sr-list{display:flex;flex-direction:column;gap:0.6mm;}
+.rp-sr-item{font-family:'IM Fell English',serif;font-size:1.9mm;line-height:1.35;color:var(--ink);padding:0.5mm 0;border-bottom:0.1mm dotted rgba(107,58,42,0.15);}
+.rp-sr-item:last-child{border-bottom:none;}
+.rp-sr-item b{font-family:'IM Fell English SC',serif;color:var(--blood);font-size:1.9mm;}
+.rp-title{font-family:'IM Fell English SC',serif;color:var(--parchment);font-size:7mm;line-height:1;}
+.rp-sub{font-family:'Cinzel',serif;color:var(--gold);font-size:2.8mm;letter-spacing:0.15em;margin-top:0.8mm;}
+.rp-meta{text-align:right;font-family:'Cinzel',serif;}
+.rp-meta .rm-f{font-size:3mm;color:var(--gold);letter-spacing:0.08em;}
+.rp-meta .rm-v{font-size:2.3mm;color:var(--rust);margin-top:0.3mm;}
+.rp-summary{display:grid;grid-template-columns:repeat(6,1fr);border:0.25mm solid rgba(139,26,26,0.12);margin-top:3mm;}
+.rp-sc{text-align:center;padding:2mm 1mm;border-right:0.15mm solid rgba(139,26,26,0.12);background:rgba(255,255,255,0.3);}
+.rp-sc:last-child{border-right:none;}
+.rp-sc .sl{font-family:'Cinzel',serif;font-size:1.8mm;letter-spacing:0.1em;text-transform:uppercase;color:var(--blood);margin-bottom:0.5mm;}
+.rp-sc .sv{font-family:'Cinzel',serif;font-size:5mm;font-weight:900;}
+.rp-sec{font-family:'Cinzel',serif;font-size:2.2mm;letter-spacing:0.18em;text-transform:uppercase;color:var(--blood);border-bottom:0.25mm solid var(--blood);padding-bottom:0.5mm;margin:4mm 0 1.5mm;}
+.rp-tbl{width:100%;border-collapse:collapse;}
+.rp-tbl th{font-family:'Cinzel',serif;font-size:1.8mm;letter-spacing:0.08em;text-transform:uppercase;color:var(--blood);text-align:left;padding:1mm 1.2mm;border-bottom:0.2mm solid rgba(139,26,26,0.12);font-weight:700;}
+.rp-tbl th.c{text-align:center;}
+.rp-tbl th.r{text-align:right;}
+.rp-tbl td{font-size:2.8mm;padding:1.2mm;border-bottom:0.1mm solid rgba(139,26,26,0.12);vertical-align:top;}
+.rp-tbl td.c{text-align:center;font-family:'Cinzel',serif;font-size:2.6mm;}
+.rp-tbl td.nm{font-weight:600;}
+.rp-tbl td.tp{color:#706050;font-size:2.5mm;}
+.rp-tbl td.ct{font-family:'Cinzel',serif;font-weight:700;color:var(--gold);font-size:2.6mm;text-align:right;}
+.rp-tbl td.ct.gl{color:var(--glory);}
+.rp-tbl tr.er{background:rgba(139,26,26,0.03);}
+.rp-tbl tr.mr{background:rgba(107,93,174,0.03);}
+.rp-tsec{font-family:'Cinzel',serif;font-size:1.6mm;letter-spacing:0.14em;color:var(--blood);text-transform:uppercase;padding:1.8mm 1.2mm 0.4mm;border-bottom:0.15mm solid rgba(139,26,26,0.12);}
+.rp-tsec.gl{color:var(--glory);}
+.rp-ctbl{width:100%;border-collapse:collapse;}
+.rp-ctbl th{font-family:'Cinzel',serif;font-size:1.7mm;letter-spacing:0.06em;text-transform:uppercase;color:var(--blood);text-align:center;padding:0.8mm 1mm;border-bottom:0.2mm solid rgba(139,26,26,0.12);font-weight:700;}
+.rp-ctbl td{font-size:2.5mm;padding:1.2mm 1mm;border-bottom:0.1mm solid rgba(139,26,26,0.12);text-align:center;}
+.rp-ctbl td.e{border-bottom:0.12mm dotted rgba(107,58,42,0.25);}
+.rp-nline{border-bottom:0.12mm dotted rgba(107,58,42,0.25);height:5mm;}
+.rp-ub{border:0.3mm solid rgba(139,26,26,0.15);margin-bottom:3mm;break-inside:avoid;background:rgba(255,255,255,0.25);}
+.rp-ubh{background:var(--trench);padding:1.5mm 3mm;display:flex;justify-content:space-between;align-items:center;}
+.rp-ubh .un{font-family:'IM Fell English SC',serif;color:var(--parchment);font-size:3.5mm;}
+.rp-ubh .uc{font-family:'Crimson Text',serif;color:var(--gold);font-style:italic;font-size:3mm;margin-right:1.5mm;}
+.rp-ubh .ub{font-family:'Cinzel',serif;font-size:2mm;color:var(--gold);letter-spacing:0.1em;}
+.rp-ubh .ub.tr{color:#A09080;}
+.rp-ubb{padding:2mm 3mm;display:grid;grid-template-columns:1fr 1fr;gap:1.5mm 4mm;}
+.rp-ubb .full{grid-column:1/-1;}
+.rp-ust{display:grid;grid-template-columns:repeat(4,1fr);border:0.2mm solid var(--blood);}
+.rp-us{text-align:center;padding:0.8mm 0.4mm;border-right:0.12mm solid rgba(139,26,26,0.15);background:rgba(255,255,255,0.5);}
+.rp-us:last-child{border-right:none;}
+.rp-us .sl{font-family:'Cinzel',serif;font-size:1.5mm;color:var(--blood);text-transform:uppercase;}
+.rp-us .sv{font-family:'Cinzel',serif;font-size:3.2mm;font-weight:900;line-height:1;}
+.rp-kw{display:flex;flex-wrap:wrap;gap:0.5mm;}
+.rp-kw span{font-family:'Cinzel',serif;font-size:1.5mm;padding:0.2mm 0.6mm;border:0.12mm solid rgba(139,26,26,0.12);background:rgba(139,26,26,0.03);color:var(--blood);}
+.rp-lbl{font-family:'Cinzel',serif;font-size:1.5mm;letter-spacing:0.14em;text-transform:uppercase;color:var(--blood);border-bottom:0.12mm solid rgba(139,26,26,0.12);padding-bottom:0.2mm;margin:0.5mm 0 0.4mm;}
+.rp-lbl.pw{color:var(--glory);border-color:rgba(107,93,174,0.1);}
+.rp-eq{font-size:2.5mm;line-height:1.35;margin-bottom:0.15mm;}
+.rp-eq b{font-weight:600;}.rp-eq i{color:#706050;font-style:italic;font-size:2.2mm;}
+.rp-ub .uc-wtbl th{font-size:1.4mm;padding:0.2mm 0.4mm;}
+.rp-ub .uc-wtbl td{font-size:2.3mm;padding:0.3mm 0.4mm;}
+.rp-ub .uc-wtbl .wd{font-size:2.3mm;}
+.rp-ub .uc-wtbl .wk{font-size:1.9mm;}
+.rp-ub .uc-gear{font-size:2.5mm;margin-bottom:0.15mm;}
+.rp-ub .uc-gear b{font-weight:600;}
+.rp-ub .uc-gear i{color:#706050;font-style:italic;font-size:2.2mm;}
+.rp-ab{font-size:2.4mm;color:#3A3020;line-height:1.3;margin-bottom:0.5mm;padding-left:2.2mm;position:relative;}
+.rp-ab::before{content:'◆';position:absolute;left:0;color:var(--blood);font-size:1.3mm;top:0.3mm;}
+.rp-ab strong{font-family:'Cinzel',serif;font-size:2.1mm;color:var(--ink);}
+.rp-pw{font-size:2.4mm;color:#4A4070;line-height:1.3;margin-bottom:0.5mm;padding-left:2.2mm;position:relative;}
+.rp-pw::before{content:'✦';position:absolute;left:0;color:var(--glory);font-size:1.4mm;top:0.1mm;}
+.rp-pw strong{font-family:'Cinzel',serif;font-size:2.1mm;color:var(--glory);}
+.rp-pw .ct{font-size:1.7mm;color:#908070;}
+.rp-aura{font-size:2.3mm;color:var(--rust);font-style:italic;}
+.rp-camp{grid-column:1/-1;display:flex;gap:3mm;align-items:center;border-top:0.15mm solid rgba(139,26,26,0.12);padding-top:1mm;margin-top:0.5mm;flex-wrap:wrap;}
+.rp-cl{font-family:'Cinzel',serif;font-size:1.4mm;letter-spacing:0.06em;color:var(--rust);text-transform:uppercase;}
+.rp-cvl{border-bottom:0.12mm dotted rgba(107,58,42,0.25);width:18mm;height:2.8mm;}
+.rp-xpb{display:flex;gap:0.4mm;}
+.rp-xb{width:2.2mm;height:2.2mm;border:0.18mm solid var(--blood);background:rgba(255,255,255,0.4);}
+.rp-xb.s{border-color:var(--gold);}
+.rp-foot{position:absolute;bottom:6mm;left:8mm;right:8mm;display:flex;justify-content:space-between;font-family:'Cinzel',serif;font-size:1.6mm;color:#A09080;letter-spacing:0.05em;}
+
+/* ═══ MOBILE CARDS (full-page portrait, one per page) ═══ */
+#screen-mobile{background:var(--parchment);}
+.mobile-cards{display:flex;flex-direction:column;align-items:center;gap:1rem;padding:0.5rem;}
+.mob-card{
+  width:100%;max-width:500px;
+  background:#F0E6D0;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;
+  box-shadow:0 2px 8px rgba(0,0,0,0.15);
+  break-after:page;break-inside:avoid;
+  page-break-after:always;
+}
+.mob-card::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(139,26,26,0.008) 2px,rgba(139,26,26,0.008) 4px),radial-gradient(ellipse at 20% 80%,rgba(107,58,42,0.06),transparent 60%);pointer-events:none;z-index:1;}
+.mob-card::after{content:'';position:absolute;inset:2mm;border:0.3mm solid rgba(139,26,26,0.18);pointer-events:none;z-index:2;}
+.mob-card .uc-header{padding:0.6rem 0.8rem 0.5rem;z-index:3;}
+.mob-card .uc-name{font-size:1.3rem;}
+.mob-card .uc-custom-name{font-size:0.95rem;margin-bottom:0.1rem;}
+.mob-card .uc-badge{font-size:0.65rem;}
+.mob-card .uc-cost-val{font-size:1.2rem;margin-top:0.15rem;}
+.mob-card .uc-wbar{padding:0.2rem 0.8rem;font-size:0.65rem;z-index:3;}
+.mob-card .uc-stats{margin:0.4rem 0.8rem 0;z-index:3;}
+.mob-card .uc-st{padding:0.3rem 0.2rem;}
+.mob-card .uc-st .sl{font-size:0.55rem;letter-spacing:0.08em;margin-bottom:0.1rem;}
+.mob-card .uc-st .sv{font-size:1.3rem;}
+.mob-card .uc-body{flex:1;padding:0.5rem 0.8rem 0.4rem;z-index:3;}
+.mob-card .uc-kw{gap:0.2rem;margin-bottom:0.4rem;}
+.mob-card .uc-kw .kw{font-size:0.55rem;padding:0.1rem 0.3rem;}
+.mob-card .uc-sec{font-size:0.6rem;letter-spacing:0.12em;padding-bottom:0.15rem;margin:0.4rem 0 0.25rem;}
+.mob-card .uc-gear{font-size:0.95rem;margin-bottom:0.15rem;}
+.mob-card .uc-gear i{font-size:0.82rem;}
+.mob-card .uc-wtbl th{font-size:0.55rem;padding:0.1rem 0.2rem;}
+.mob-card .uc-wtbl td{font-size:0.85rem;padding:0.15rem 0.2rem;}
+.mob-card .uc-wtbl .wd{font-size:0.85rem;}
+.mob-card .uc-wtbl .wk{font-size:0.72rem;}
+.mob-card .uc-st .sv .se{font-size:0.7em;}
+.mob-card .uc-ab{font-size:0.9rem;margin-bottom:0.35rem;padding-left:0.8rem;line-height:1.3;}
+.mob-card .uc-ab::before{font-size:0.5rem;top:0.2rem;}
+.mob-card .uc-ab strong{font-size:0.8rem;}
+.mob-card .uc-pw{font-size:0.9rem;margin-bottom:0.35rem;padding-left:0.8rem;line-height:1.3;}
+.mob-card .uc-pw::before{font-size:0.5rem;top:0.15rem;}
+.mob-card .uc-pw strong{font-size:0.8rem;}
+.mob-card .uc-pw .ct{font-size:0.65rem;}
+.mob-card .uc-aura{font-size:0.85rem;margin-bottom:0.3rem;}
+.mob-card .uc-foot{padding:0.4rem 0.8rem 0.6rem;z-index:3;}
+.mob-card .uc-xp{margin-bottom:0.3rem;}
+.mob-card .uc-xpl{font-size:0.55rem;letter-spacing:0.08em;}
+.mob-card .uc-xpb{gap:0.15rem;}
+.mob-card .xb{width:0.7rem;height:0.7rem;}
+.mob-card .xb.s::after{font-size:0.4rem;}
+.mob-card .uc-fr{margin-bottom:0.2rem;}
+.mob-card .uc-fl{font-size:0.55rem;min-width:3rem;}
+.mob-card .uc-fline{height:0.8rem;margin-left:0.3rem;}
+.mob-card .uc-scars{gap:0.15rem;margin-left:0.5rem;}
+.mob-card .uc-sc{width:0.7rem;height:0.7rem;}
+.mob-card .uc-nl{height:0.8rem;}
+
+/* ═══ LARGE SCREENS ═══ */
+@media(min-width:1400px){
+  .roster-panel{width:340px;}
+  .wb-title-area .wb-faction{font-size:0.65rem;}
+  .wb-title-area .wb-variant{font-size:0.55rem;}
+  .rs .l{font-size:0.5rem;}
+  .r-section{font-size:0.75rem;}
+  .r-unit .r-name{font-size:0.85rem;}
+  .r-unit .r-type{font-size:0.7rem;}
+  .r-unit .r-equip{font-size:0.6rem;}
+  .r-unit .r-cost{font-size:0.8rem;}
+  .tp-unit .tp-name{font-size:0.95rem;}
+  .tp-unit .tp-stats{font-size:0.72rem;}
+  .tp-unit .tp-cost{font-size:0.82rem;}
+  .tp-unit .tp-count{font-size:0.7rem;}
+  .ue-header h3{font-size:1.15rem;}
+  .ue-cost-live{font-size:1.3rem;}
+  .ue-name-row label{font-size:0.7rem;}
+  .ue-name-row input{font-size:1rem;}
+  .ue-stat .s-label{font-size:0.55rem;}
+  .ue-stat .s-val{font-size:1.05rem;}
+  .kw-tag{font-size:0.55rem;}
+  .abil-item{font-size:0.82rem;}
+  .ue-abilities h4{font-size:0.65rem;}
+  .eq-cat-title{font-size:0.65rem;}
+  .eq-item .eq-name{font-size:0.85rem;}
+  .eq-item .eq-cost{font-size:0.78rem;}
+  .eq-item .eq-note{font-size:0.65rem;}
+  .gp-item .gp-name{font-size:0.88rem;}
+  .gp-item .gp-desc{font-size:0.72rem;}
+  .gp-item .gp-cost{font-size:0.75rem;}
+  .export-btn{font-size:0.75rem;padding:0.3rem 0.8rem;}
+  .add-btn{font-size:0.7rem;}
+  .back-btn{font-size:0.8rem;}
+  .variant-banner{font-size:0.7rem;}
+  .variant-banner .vb-name{font-size:0.65rem;}
+  .ff-heading{font-size:0.65rem;}
+  .ff-about p{font-size:0.82rem;}
+  .ff-kofi{font-size:0.75rem;}
+  .share-btn{font-size:0.65rem;}
+  .share-label{font-size:0.6rem;}
+}
+
+/* ═══ RESPONSIVE — small screens ═══ */
+@media(max-width:700px){
+  html{font-size:18px;}
+  .screen{min-height:auto;}
+  .builder-body{flex-direction:column;}
+  .roster-panel{width:100%;min-width:0;border-right:none;border-bottom:none;max-height:none;flex:1;}
+  .detail-panel{flex:0;padding:0;overflow:hidden;max-height:0;}
+  .detail-panel.has-content{flex:1;padding:0.6rem;border-top:2px solid var(--parch-dark);overflow-y:auto;max-height:none;}
+  .empty-detail{display:none!important;}
+  /* Top bar - contrast fixes */
+  .top-bar{gap:0.3rem;padding:0.4rem 0.5rem;flex-wrap:wrap;}
+  .wb-title-area input{font-size:0.95rem;}
+  .wb-title-area .wb-faction{font-size:0.7rem;color:#E8D8B0;}
+  .wb-title-area .wb-variant{font-size:0.62rem;color:#E0C880;}
+  .resource-bar{gap:0.3rem;width:100%;}
+  .rs{padding:0.2rem 0.35rem;}
+  .rs .v{font-size:1.05rem;}
+  .rs .l{font-size:0.52rem;color:#C8B888;}
+  .budget-input{width:2.8rem;font-size:0.85rem;}
+  .back-btn{font-size:0.75rem;padding:0.3rem 0.5rem;}
+  .export-btn{font-size:0.65rem;padding:0.3rem 0.6rem;}
+  /* Roster panel */
+  .roster-head h2{font-size:1rem;}
+  .add-btn{font-size:0.8rem;padding:0.4rem 0.9rem;}
+  .r-unit{padding:0.55rem 0.65rem;}
+  .r-unit .r-name{font-size:0.95rem;}
+  .r-unit .r-type{font-size:0.78rem;}
+  .r-unit .r-equip{font-size:0.72rem;}
+  .r-unit .r-cost{font-size:0.88rem;}
+  /* Type picker */
+  .tp-unit{padding:0.6rem 0.65rem;min-height:3rem;}
+  .tp-unit .tp-name{font-size:1rem;}
+  .tp-unit .tp-stats{font-size:0.75rem;}
+  .tp-unit .tp-cost{font-size:0.82rem;}
+  .tp-unit .tp-count{font-size:0.7rem;padding:0.15rem 0.45rem;}
+  .tp-section{font-size:0.75rem;}
+  /* Editor */
+  .ue-header h3{font-size:1.1rem;}
+  .ue-cost-live{font-size:1.2rem;}
+  .ue-name-row input{font-size:1.05rem;padding:0.45rem;}
+  .eq-cat-title{font-size:0.8rem;padding:0.45rem 0;}
+  .eq-item{padding:0.4rem 0;min-height:2.4rem;}
+  .eq-item .eq-name{font-size:0.9rem;}
+  .eq-item .eq-cost{font-size:0.82rem;}
+  .eq-item .eq-note{font-size:0.68rem;}
+  .eq-item .eq-lock{font-size:0.62rem;}
+  .eq-item .eq-info{font-size:0.62rem;margin-left:1.4rem;}
+  .eq-item input[type="checkbox"]{width:1.3rem;height:1.3rem;}
+  .gp-item{padding:0.4rem 0.2rem;}
+  .gp-item input[type="checkbox"]{width:1.2rem;height:1.2rem;}
+  .gp-item .gp-name{font-size:0.88rem;}
+  .gp-item .gp-desc{font-size:0.72rem;}
+  .gp-item .gp-cost{font-size:0.75rem;}
+  .kw-tag{font-size:0.52rem;padding:0.12rem 0.3rem;}
+  .abil-item{font-size:0.8rem;}
+  .ue-abilities h4{font-size:0.62rem;}
+  /* Editor buttons */
+  .btn-confirm,.btn-cancel,.btn-remove{font-size:0.85rem;padding:0.5rem 1rem;min-height:2.6rem;}
+  /* Preview bars */
+  .preview-bar{padding:0.4rem 0.5rem;gap:0.35rem;}
+  .preview-bar h2{font-size:0.85rem;}
+  /* Cards */
+  .card-grid{padding:0.5rem;}
+  .unit-card.card-a6l{width:100%;height:auto;min-height:90mm;}
+  .unit-card.card-a7{width:100%;height:auto;min-height:80mm;}
+  /* Roster */
+  .roster-page{width:100%;min-height:auto;padding:4mm;}
+  .rp-header{margin:-4mm -4mm 0;padding:3mm;}
+  .rp-summary{grid-template-columns:repeat(3,1fr);}
+  /* Mobile cards */
+  .mob-card{max-width:100%;}
+  /* Front page */
+  .faction-btn{padding:0.7rem 0.85rem;}
+  .faction-btn .f-name{font-size:0.88rem;}
+  .variant-opt{padding:0.6rem;min-height:2.8rem;}
+  .variant-opt .vo-name{font-size:0.82rem;}
+  .variant-opt .vo-desc{font-size:0.72rem;}
+  .start-btn{font-size:0.9rem;padding:0.6rem 1.8rem;}
+  .ff-heading{font-size:0.62rem;}
+  .ff-about p{font-size:0.82rem;}
+  .ff-kofi{font-size:0.75rem;}
+  .share-btn{font-size:0.62rem;}
+  .variant-banner{font-size:0.78rem;}
+  .variant-banner .vb-name{font-size:0.68rem;}
+}
+@media print{
+  @page{size:A4 portrait;margin:8mm;}
+  body{background:white!important;padding:0!important;margin:0!important;}
+  /* Hide UI chrome */
+  .top-bar,.roster-panel,.preview-bar,.back-btn,.export-btn,.front-footer,.share-bar,.share-btn,.start-btn{display:none!important;}
+  /* Only show active screen */
+  .screen{display:none!important;}
+  .screen.active{display:block!important;}
+  /* ═══ INK-FRIENDLY: strip backgrounds ═══ */
+  .unit-card,.roster-page,.rp-ub{background:white!important;box-shadow:none!important;}
+  .unit-card::before,.unit-card::after,.roster-page::before,.roster-page::after{display:none!important;}
+  /* Headers: light grey instead of dark */
+  .uc-header,.rp-header,.rp-ubh{background:#EFEFEF!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .uc-header::after,.rp-header::after{display:none!important;}
+  .uc-name,.uc-custom-name,.uc-cost-val,.uc-badge,.rp-title,.rp-sub,.rp-meta *,.rp-ubh *{color:#111!important;}
+  .uc-badge.troop{color:#555!important;}
+  .uc-wbar{background:#F8F8F8!important;border-color:#CCC!important;}
+  .uc-wbar span{color:#333!important;}
+  /* Stats */
+  .uc-st,.rp-us,.rp-sc{background:#F8F8F8!important;}
+  /* Keywords */
+  .uc-kw .kw,.rp-kw span{background:#F0F0F0!important;border-color:#CCC!important;color:#333!important;}
+  /* Keep section label colours */
+  .uc-sec,.rp-sec,.rp-lbl,.rp-tsec{color:#8B1A1A!important;border-color:#CCC!important;}
+  .uc-sec.pwr,.rp-lbl.pw{color:#6B5DAE!important;}
+  /* Card borders */
+  .unit-card{border:0.4mm solid #333!important;}
+  .rp-ub{border:0.3mm solid #999!important;}
+  /* ═══ CARD LAYOUT ON A4 ═══ */
+  #screen-preview.active{padding:0;}
+  .card-grid{display:flex;flex-wrap:wrap;gap:4mm;padding:0;margin:0;justify-content:center;align-items:flex-start;max-width:100%;width:100%;}
+  .unit-card{break-inside:avoid;flex-shrink:0;overflow:hidden;}
+  .unit-card.card-a7{width:74mm;height:105mm;}
+  .unit-card.card-a6l{width:148mm;height:105mm;}
+  /* ═══ ROSTER ON A4 ═══ */
+  #screen-roster.active{padding:0;}
+  .roster-page{width:100%!important;min-height:auto!important;padding:0!important;margin:0!important;break-after:page;}
+  .rp-header{margin:0!important;padding:3mm 4mm!important;}
+  #roster-sheet{width:100%;}
+  .rp-foot{position:relative!important;bottom:auto!important;left:auto!important;right:auto!important;margin-top:5mm;padding-top:2mm;border-top:0.3mm solid #CCC;}
+  /* Tables */
+  .rp-tbl td,.rp-ctbl td{border-bottom:0.2mm solid #CCC!important;}
+  .rp-tbl th,.rp-ctbl th{border-bottom:0.4mm solid #999!important;}
+  /* ═══ MOBILE CARDS PRINTING ═══ */
+  #screen-mobile.active{padding:0;}
+  .mobile-cards{padding:0!important;gap:0!important;}
+  .mob-card{background:white!important;box-shadow:none!important;width:100%!important;max-width:none!important;break-after:page;page-break-after:always;padding:5mm!important;}
+  .mob-card::before,.mob-card::after{display:none!important;}
+  .mob-card .uc-header{background:#EFEFEF!important;padding:3mm 5mm!important;}
+  .mob-card .uc-header::after{display:none!important;}
+  .mob-card .uc-name,.mob-card .uc-custom-name,.mob-card .uc-cost-val,.mob-card .uc-badge{color:#111!important;}
+  .mob-card .uc-name{font-size:7mm!important;}
+  .mob-card .uc-custom-name{font-size:5mm!important;}
+  .mob-card .uc-badge{font-size:3mm!important;}
+  .mob-card .uc-cost-val{font-size:6mm!important;}
+  .mob-card .uc-wbar{background:#F8F8F8!important;border-color:#CCC!important;font-size:3mm!important;padding:1mm 5mm!important;}
+  .mob-card .uc-wbar span{color:#333!important;}
+  .mob-card .uc-st{background:#F8F8F8!important;}
+  .mob-card .uc-st .sl{font-size:2.5mm!important;}
+  .mob-card .uc-st .sv{font-size:6mm!important;}
+  .mob-card .uc-kw .kw{background:#F0F0F0!important;border-color:#CCC!important;color:#333!important;font-size:2.5mm!important;}
+  .mob-card .uc-sec{font-size:2.5mm!important;}
+  .mob-card .uc-gear{font-size:4mm!important;}
+  .mob-card .uc-gear i{font-size:3.5mm!important;}
+  .mob-card .uc-wtbl th{font-size:2.5mm!important;}
+  .mob-card .uc-wtbl td{font-size:3.5mm!important;}
+  .mob-card .uc-wtbl .wd{font-size:3.5mm!important;}
+  .mob-card .uc-wtbl .wk{font-size:3mm!important;}
+  .mob-card .uc-ab{font-size:4mm!important;}
+  .mob-card .uc-ab strong{font-size:3.5mm!important;}
+  .mob-card .uc-pw{font-size:4mm!important;}
+  .mob-card .uc-pw strong{font-size:3.5mm!important;}
+  .mob-card .uc-aura{font-size:3.5mm!important;}
+  .mob-card .uc-foot{padding:2mm 5mm!important;}
+  .mob-card{border:0.4mm solid #333!important;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ SCREEN 1 ═══ -->
+<div id="screen-faction" class="screen active">
+  <div class="title-block">
+    <h1 class="main-title">Warband Forge</h1>
+    <p class="tagline">Build your warband, equip your warriors, forge your destiny</p>
+  </div>
+  <div class="side-header faithful">☩ The Faithful ☩</div>
+  <div class="faction-grid">
+    <button class="faction-btn" data-side="Faithful" data-key="new_antioch" onclick="pickFaction(this)"><div class="f-icon">⚔</div><div class="f-name">Principality of New Antioch</div></button>
+    <button class="faction-btn" data-side="Faithful" data-key="trench_pilgrims" onclick="pickFaction(this)"><div class="f-icon">✠</div><div class="f-name">Trench Pilgrims</div></button>
+    <button class="faction-btn" data-side="Faithful" data-key="iron_sultanate" onclick="pickFaction(this)"><div class="f-icon">☪</div><div class="f-name">Sultanate of the Iron Wall</div></button>
+  </div>
+  <div class="side-header fallen">🜏 The Fallen 🜏</div>
+  <div class="faction-grid">
+    <button class="faction-btn" data-side="Fallen" data-key="heretic_legion" onclick="pickFaction(this)"><div class="f-icon">🝊</div><div class="f-name">The Heretic Legion</div></button>
+    <button class="faction-btn" data-side="Fallen" data-key="black_grail" onclick="pickFaction(this)"><div class="f-icon">☠</div><div class="f-name">Cult of the Black Grail</div></button>
+    <button class="faction-btn" data-side="Fallen" data-key="court_serpent" onclick="pickFaction(this)"><div class="f-icon">🐍</div><div class="f-name">Court of the Seven-Headed Serpent</div></button>
+  </div>
+  <div class="variant-selector" id="variant-selector"><h3>SELECT VARIANT (OPTIONAL)</h3><div class="variant-options" id="variant-options"></div></div>
+  <div class="variant-selector" id="sin-selector" style="display:none;"><h3>SELECT A DEADLY SIN</h3><div class="variant-options" id="sin-options"></div></div>
+  <div style="display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap;margin-top:1.2rem;">
+    <button class="start-btn" id="start-btn" onclick="startBuilder()">✠ Begin Forging ✠</button>
+    <button class="start-btn visible" style="background:#6B5DAE;" onclick="document.getElementById('import-file').click()">⬆ Import Warband</button>
+    <input type="file" id="import-file" accept=".json" style="display:none;" onchange="importWarband(event)">
+  </div>
+  <p style="text-align:center;font-size:0.7rem;color:#706050;max-width:500px;margin:0.5rem auto 0;line-height:1.3;">Import a previously saved warband (.json file) to continue editing. Your warband data lives on your device — nothing is stored on our server.</p>
+  <!-- Footer -->
+  <div class="front-footer" id="front-footer">
+    <div class="ff-about">
+      <div class="ff-heading">About Warband Forge</div>
+      <p>An unofficial fan tool for <a href="https://www.trenchcrusade.com" target="_blank" rel="noopener">Trench Crusade</a>, the tabletop miniature wargame. All game rules, unit profiles, stats, and lore are © <a href="https://www.trenchcrusade.com" target="_blank" rel="noopener">Factory Fortress Inc</a>. This tool is not affiliated with or endorsed by Factory Fortress.</p>
+      <p>Licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>. Source on <a href="https://github.com/xX413Xx/warband-forge" target="_blank" rel="noopener">GitHub</a>.</p>
+      <p class="ff-version" id="ff-version">v{{ version }}</p>
+    </div>
+    <div class="ff-links">
+      <a href="https://ko-fi.com/x413x" class="ff-kofi" title="Support this project" target="_blank" rel="noopener">☕ Support on Ko-fi</a>
+      <div class="share-bar" style="margin-top:0.5rem;justify-content:center;width:100%;">
+        <span class="share-label">Share this tool:</span>
+        <button class="share-btn" onclick="shareClipboard()">📋 Copy Link</button>
+        <a class="share-btn" id="share-x" href="#" target="_blank" rel="noopener">𝕏 Post</a>
+        <a class="share-btn" id="share-reddit" href="#" target="_blank" rel="noopener">Reddit</a>
+        <a class="share-btn" id="share-fb" href="#" target="_blank" rel="noopener">Facebook</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SCREEN 2 ═══ -->
+<div id="screen-builder" class="screen">
+  <div class="top-bar">
+    <button class="back-btn" onclick="goBack()">← Back</button>
+    <div class="wb-title-area">
+      <span class="wb-faction" id="wb-faction-label"></span>
+      <span class="wb-variant" id="wb-variant-label"></span>
+      <input placeholder="Name your Warband..." id="wb-name-input">
+    </div>
+    <div class="resource-bar">
+      <div class="rs ducats budget-edit"><input class="budget-input" id="d-budget" type="number" value="700" min="0" max="9999" onchange="updateTopBar()"><div class="l">Budget</div></div>
+      <div class="rs ducats"><div class="v" id="d-spent">0</div><div class="l">Spent</div></div>
+      <div class="rs ducats"><div class="v" id="d-remain">700</div><div class="l">Left</div></div>
+      <div class="rs glory budget-edit"><input class="budget-input glory-input" id="g-budget" type="number" value="0" min="0" max="99" onchange="updateTopBar()"><div class="l">Glory ☼</div></div>
+      <div class="rs glory"><div class="v" id="g-spent">0</div><div class="l">Used</div></div>
+      <div class="rs glory"><div class="v" id="g-remain">0</div><div class="l">Left</div></div>
+      <div class="rs models"><div class="v" id="d-models">0</div><div class="l">Models</div></div>
+    </div>
+    <button class="export-btn" onclick="showPreview()">Preview Cards</button>
+    <button class="export-btn" style="background:#6B5DAE;" onclick="exportWarband()">⬇ Save .json</button>
+  </div>
+  <div class="builder-body">
+    <div class="roster-panel">
+      <div class="roster-head"><h2>Roster</h2><button class="add-btn" onclick="showTypePicker()">+ Add Unit</button></div>
+      <div class="variant-banner" id="variant-banner" style="display:none;"><div class="vb-name" id="vb-name"></div><div id="vb-rules"></div></div>
+      <div class="roster-list" id="roster-list"><div class="roster-empty" id="roster-empty">No warriors recruited yet.</div></div>
+    </div>
+    <div class="detail-panel" id="detail-panel">
+      <div class="empty-detail" id="empty-detail"><div class="ed-icon">✠</div><div class="ed-text">Select a unit or click "+ Add Unit"</div></div>
+      <div class="type-picker" id="type-picker" style="display:none;"></div>
+      <div class="unit-editor" id="unit-editor" style="display:none;">
+        <div class="ue-header"><h3 id="ue-type-name"></h3><div class="ue-cost-live"><span class="ducat-cost" id="ue-total-cost">0</span><span class="glory-cost-val" id="ue-glory-cost" style="display:none;"></span><span class="cost-label"> Ducats</span></div></div>
+        <div class="ue-name-row"><label>NAME</label><input placeholder="e.g. Brother Marcus" id="ue-name-input"></div>
+        <div class="ue-stats" id="ue-stats"></div>
+        <div class="ue-keywords" id="ue-keywords"></div>
+        <div class="ue-abilities" id="ue-abilities"></div>
+        <div class="ue-base-eq" id="ue-base-eq" style="display:none;"></div>
+        <div id="equip-picker"></div>
+        <div id="goetic-picker" style="display:none;">
+          <div class="eq-cat-title" style="color:var(--glory);border-color:rgba(107,93,174,0.2);margin-top:0.5rem;">☼ Goetic Powers <span style="font-weight:400;font-size:0.5rem;" id="gp-slots"></span></div>
+          <div id="goetic-list"></div>
+        </div>
+        <div id="arcana-picker" style="display:none;">
+          <div class="eq-cat-title" style="color:#7A3B1E;border-color:rgba(122,59,30,0.2);margin-top:0.5rem;">✦ Arcana Putrescere <span style="font-weight:400;font-size:0.5rem;" id="ap-slots"></span></div>
+          <div id="arcana-list"></div>
+        </div>
+        <div class="ue-actions"><button class="btn-confirm" onclick="confirmUnit()">✠ Confirm & Add</button><button class="btn-cancel" onclick="cancelAdd()">Cancel</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SCREEN 3 ═══ -->
+<div id="screen-preview" class="screen">
+  <div class="preview-bar">
+    <button class="back-btn" onclick="showScreen('screen-builder')">← Back</button>
+    <h2>✠ Unit Cards</h2>
+    <button class="export-btn" onclick="showMobileCards()">📱 Mobile Cards</button>
+    <button class="export-btn" onclick="showRoster()">📄 Roster Sheet</button>
+    <button class="export-btn" onclick="window.print()">🖨 Print / Save PDF</button>
+    <button class="export-btn" style="background:#6B5DAE;" onclick="exportWarband()">⬇ Save .json</button>
+  </div>
+  <div class="card-grid" id="card-grid"></div>
+</div>
+
+<!-- ═══ SCREEN 4: ROSTER ═══ -->
+<div id="screen-roster" class="screen">
+  <div class="preview-bar">
+    <button class="back-btn" onclick="showScreen('screen-preview')">← Cards</button>
+    <h2>📄 Warband Roster</h2>
+    <button class="export-btn" onclick="window.print()">🖨 Print / Save PDF</button>
+    <button class="export-btn" style="background:#6B5DAE;" onclick="exportWarband()">⬇ Save .json</button>
+  </div>
+  <div id="roster-sheet"></div>
+</div>
+
+<!-- ═══ SCREEN 5: MOBILE CARDS ═══ -->
+<div id="screen-mobile" class="screen">
+  <div class="preview-bar">
+    <button class="back-btn" onclick="showScreen('screen-preview')">← Cards</button>
+    <h2>📱 Mobile Cards</h2>
+    <button class="export-btn" onclick="window.print()">🖨 Print / Save PDF</button>
+    <button class="export-btn" style="background:#6B5DAE;" onclick="exportWarband()">⬇ Save .json</button>
+  </div>
+  <div class="mobile-cards" id="mobile-cards"></div>
+</div>
+
+<script>
+// ═══ DATA (loaded from Flask API) ═══
+let FACTIONS={},VARIANTS={},GOETIC_POWERS={},SAINT_AURAS={},MERCENARIES=[],GEAR={},ARCANA_POWERS=[];
+
+function parseLimit(limitStr){
+  if(!limitStr) return {min:0,max:99};
+  const s=String(limitStr);
+  if(s.includes('∞')||s==='No limit') return {min:0,max:99};
+  if(s.includes('required')&&s.startsWith('1')) return {min:1,max:1};
+  const m=s.match(/(\d+)-(\d+)/);
+  if(m) return {min:parseInt(m[1]),max:parseInt(m[2])};
+  const m2=s.match(/^(\d+)/);
+  if(m2) return {min:parseInt(m2[1]),max:parseInt(m2[1])};
+  return {min:0,max:99};
+}
+
+function transformUnit(u){
+  const lim=parseLimit(u.limit);
+  return {...u, min:lim.min, max:lim.max,
+    movement:u.movement||'6"',
+    ranged:u.ranged?u.ranged.replace(' DICE',''):'-',
+    melee:u.melee?u.melee.replace(' DICE',''):'-',
+    armour:u.armour||'0',
+    gp_max:u.goetic_powers_max||0,
+    gp_free:u.goetic_powers_free||[],
+    ap_max:u.ap_max||0,
+    conditional_abilities:u.conditional_abilities||{},
+    conditional_keywords:u.conditional_keywords||{},
+    conditional_restrict_items:u.conditional_restrict_items||{},
+    restrict_ranged:u.restrict_ranged||false,
+    restrict_grenades:u.restrict_grenades||false,
+  };
+}
+
+async function loadData(){
+  const resp=await fetch('/api/data');
+  const raw=await resp.json();
+
+  // Transform factions
+  for(const[key,f]of Object.entries(raw.factions)){
+    FACTIONS[key]={
+      name:f.name, side:f.side, sins:(f.sin_selection&&f.sin_selection.sins)||f.sins||null,
+      special_rules:f.special_rules||[],
+      elites:(f.elites||[]).map(transformUnit),
+      troops:(f.troops||[]).map(transformUnit),
+      armoury:f.armoury||{},
+    };
+  }
+
+  // Transform variants — group by parent
+  for(const[parentKey,varList]of Object.entries(raw.variants)){
+    VARIANTS[parentKey]=[{key:'standard',name:'Standard',desc:'Base warband.'}];
+    varList.forEach(v=>{
+      // Skip the synthetic standard the server also injects
+      if(v.key==='standard')return;
+      VARIANTS[parentKey].push({
+        // Use the actual key from the server (filename-based), not a derived one
+        key:v.key,
+        name:v.name, desc:v.description||v.desc||'',
+        restrict_units:v.restrict_units||[],
+        restrict_mercenaries:v.restrict_mercenaries||false,
+        restrict_mercenaries_list:v.restrict_mercenaries_list||[],
+        limit_overrides:v.limit_overrides||{},
+        cost_overrides:v.cost_overrides||{},
+        remove_armoury:Array.isArray(v.remove_armoury)?v.remove_armoury:[],
+        add_armoury:v.add_armoury||{},
+        add_keywords_all:v.add_keywords_all||[],
+        unit_replacements:v.unit_replacements||{},
+        base_equip_remove:v.base_equip_remove||{},
+        add_units:(v.add_units||[]).map(transformUnit),
+        elite_overrides:v.elite_overrides||[],
+        budget_override:v.budget_override||null,
+        // Variant-conditional upgrades
+        variant_unit_upgrades:v.variant_unit_upgrades||{},
+        unit_stat_overrides:v.unit_stat_overrides||{},
+        restrict_unit_upgrades:v.restrict_unit_upgrades||{},
+        glory_cost_overrides:v.glory_cost_overrides||{},
+        remove_restrictions:v.remove_restrictions||{},
+        add_rules:v.add_rules||[],
+      });
+    });
+  }
+  // Ensure all factions have at least a standard variant
+  for(const key of Object.keys(FACTIONS)){
+    if(!VARIANTS[key]) VARIANTS[key]=[{key:'standard',name:'Standard',desc:'Base warband.'}];
+  }
+
+  // Transform mercenaries
+  MERCENARIES=(raw.mercenaries||[]).map(m=>{
+    const lim=parseLimit(m.limit);
+    return{...m, min:lim.min, max:lim.max,
+      available:m.available_to||m.available||[],
+      movement:m.movement||'6"',
+      ranged:m.ranged?m.ranged.replace(' DICE',''):'-',
+      melee:m.melee?m.melee.replace(' DICE',''):'-',
+      armour:m.armour||'0',
+    };
+  });
+
+  // Load gear data
+  if(raw.gear) Object.assign(GEAR, raw.gear);
+
+  // Load Arcana Putrescere powers from Great Hunger variant
+  const gh=raw.variants?.black_grail?.find(v=>v.key==='great_hunger');
+  if(gh&&gh.arcana_putrescere) ARCANA_POWERS=gh.arcana_putrescere;
+
+  // Extract Goetic Powers from Court faction data
+  const court=raw.factions.court_serpent;
+  if(court&&court.goetic_powers){
+    for(const[sin,powers]of Object.entries(court.goetic_powers)){
+      GOETIC_POWERS[sin]=powers.map(p=>({
+        name:p.name, cost:p.cost,
+        desc:p.effect||p.desc||'',
+        for:p.restriction||'',
+      }));
+    }
+  }
+  if(court&&court.desecrated_saint_auras){
+    Object.assign(SAINT_AURAS,court.desecrated_saint_auras);
+  }
+
+  console.log('Loaded:',Object.keys(FACTIONS).length,'factions',
+    Object.values(VARIANTS).reduce((s,v)=>s+v.length-1,0),'variants',
+    MERCENARIES.length,'mercenaries');
+}
+
+// ═══ STATE ═══
+let selectedFaction=null,selectedVariant=null,selectedSin=null,roster=[],editingIndex=-1,currentUnit=null;
+
+// ═══ HELPERS ═══
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+// HTML sanitization — prevents XSS from imported JSON data
+function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+function sanitizeStr(s){return typeof s==='string'?s.replace(/<[^>]*>/g,'').slice(0,500):String(s||'').slice(0,500);}
+function sanitizeImport(data){
+  // Validate structure
+  if(!data||typeof data!=='object')throw new Error('Invalid format');
+  if(!data._format||!String(data._format).startsWith('warband-forge'))throw new Error('Unknown format');
+  if(!data.warband||typeof data.warband!=='object')throw new Error('Missing warband block');
+  if(!data.units||!Array.isArray(data.units))throw new Error('Missing units array');
+  if(data.units.length>50)throw new Error('Too many units (max 50)');
+  // Sanitize all string fields
+  const w=data.warband;
+  w.name=sanitizeStr(w.name);
+  w.faction=sanitizeStr(w.faction);
+  w.variant=sanitizeStr(w.variant);
+  w.sin=w.sin?sanitizeStr(w.sin):null;
+  w.notes=sanitizeStr(w.notes);
+  w.budget_ducats=Math.min(Math.max(parseInt(w.budget_ducats)||700,0),99999);
+  w.budget_glory=Math.min(Math.max(parseInt(w.budget_glory)||0,0),999);
+  data.units.forEach(u=>{
+    u.type=sanitizeStr(u.type);
+    u.name=sanitizeStr(u.name);
+    u.id=sanitizeStr(u.id);
+    u.sin_aura=u.sin_aura?sanitizeStr(u.sin_aura):'';
+    u.base_cost=Math.min(Math.max(parseInt(u.base_cost)||0,0),9999);
+    u.total_cost=Math.min(Math.max(parseInt(u.total_cost)||0,0),9999);
+    u.glory_cost=Math.min(Math.max(parseInt(u.glory_cost)||0,0),999);
+    u.is_elite=!!u.is_elite;u.is_merc=!!u.is_merc;
+    if(Array.isArray(u.equipment))u.equipment=u.equipment.slice(0,20).map(e=>({name:sanitizeStr(e.name),cost:parseInt(e.cost)||0}));else u.equipment=[];
+    if(Array.isArray(u.goetic_powers))u.goetic_powers=u.goetic_powers.slice(0,5).map(p=>({name:sanitizeStr(p.name),cost:parseInt(p.cost)||0}));else u.goetic_powers=[];
+    // Strip __proto__ / constructor keys
+    delete u.__proto__;delete u.constructor;
+  });
+  delete data.__proto__;delete data.constructor;
+  return data;
+}
+function detailActive(on){document.getElementById('detail-panel').classList.toggle('has-content',on);}
+function showEmpty(){document.getElementById('empty-detail').style.display='flex';document.getElementById('type-picker').style.display='none';document.getElementById('unit-editor').style.display='none';document.querySelectorAll('.r-unit').forEach(u=>u.classList.remove('selected'));detailActive(false);}
+function cancelAdd(){showEmpty();}
+function goBack(){if(roster.length&&!confirm('Go back? Warband will be lost.'))return;roster=[];selectedSin=null;showScreen('screen-faction');}
+
+// Count how many of a given type are in roster
+function countInRoster(type){return roster.filter(u=>u.type===type).length;}
+
+// Get effective max for a unit type (considering variant overrides)
+function getEffectiveMax(unitDef){
+  const v=getVariant();
+  if(v&&v.limit_overrides&&v.limit_overrides[unitDef.type]!==undefined){
+    const ov=v.limit_overrides[unitDef.type];
+    if(typeof ov==='number') return ov;
+    const m=String(ov).match(/(\d+)-(\d+)/);
+    if(m) return parseInt(m[2]);
+    const m2=String(ov).match(/^(\d+)/);
+    if(m2) return parseInt(m2[1]);
+  }
+  return unitDef.max;
+}
+
+function getVariant(){return(VARIANTS[selectedFaction]||[]).find(v=>v.key===selectedVariant)||null;}
+function isRestricted(type){const v=getVariant();return v&&v.restrict_units&&v.restrict_units.includes(type);}
+
+// ═══ SCREEN 1 ═══
+function pickFaction(btn){
+  document.querySelectorAll('.faction-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedFaction=btn.dataset.key;selectedVariant='standard';selectedSin=null;
+  const vs=VARIANTS[selectedFaction]||[];
+  const sel=document.getElementById('variant-selector'),opts=document.getElementById('variant-options');
+  opts.innerHTML='';  // Clear all previous variant buttons
+  vs.forEach(v=>{const el=document.createElement('button');el.className='variant-opt'+(v.key==='standard'?' selected':'');
+    el.innerHTML=`<span class="vo-name">${v.name}</span><span class="vo-desc">${v.desc}</span>`;
+    el.onclick=()=>{opts.querySelectorAll('.variant-opt').forEach(o=>o.classList.remove('selected'));el.classList.add('selected');selectedVariant=v.key;};
+    opts.appendChild(el);});
+  sel.classList.add('visible');
+  // Sin selector for Court
+  const sinSel=document.getElementById('sin-selector'),sinOpts=document.getElementById('sin-options');
+  const f=FACTIONS[selectedFaction];
+  if(f.sins){
+    sinOpts.innerHTML='';
+    f.sins.forEach((sin,i)=>{
+      const el=document.createElement('button');
+      el.className='variant-opt'+(i===0?' selected':'');
+      const aura=SAINT_AURAS[sin]||'';
+      el.innerHTML=`<span class="vo-name">${sin}</span><span class="vo-desc">Desecrated Saint: ${aura}</span>`;
+      el.onclick=()=>{sinOpts.querySelectorAll('.variant-opt').forEach(o=>o.classList.remove('selected'));el.classList.add('selected');selectedSin=sin;};
+      sinOpts.appendChild(el);
+    });
+    selectedSin=f.sins[0];
+    sinSel.style.display='block';sinSel.classList.add('visible');
+  } else {
+    sinSel.style.display='none';sinSel.classList.remove('visible');
+  }
+  document.getElementById('start-btn').classList.add('visible');
+}
+function startBuilder(){
+  if(!selectedFaction)return;const f=FACTIONS[selectedFaction];
+  document.getElementById('wb-faction-label').textContent=f.name;
+  const v=getVariant(),vl=document.getElementById('wb-variant-label');
+  let variantText='';
+  if(selectedVariant!=='standard'&&v){variantText=v.name;}
+  if(selectedSin){variantText=(variantText?variantText+' · ':'')+'Sin of '+selectedSin;}
+  if(variantText){vl.textContent=variantText;vl.style.display='block';if(v&&selectedVariant!=='standard')showVariantBanner(v);}
+  else{vl.style.display='none';document.getElementById('variant-banner').style.display='none';}
+  // Apply variant budget override (e.g. Papal States: 500D + 11 Glory)
+  const bo=v&&v.budget_override;
+  if(bo){
+    document.getElementById('d-budget').value=bo.ducats||700;
+    document.getElementById('g-budget').value=bo.glory||0;
+  } else {
+    document.getElementById('d-budget').value=700;
+    document.getElementById('g-budget').value=0;
+  }
+  roster=[];renderRoster();showEmpty();showScreen('screen-builder');
+}
+function showVariantBanner(v){
+  const b=document.getElementById('variant-banner');b.style.display='block';
+  document.getElementById('vb-name').textContent=v.name;
+  const r=document.getElementById('vb-rules');r.innerHTML='';
+  if(v.restrict_units&&v.restrict_units.length)r.innerHTML+=`<div class="vb-rule">Cannot include: ${v.restrict_units.join(', ')}</div>`;
+  if(v.restrict_mercenaries)r.innerHTML+=`<div class="vb-rule">Cannot include Mercenaries</div>`;
+  if(v.limit_overrides)Object.entries(v.limit_overrides).forEach(([k,lim])=>r.innerHTML+=`<div class="vb-rule">${k}: max ${lim}</div>`);
+  if(v.remove_armoury&&v.remove_armoury.length)r.innerHTML+=`<div class="vb-rule">Removed from armoury: ${v.remove_armoury.join(', ')}</div>`;
+  if(v.add_keywords_all&&v.add_keywords_all.length)r.innerHTML+=`<div class="vb-rule">All models gain: ${v.add_keywords_all.join(', ')}</div>`;
+  if(v.unit_replacements)Object.entries(v.unit_replacements).forEach(([orig,rep])=>r.innerHTML+=`<div class="vb-rule">${orig} → ${rep.new_type}</div>`);
+}
+
+// ═══ TYPE PICKER (with limits + counts + variant rules) ═══
+let _pickerUnits=[];  // store units for safe onclick lookup
+function showTypePicker(){
+  const f=FACTIONS[selectedFaction],v=getVariant()||{};
+  const replacements=v.unit_replacements||{};
+  _pickerUnits=[];
+  let html='<h3>Choose a Unit Type</h3>';
+
+  const renderUnit=(u,isElite)=>{
+    let displayUnit={...u};
+    const rep=replacements[u.type];
+    if(rep){
+      displayUnit={...u, type:rep.new_type||u.type, abilities:rep.abilities||u.abilities};
+    }
+    // A unit with a replacement is available under its new name — never show as restricted
+    const restricted=rep?false:isRestricted(u.type);
+    const max=getEffectiveMax(u);
+    const actualCount=countInRoster(displayUnit.type);
+    const maxed=actualCount>=max;
+    const needsMore=u.min&&u.min>0&&actualCount<u.min;
+    let cls=restricted?'restricted':maxed?'maxed':'';
+    let countBadge='';
+    if(restricted)countBadge=`<span class="tp-count full">Restricted</span>`;
+    else if(maxed)countBadge=`<span class="tp-count full">${actualCount}/${max} MAX</span>`;
+    else if(needsMore)countBadge=`<span class="tp-count required">${actualCount}/${u.min} NEED</span>`;
+    else if(max<99)countBadge=`<span class="tp-count available">${actualCount}/${max}</span>`;
+    const clickable=!restricted&&!maxed;
+    const idx=_pickerUnits.length;
+    _pickerUnits.push({unit:displayUnit,isElite,isMerc:false});
+    return`<div class="tp-unit ${cls}" ${clickable?`onclick="pickUnit(${idx})"`:''}">
+      <span class="tp-name">${displayUnit.type}</span>
+      <span class="tp-stats">${displayUnit.movement} R:${displayUnit.ranged} M:${displayUnit.melee} A:${displayUnit.armour}</span>
+      <span class="tp-cost">${displayUnit.base_cost}D</span>
+      ${countBadge}
+    </div>`;
+  };
+
+  html+='<div class="tp-section">‡ Elites ‡</div>';
+  f.elites.forEach(u=>html+=renderUnit(u,true));
+  // Troops promoted to ELITE by variant (e.g. Janissary in Defenders)
+  const eliteOv=v.elite_overrides||[];
+  if(eliteOv.length){
+    f.troops.filter(u=>eliteOv.includes(u.type)).forEach(u=>html+=renderUnit(u,true));
+  }
+  // Variant-added ELITE units — skip any type already covered by a unit_replacement
+  // (e.g. Barbed Wire Banshee in Trench Ghosts replaces Chorister — don't show it twice)
+  const replacedTypes=new Set(Object.values(replacements).map(r=>r.new_type).filter(Boolean));
+  if(v.add_units&&v.add_units.length){
+    v.add_units
+      .filter(u=>u.keywords&&u.keywords.some(k=>k.toUpperCase()==='ELITE'))
+      .filter(u=>!replacedTypes.has(u.type))
+      .forEach(u=>html+=renderUnit(u,true));
+  }
+  html+='<div class="tp-section">† Troops †</div>';
+  f.troops.filter(u=>!eliteOv.includes(u.type)).forEach(u=>html+=renderUnit(u,false));
+  // Variant-added TROOP units — skip replaced types
+  if(v.add_units&&v.add_units.length){
+    v.add_units
+      .filter(u=>!(u.keywords&&u.keywords.some(k=>k.toUpperCase()==='ELITE')))
+      .filter(u=>!replacedTypes.has(u.type))
+      .forEach(u=>html+=renderUnit(u,false));
+  }
+
+  // Mercenaries (blocked entirely if variant says so)
+  if(!v.restrict_mercenaries){
+    const mercs=MERCENARIES.filter(m=>m.available.includes(selectedFaction));
+    if(mercs.length){
+      html+='<div class="tp-section glory-sec">☼ Mercenaries ☼</div>';
+      mercs.forEach(m=>{
+        const count=countInRoster(m.type),maxed=count>=m.max;
+        const badge=maxed?`<span class="tp-count full">${count}/${m.max} MAX</span>`:`<span class="tp-count available">${count}/${m.max}</span>`;
+        const idx=_pickerUnits.length;
+        _pickerUnits.push({unit:m,isElite:true,isMerc:true});
+        html+=`<div class="tp-unit ${maxed?'maxed':''}" ${maxed?'':`onclick="pickUnit(${idx})"`}>
+          <span class="tp-name">${m.type}</span><span class="tp-stats">${m.movement} R:${m.ranged} M:${m.melee} A:${m.armour}</span>
+          <span class="tp-cost glory-cost">${m.cost}☼</span>${badge}</div>`;
+      });
+    }
+  } else {
+    html+='<div class="tp-section glory-sec" style="opacity:0.3;">☼ Mercenaries — blocked by variant ☼</div>';
+  }
+
+  html+='<div style="margin-top:0.6rem;"><button class="btn-cancel" onclick="cancelAdd()">Cancel</button></div>';
+  const p=document.getElementById('type-picker');p.innerHTML=html;
+  document.getElementById('empty-detail').style.display='none';p.style.display='block';document.getElementById('unit-editor').style.display='none';editingIndex=-1;detailActive(true);
+}
+
+// ═══ UNIT EDITOR ═══
+function pickUnit(idx){
+  const entry=_pickerUnits[idx];if(!entry)return;
+  const v=getVariant()||{};
+  const overrides=(v.unit_stat_overrides||{})[entry.unit.type]||{};
+  currentUnit={...entry.unit, ...overrides, isElite:entry.isElite, isMerc:entry.isMerc};
+  openEditor();
+}
+
+function openEditor(){
+  const u=currentUnit;
+  document.getElementById('empty-detail').style.display='none';document.getElementById('type-picker').style.display='none';document.getElementById('unit-editor').style.display='block';detailActive(true);
+  document.getElementById('ue-type-name').textContent=u.type;
+  document.getElementById('ue-name-input').value='';
+  document.getElementById('ue-stats').innerHTML=['Movement','Ranged','Melee','Armour','Base Cost'].map((l,i)=>{
+    const vals=[u.movement,u.ranged,u.melee,u.armour,u.isMerc?u.cost+'☼':u.base_cost+'D'];
+    return`<div class="ue-stat"><div class="s-label">${l}</div><div class="s-val">${vals[i]}</div></div>`;}).join('');
+  const v=getVariant()||{};
+  const addedKw=v.add_keywords_all||[];
+  document.getElementById('ue-keywords').innerHTML=
+    (u.keywords||[]).map(k=>`<span class="kw-tag">${k}</span>`).join('')+
+    addedKw.map(k=>`<span class="kw-tag added">+${k}</span>`).join('');
+  document.getElementById('ue-abilities').innerHTML='<h4>Abilities</h4>'+(u.abilities||[]).map(a=>`<div class="abil-item">${a}</div>`).join('');
+  // Base equipment — remove items if variant says so
+  let baseEq=(u.base_equipment||[]).slice();
+  const eqRemove=(v.base_equip_remove&&v.base_equip_remove[u.type])||[];
+  baseEq=baseEq.filter(e=>!eqRemove.includes(e));
+  const beq=document.getElementById('ue-base-eq');
+  if(baseEq.length){beq.style.display='block';beq.innerHTML='Included: <span>'+baseEq.join(', ')+'</span>';}else beq.style.display='none';
+  currentUnit._effectiveBaseEq=baseEq;
+  buildEquipPicker();buildGoeticPicker();buildArcanaPicker();updateEditorCost();
+}
+function buildGoeticPicker(){
+  const picker=document.getElementById('goetic-picker');
+  const list=document.getElementById('goetic-list');
+  const u=currentUnit;
+  // Only show for Court ELITE with Goetic Power slots
+  if(selectedFaction!=='court_serpent'||!u.isElite||u.isMerc||(u.gp_max===0&&(!u.gp_free||u.gp_free.length===0))){
+    picker.style.display='none';return;
+  }
+  picker.style.display='block';
+  const max=u.gp_max||0;
+  const free=u.gp_free||[];
+  document.getElementById('gp-slots').textContent=max>0?`(${max} slots available)`:'(built-in only)';
+  let html='';
+  // Free/built-in powers (shown but not checkable)
+  free.forEach(name=>{
+    html+=`<div class="gp-item gp-free"><input type="checkbox" checked disabled><div class="gp-info"><div class="gp-name">${name}</div></div><div class="gp-cost">free</div></div>`;
+  });
+  if(max>0){
+    // Available powers: Universal + selected Sin
+    const available=[...GOETIC_POWERS.Universal];
+    if(selectedSin&&GOETIC_POWERS[selectedSin])available.push(...GOETIC_POWERS[selectedSin]);
+    available.forEach(p=>{
+      if(free.includes(p.name))return;
+      const costStr=typeof p.cost==='number'?p.cost+'D':p.cost;
+      html+=`<label class="gp-item"><input type="checkbox" class="gp-check" data-cost="${typeof p.cost==='number'?p.cost:0}" data-name="${p.name}" onchange="updateGoeticSlots()"><div class="gp-info"><div class="gp-name">${p.name}</div><div class="gp-desc">${p.desc}</div><div class="gp-for">${p.for||''}</div></div><div class="gp-cost">${costStr}</div></label>`;
+    });
+  }
+  list.innerHTML=html;
+}
+function toggleDual(btn,event){
+  event.preventDefault();event.stopPropagation();
+  btn.classList.toggle('active');
+  enforceEquipLimits();updateEditorCost();
+}
+function updateGoeticSlots(){
+  const u=currentUnit;if(!u)return;
+  const max=u.gp_max||0;
+  const checked=document.querySelectorAll('.gp-check:checked').length;
+  document.getElementById('gp-slots').textContent=`(${checked}/${max} slots used)`;
+  // Disable unchecked if at max
+  document.querySelectorAll('.gp-check:not(:checked)').forEach(cb=>{cb.disabled=checked>=max;});
+  document.querySelectorAll('.gp-check:checked').forEach(cb=>{cb.disabled=false;});
+  updateEditorCost();
+}
+function buildArcanaPicker(){
+  const picker=document.getElementById('arcana-picker');
+  const list=document.getElementById('arcana-list');
+  const u=currentUnit;
+  // Only show for Great Hunger units with ap_max
+  const isGH=selectedVariant==='great_hunger'||((getVariant()||{}).key==='great_hunger');
+  if(!isGH||!u.ap_max||u.ap_max===0){picker.style.display='none';return;}
+  picker.style.display='block';
+  const max=u.ap_max||3;
+  document.getElementById('ap-slots').textContent=`(${max} slots available)`;
+  let html='';
+  ARCANA_POWERS.forEach(p=>{
+    const costStr=typeof p.cost==='number'?p.cost+'D':p.cost;
+    const typeStr=p.type?`${p.type}${p.spell_cost?' · '+p.spell_cost+' marker(s)':''}`:'' ;
+    const whoStr=p.who?`<div class="ap-who">${p.who}</div>`:'';
+    html+=`<label class="ap-item"><input type="checkbox" class="ap-check" data-cost="${typeof p.cost==='number'?p.cost:0}" data-name="${p.name}" onchange="updateArcanaSlots()"><div class="ap-info"><div class="ap-name">${p.name}</div><div class="ap-type">${typeStr}</div><div class="ap-desc">${p.description||''}</div>${whoStr}</div><div class="ap-cost">${costStr}</div></label>`;
+  });
+  list.innerHTML=html;
+}
+function updateArcanaSlots(){
+  const u=currentUnit;if(!u)return;
+  const max=u.ap_max||3;
+  const checked=document.querySelectorAll('.ap-check:checked').length;
+  document.getElementById('ap-slots').textContent=`(${checked}/${max} slots used)`;
+  document.querySelectorAll('.ap-check:not(:checked)').forEach(cb=>{cb.disabled=checked>=max;});
+  document.querySelectorAll('.ap-check:checked').forEach(cb=>{cb.disabled=false;});
+  updateEditorCost();
+}
+function canUseItem(note,unit){
+  if(!note)return true;
+  const n=note.toLowerCase();
+  if(!n.includes('only'))return true;
+  const uType=(unit.type||'').toLowerCase();
+  const uKw=(unit.keywords||[]).map(k=>k.toLowerCase());
+  let before=n.split('only')[0].trim();
+  // Strip noise words individually (not greedy)
+  ['consumable','headgear','shield combo','bayonet lug'].forEach(w=>{before=before.replace(new RegExp(w,'gi'),'');});
+  before=before.replace(/limit:\s*\d+(\s*\([^)]*\))?/gi,'');
+  before=before.replace(/^[,\s]+|[,\s]+$/g,'').replace(/,\s*,/g,',').trim();
+  if(!before)return true;
+  const reqs=before.split(/[\/&,]/).map(s=>s.trim()).filter(Boolean);
+  if(!reqs.length)return true;
+  return reqs.some(req=>{
+    if(uType.includes(req))return true;
+    const singular=req.endsWith('s')?req.slice(0,-1):req;
+    const plural=req.endsWith('s')?req:req+'s';
+    if(uType.includes(singular)||uType.includes(plural))return true;
+    if(uKw.some(k=>k.includes(req)||k.includes(singular)))return true;
+    return false;
+  });
+}
+// ═══ GEAR LOOKUP — reads from GEAR object loaded via /api/data ═══════════════
+// Returns the gear entry for an item name, or null if not found
+function gearGet(name){
+  return GEAR[name]||null;
+}
+// Returns hands string ('1H','2H','special','') from gear data
+function getHands(name,cat){
+  const g=gearGet(name);
+  if(g&&g.hands)return g.hands;
+  // Fallback defaults if somehow not in gear
+  if(cat==='Ranged Weapons')return '2H';
+  if(cat==='Melee Weapons')return '1H';
+  return '';
+}
+// Returns true if item has the HEAVY keyword
+function gearIsHeavy(name){
+  const g=gearGet(name);
+  return g?!!g.heavy:false;
+}
+// Parse a gear entry into the structured object previously returned by parseWI()
+// Returns null if item not in gear or not a displayable weapon/shield/armour
+function gearParse(name){
+  const g=gearGet(name);
+  if(!g)return null;
+  const cat=g.cat; // 'ranged'|'melee'|'grenade'|'shield'|'armour'|'equipment'
+  const isWeapon=(cat==='ranged'||cat==='melee'||cat==='grenade');
+  const isArmour=(cat==='armour');
+  const isShield=(cat==='shield');
+  const isEquip=(cat==='equipment');
+  const isRanged=(cat==='ranged');
+  const isMelee=(cat==='melee');
+  const isGrenade=(cat==='grenade');
+  const isDual=g.range&&(g.range.includes('/Melee')||g.range.includes('Melee/'));
+  // Build display keywords string — inj_mod and inj_dice go into keywords for display
+  const kws=[...(g.keywords||[])];
+  if(g.note)kws.push(g.note);
+  const injModStr=g.inj_mod&&g.inj_mod!==0?`${g.inj_mod>0?'+':''}${g.inj_mod} INJ MOD`:'';
+  const injDiceStr=g.inj_dice&&g.inj_dice!==0?`${g.inj_dice>0?'+':''}${g.inj_dice} INJ`:'';
+  // injMod goes at the front for armour/shield display
+  if(injModStr&&(isArmour||isShield))kws.unshift(injModStr);
+  else if(injModStr)kws.push(injModStr);
+  return{
+    cat:isWeapon?'weapon':isArmour?'armour':isShield?'shield':'equipment',
+    hands:g.hands||'',
+    range:g.range||'',
+    diceMod:g.dice_mod||0,
+    injDice:g.inj_dice||0,
+    injMod:g.inj_mod||0,
+    injModStr,
+    injDiceStr,
+    keywords:kws.join(', '),
+    isRanged:isRanged||isDual,
+    isMelee:isMelee||isDual,
+    isGrenade,
+    isDual,
+  };
+}
+
+function enforceEquipLimits(){
+  const checks=document.querySelectorAll('#equip-picker input[type="checkbox"]');
+  // Count checked items by category
+  const sel={ranged1H:0,ranged2H:0,melee1H:0,melee2H:0,grenades:0,armour:0,shields:0,headgear:0};
+  const equipNames=new Set();
+  let hasShield=false;
+  // Check for exclusive items (block everything else when checked)
+  let hasSarcophagus=false; // blocks ALL other battlekit
+  let hasTankPalanquin=false; // blocks shield
+  checks.forEach(cb=>{
+    if(!cb.checked)return;
+    const cat=cb.dataset.cat||'';
+    const hands=cb.dataset.hands||'';
+    const name=cb.dataset.name||'';
+    const note=cb.dataset.note||'';
+    if(name==='Sarcophagus Mine')hasSarcophagus=true;
+    if(name==='Tank Palanquin')hasTankPalanquin=true;
+    if(cat==='Ranged Weapons'){
+      const isDual=cb.closest('.eq-item')?.querySelector('.eq-dual-btn.active');
+      if(hands==='1H')sel.ranged1H+=isDual?2:1;else sel.ranged2H++;
+    }
+    if(cat==='Melee Weapons'){
+      const isDual=cb.closest('.eq-item')?.querySelector('.eq-dual-btn.active');
+      if(hands==='2H')sel.melee2H++;else sel.melee1H+=isDual?2:1;
+    }
+    if(cat==='Grenades')sel.grenades++;
+    if(cat==='Armour')sel.armour++;
+    if(cat==='Shields'){sel.shields++;hasShield=true;}
+    if(note.toLowerCase().includes('headgear'))sel.headgear++;
+    if(cat==='Equipment')equipNames.add(name);
+  });
+  // Now disable/enable unchecked items based on limits
+  checks.forEach(cb=>{
+    if(cb.checked||cb.disabled&&cb.dataset.perm==='1')return;
+    const cat=cb.dataset.cat||'';
+    const hands=cb.dataset.hands||'';
+    const name=cb.dataset.name||'';
+    const note=cb.dataset.note||'';
+    let blocked=false,reason='';
+    // Sarcophagus Mine: Walking Bomb rule — cannot have ANY other battlekit
+    if(hasSarcophagus){blocked=true;reason='Walking Bomb: no other Battlekit allowed';}
+    // Tank Palanquin: cannot have a Shield (Bulky rule)
+    if(!blocked&&hasTankPalanquin&&cat==='Shields'){blocked=true;reason='Tank Palanquin: no Shield (Bulky)';}
+    // Ranged: 1×2H or 2×1H
+    if(!blocked&&cat==='Ranged Weapons'){
+      if(sel.ranged2H>0){blocked=true;reason='Already have a 2H ranged weapon';}
+      else if(hands==='2H'&&sel.ranged1H>0){blocked=true;reason='Already have 1H ranged';}
+      else if(hands==='1H'&&sel.ranged1H>=2){blocked=true;reason='Max 2 × 1H ranged';}
+      if(hasShield){
+        if(hands==='2H'){
+          const shieldCombo=note.toLowerCase().includes('shield combo');
+          if(!shieldCombo){blocked=true;reason='Shield blocks 2H (no Shield Combo)';}
+        }
+        if(hands==='1H'&&sel.ranged1H>=1){blocked=true;reason='Shield: max 1 × 1H ranged';}
+      }
+    }
+    // Melee: 1×2H or 2×1H
+    if(!blocked&&cat==='Melee Weapons'){
+      if(sel.melee2H>0){blocked=true;reason='Already have a 2H melee weapon';}
+      else if(hands==='2H'&&sel.melee1H>0){blocked=true;reason='Already have 1H melee';}
+      else if(hands==='1H'&&sel.melee1H>=2){blocked=true;reason='Max 2 × 1H melee';}
+      if(hasShield){
+        if(hands==='2H'){
+          const shieldCombo=note.toLowerCase().includes('shield combo');
+          if(!shieldCombo){blocked=true;reason='Shield blocks 2H (no Shield Combo)';}
+        }
+        if(hands==='1H'&&sel.melee1H>=1){blocked=true;reason='Shield: max 1 × 1H melee';}
+      }
+    }
+    // Grenades: 1 type
+    if(!blocked&&cat==='Grenades'&&sel.grenades>=1){blocked=true;reason='Max 1 grenade type';}
+    // Unit-level ranged restriction (e.g. Artillery Witch)
+    if(!blocked&&cat==='Ranged Weapons'&&currentUnit.restrict_ranged){blocked=true;reason='This unit cannot have Ranged Weapons';}
+    // Unit-level grenade restriction (e.g. Artillery Witch)
+    if(!blocked&&cat==='Grenades'&&currentUnit.restrict_grenades){blocked=true;reason='This unit cannot have Grenades';}
+    // Conditional item restrictions (e.g. Machine Armour blocks Trench Shield)
+    if(!blocked&&currentUnit.conditional_restrict_items){
+      const checkedEquip=new Set();
+      document.querySelectorAll('#equip-picker input:checked').forEach(cb2=>{
+        checkedEquip.add(cb2.dataset.name||cb2.closest('.eq-item')?.querySelector('.eq-name')?.textContent||'');
+      });
+      for(const[triggerItem,blockedItems]of Object.entries(currentUnit.conditional_restrict_items)){
+        if(checkedEquip.has(triggerItem)&&blockedItems.includes(name)){
+          blocked=true;reason=`${triggerItem} restricts this item`;
+        }
+      }
+    }
+    // Armour: 1
+    if(!blocked&&cat==='Armour'&&sel.armour>=1){blocked=true;reason='Max 1 armour';}
+    // Shields: 1
+    if(!blocked&&cat==='Shields'&&sel.shields>=1){blocked=true;reason='Max 1 shield';}
+    // Headgear: 1
+    if(!blocked&&note.toLowerCase().includes('headgear')&&sel.headgear>=1){blocked=true;reason='Max 1 headgear';}
+    // Equipment: no duplicates
+    if(!blocked&&cat==='Equipment'&&equipNames.has(name)){blocked=true;reason='Already have this';}
+    cb.disabled=blocked;
+    cb.closest('label').classList.toggle('eq-limit-blocked',blocked);
+  });
+}
+
+function buildEquipPicker(){
+  const f=FACTIONS[selectedFaction],p=document.getElementById('equip-picker');
+  if(currentUnit.isMerc&&!currentUnit.merc_can_equip){p.innerHTML='<div style="font-size:0.7rem;color:#908070;font-style:italic;padding:0.4rem 0;">Mercenaries come fully equipped.</div>';return;}
+
+  // ═══ RESTRICTED ARMOURY (e.g. Ecclesiastic Prisoner, Anchorite) ═══
+  if(currentUnit.restrict_armoury){
+    const vv=getVariant()||{};
+    let upgrades=currentUnit.unit_upgrades||[];
+    const varRes=(vv.restrict_unit_upgrades||{})[currentUnit.type]||[];
+    if(varRes.length)upgrades=upgrades.filter(u=>!varRes.includes(u[0]));
+    if(!upgrades.length){
+      p.innerHTML='<div style="font-size:0.7rem;color:#908070;font-style:italic;padding:0.4rem 0;">This unit cannot take additional equipment.</div>';
+      return;
+    }
+    let html='<div class="equip-section"><div class="eq-cat-title">Unit Upgrades <span class="toggle">▾</span></div><div class="eq-items">';
+    const wbCounts2={};
+    roster.forEach((ru,ri)=>{if(ri===editingIndex)return;(ru.equip||[]).forEach(e=>{wbCounts2[e]=(wbCounts2[e]||0)+1;});});
+    upgrades.forEach(item=>{
+      const name=item[0],cost=item[1],note=item[2]||'',wbLimit=item.length>=4?item[3]:null;
+      const costStr=typeof cost==='number'?cost+'D':cost;
+      const costVal=typeof cost==='number'?cost:0;
+      let wbBlocked=false,wbLock='';
+      if(wbLimit!==null){const used=wbCounts2[name]||0;if(used>=wbLimit){wbBlocked=true;wbLock=` <span class="eq-lock">🔒 Limit ${wbLimit}</span>`;}}
+      const cls=wbBlocked?'eq-limit-blocked':'';
+      html+=`<label class="eq-item ${cls}"><input type="checkbox" data-cost="${costVal}" data-cat="Unit Upgrades" data-name="${esc(name)}" data-note="${esc(note)}" ${wbBlocked?'disabled data-perm="1"':''} onchange="updateEditorCost()"><span class="eq-name">${esc(name)}</span><span class="eq-cost">${costStr}</span>${note?`<span class="eq-note">${esc(note)}</span>`:''}${wbLock}</label>`;
+    });
+    html+='</div></div>';
+    p.innerHTML=html;
+    return;
+  }
+
+  // ═══ NORMAL ARMOURY WITH ENFORCEMENT ═══
+  const v=getVariant()||{};
+  const overrides=(v.cost_overrides)||{};
+  const removed=Array.isArray(v.remove_armoury)?v.remove_armoury:[];
+  const added=v.add_armoury||{};
+  let merged={};
+  for(const[cat,items]of Object.entries(f.armoury)){
+    merged[cat]=items.filter(item=>!removed.includes(item[0]));
+  }
+  for(const[cat,items]of Object.entries(added)){
+    if(!merged[cat])merged[cat]=[];
+    items.forEach(item=>merged[cat].push(item));
+  }
+  let html='';
+  for(const[cat,items]of Object.entries(merged)){
+    if(!items.length)continue;
+    html+=`<div class="equip-section"><div class="eq-cat-title" onclick="this.nextElementSibling.classList.toggle('collapsed');this.querySelector('.toggle').textContent=this.nextElementSibling.classList.contains('collapsed')?'▸':'▾';">
+      ${cat} <span class="toggle">▾</span></div><div class="eq-items">`;
+    items.forEach(item=>{
+      const name=item[0];
+      let cost=item[1],note=item[2]||'';
+      let modified=false;
+      if(overrides[name]!==undefined){cost=overrides[name];modified=true;}
+      const costStr=typeof cost==='number'?cost+'D':cost;
+      const costVal=typeof cost==='number'?cost:0;
+      const allowed=canUseItem(note,currentUnit);
+      // Weapon keyword restriction (e.g. Brazen Bull = HEAVY only)
+      const wkOnly=currentUnit.weapon_keyword_only;
+      let wkBlocked=false;
+      if(wkOnly&&(cat==='Ranged Weapons'||cat==='Melee Weapons')){
+        if(!gearIsHeavy(name)){wkBlocked=true;}
+      }
+      // Armour purchase restriction (e.g. MHI — armour included in base cost, upgrade via unit_upgrades)
+      let armourBlocked=false;
+      if(currentUnit.restrict_armour_purchase&&cat==='Armour'){
+        armourBlocked=true;
+      }
+      const cls=(!allowed||wkBlocked||armourBlocked)?'eq-restricted':'';
+      const lockIcon=armourBlocked?` <span class="eq-lock">🔒 Included in base cost</span>`:(!allowed&&note)?` <span class="eq-lock">🔒 ${note}</span>`:(wkBlocked?` <span class="eq-lock">🔒 ${wkOnly} only</span>`:'');
+      const modCls=modified?'modified':'';
+      const hands=getHands(name,cat);
+      const itemDisabled=!allowed||wkBlocked||armourBlocked;
+      // Build compact info string from gear data for picker display
+      const gp=gearParse(name);
+      let wInfo='';
+      if(gp&&gp.cat==='weapon'){
+        const parts=[];
+        if(gp.range)parts.push(gp.range);
+        if(gp.diceMod!==0)parts.push((gp.diceMod>0?'+':'')+gp.diceMod+'d');
+        if(gp.injDiceStr)parts.push(gp.injDiceStr);
+        if(gp.injModStr)parts.push(gp.injModStr);
+        if(gp.keywords)parts.push(gp.keywords);
+        wInfo=parts.join(', ');
+      } else if(gp&&(gp.cat==='armour'||gp.cat==='shield')){
+        wInfo=gp.keywords||'';
+      }
+      // For 1H weapons: show a ×2 toggle so users can take two identical weapons
+      const is1H=(cat==='Ranged Weapons'||cat==='Melee Weapons')&&hands==='1H';
+      const dualBtn=is1H&&!itemDisabled?` <button class="eq-dual-btn" data-cost="${costVal}" data-name="${esc(name)}" data-cat="${cat}" data-hands="${hands}" onclick="toggleDual(this,event)" title="Take two of this weapon">×2</button>`:'';
+      html+=`<label class="eq-item ${cls}"><input type="checkbox" data-cost="${costVal}" data-cat="${cat}" data-hands="${hands}" data-name="${esc(name)}" data-note="${esc(note)}" ${itemDisabled?'disabled data-perm="1"':''} onchange="enforceEquipLimits();updateEditorCost()"><span class="eq-name">${name}</span>${wInfo?`<span class="eq-info">${wInfo}</span>`:''}<span class="eq-cost ${modCls}">${costStr}</span>${note&&!itemDisabled?`<span class="eq-note">${note}</span>`:''}${lockIcon}${dualBtn}</label>`;
+    });
+    html+='</div></div>';
+  }
+  // Add unit-specific upgrades if any (alongside normal armoury)
+  let upgrades=(currentUnit.unit_upgrades||[]).slice();
+  // Variant can add upgrades for specific units (e.g. Éire Rangers Fianna for Shock Troopers)
+  const variantAdd=(v.variant_unit_upgrades||{})[currentUnit.type]||[];
+  upgrades=upgrades.concat(variantAdd);
+  // Diagnostic: log what we found (visible in DevTools Console)
+  console.log('[WarbandForge] Unit upgrades check:',{unitType:currentUnit.type,variantKey:v.key,baseUpgrades:currentUnit.unit_upgrades,variantUpgrades:variantAdd,totalAfterMerge:upgrades.length});
+  // Variant can restrict certain upgrades (e.g. Saint Methodius blocks Martyrdom Device)
+  const variantRestrict=(v.restrict_unit_upgrades||{})[currentUnit.type]||[];
+  if(variantRestrict.length)upgrades=upgrades.filter(u=>!variantRestrict.includes(u[0]));
+  if(upgrades.length){
+    // Count named upgrades already used across other roster units
+    const wbUpgradeCounts={};
+    roster.forEach((ru,ri)=>{
+      if(ri===editingIndex)return;
+      (ru.equip||[]).forEach(e=>{wbUpgradeCounts[e]=(wbUpgradeCounts[e]||0)+1;});
+    });
+    html+='<div class="equip-section"><div class="eq-cat-title" onclick="this.nextElementSibling.classList.toggle(\'collapsed\');this.querySelector(\'.toggle\').textContent=this.nextElementSibling.classList.contains(\'collapsed\')?\'▸\':\'▾\';">Unit Upgrades <span class="toggle">▾</span></div><div class="eq-items">';
+    upgrades.forEach(item=>{
+      const name=item[0],cost=item[1],note=item[2]||'',wbLimit=item.length>=4?item[3]:null;
+      const costStr=typeof cost==='number'?cost+'D':cost;
+      const costVal=typeof cost==='number'?cost:0;
+      // Check warband-wide limit
+      let wbBlocked=false,wbLock='';
+      if(wbLimit!==null){
+        const used=wbUpgradeCounts[name]||0;
+        if(used>=wbLimit){wbBlocked=true;wbLock=` <span class="eq-lock">🔒 Limit ${wbLimit} (${used} in warband)</span>`;}
+      }
+      const cls=wbBlocked?'eq-limit-blocked':'';
+      html+=`<label class="eq-item ${cls}"><input type="checkbox" data-cost="${costVal}" data-cat="Unit Upgrades" data-name="${esc(name)}" data-note="${esc(note)}" ${wbBlocked?'disabled data-perm="1"':''} onchange="enforceEquipLimits();updateEditorCost()"><span class="eq-name">${esc(name)}</span><span class="eq-cost">${costStr}</span>${note?`<span class="eq-note">${esc(note)}</span>`:''}${wbLock}</label>`;
+    });
+    html+='</div></div>';
+  }
+  p.innerHTML=html;
+}
+function updateEditorCost(){
+  if(!currentUnit)return;
+  let eq=0;
+  document.querySelectorAll('#equip-picker input:checked').forEach(cb=>{
+    const cost=parseInt(cb.dataset.cost||0);
+    eq+=cost;
+    // Add cost again if ×2 is active for this item
+    const dualBtn=cb.closest('.eq-item')?.querySelector('.eq-dual-btn');
+    if(dualBtn&&dualBtn.classList.contains('active'))eq+=cost;
+  });
+  let gp=0;document.querySelectorAll('.gp-check:checked').forEach(cb=>gp+=parseInt(cb.dataset.cost||0));
+  let ap=0;document.querySelectorAll('.ap-check:checked').forEach(cb=>ap+=parseInt(cb.dataset.cost||0));
+  const t=(currentUnit.base_cost||0)+eq+gp+ap;
+  document.getElementById('ue-total-cost').textContent=currentUnit.isMerc?'':t;
+  const gl=document.getElementById('ue-glory-cost');
+  if(currentUnit.isMerc){gl.style.display='inline';gl.textContent=currentUnit.cost+'☼';document.querySelector('.cost-label').textContent=' Glory';}
+  else{gl.style.display='none';document.querySelector('.cost-label').textContent=' Ducats';}
+}
+
+// ═══ CONFIRM + ROSTER ═══
+function confirmUnit(){
+  const name=document.getElementById('ue-name-input').value||'',u=currentUnit;
+  const v=getVariant()||{};
+  const variantUpgradeNames=new Set(((v.variant_unit_upgrades||{})[u.type]||[]).map(x=>x[0]));
+
+  // Split equip into regular gear vs variant upgrades
+  let equip=[],variant_upgrades=[],eqCost=0;
+  document.querySelectorAll('#equip-picker input:checked').forEach(cb=>{
+    const itemName=cb.closest('.eq-item').querySelector('.eq-name').textContent;
+    const cost=parseInt(cb.dataset.cost||0);
+    const dualBtn=cb.closest('.eq-item')?.querySelector('.eq-dual-btn');
+    const isDual=dualBtn&&dualBtn.classList.contains('active');
+    eqCost+=cost;
+    if(isDual)eqCost+=cost;
+    if(cb.dataset.cat==='Unit Upgrades'&&variantUpgradeNames.has(itemName)){
+      variant_upgrades.push({name:itemName,note:cb.dataset.note||''});
+    } else {
+      equip.push(itemName);
+      if(isDual)equip.push(itemName); // push twice for ×2
+    }
+  });
+
+  // Goetic Powers
+  let powers=[...(u.gp_free||[])];
+  let gpCost=0;
+  document.querySelectorAll('.gp-check:checked').forEach(cb=>{
+    powers.push(cb.dataset.name);
+    gpCost+=parseInt(cb.dataset.cost||0);
+  });
+  let powerDescs=[];
+  powers.forEach(pName=>{
+    const freeP=(u.gp_free||[]).includes(pName);
+    let found=null;
+    for(const[sin,arr]of Object.entries(GOETIC_POWERS)){
+      const p=arr.find(x=>x.name===pName);
+      if(p){found=p;break;}
+    }
+    if(found) powerDescs.push({name:pName,desc:found.desc,free:freeP});
+    else powerDescs.push({name:pName,desc:'',free:freeP});
+  });
+
+  // Arcana Putrescere
+  let arcana=[];
+  let apCost=0;
+  document.querySelectorAll('.ap-check:checked').forEach(cb=>{
+    const p=ARCANA_POWERS.find(x=>x.name===cb.dataset.name);
+    apCost+=parseInt(cb.dataset.cost||0);
+    if(p) arcana.push({name:p.name,desc:p.description||'',type:p.type||'',cost:p.cost});
+  });
+
+  // Saint aura
+  let sinAura='';
+  if(u.type==='Desecrated Saint'&&selectedSin){sinAura=SAINT_AURAS[selectedSin]||'';}
+
+  const unit={name,type:u.type,base_cost:u.base_cost||0,equip_cost:eqCost+gpCost+apCost,total_cost:(u.base_cost||0)+eqCost+gpCost+apCost,equip,variant_upgrades,isElite:u.isElite,isMerc:u.isMerc||false,glory_cost:u.isMerc?u.cost:0,movement:u.movement,ranged:u.ranged,melee:u.melee,armour:u.armour,keywords:u.keywords||[],abilities:u.abilities||[],conditional_abilities:u.conditional_abilities||{},conditional_keywords:u.conditional_keywords||{},base_equipment:u._effectiveBaseEq||u.base_equipment||[],powers:powerDescs,arcana,sinAura,restrict_armour_purchase:u.restrict_armour_purchase||false};
+  if(editingIndex>=0)roster[editingIndex]=unit;else roster.push(unit);
+  renderRoster();showEmpty();
+}
+function renderRoster(){
+  const list=document.getElementById('roster-list'),empty=document.getElementById('roster-empty');
+  list.querySelectorAll('.r-section,.r-unit').forEach(e=>e.remove());
+  if(!roster.length){empty.style.display='block';updateTopBar();return;}
+  empty.style.display='none';
+  const add=(label,units,cls)=>{if(!units.length)return;const s=document.createElement('div');s.className='r-section '+(cls||'');s.textContent=label;list.appendChild(s);units.forEach(u=>list.appendChild(makeRI(u,roster.indexOf(u))));};
+  add('‡ Elites ‡',roster.filter(u=>u.isElite&&!u.isMerc));
+  add('† Troops †',roster.filter(u=>!u.isElite&&!u.isMerc));
+  add('☼ Mercenaries ☼',roster.filter(u=>u.isMerc),'glory-section');
+  updateTopBar();
+}
+function makeRI(u,idx){
+  const d=document.createElement('div');d.className='r-unit';
+  d.innerHTML=`<div class="r-mark ${u.isMerc?'glory-mark':''}">${u.isMerc?'☼':u.isElite?'‡':'†'}</div>
+    <div class="r-body"><div class="r-name">${u.name||'(Unnamed)'}</div><div class="r-type">${u.type}</div>
+    <div class="r-equip">${u.equip.length?u.equip.join(', '):(u.base_equipment.join(', ')||'—')}</div></div>
+    <div class="r-cost ${u.isMerc?'glory-cost':''}">${u.isMerc?u.glory_cost+'☼':u.total_cost+'D'}</div>
+    <button class="r-del" onclick="event.stopPropagation();roster.splice(${idx},1);renderRoster();showEmpty();">✕</button>`;
+  d.addEventListener('click',()=>editExisting(idx));return d;
+}
+function editExisting(idx){
+  editingIndex=idx;const u=roster[idx];
+  // Find original unit def to get gp_max/gp_free/ap_max
+  const f=FACTIONS[selectedFaction];
+  const allUnits=[...(f?.elites||[]),...(f?.troops||[]),...((getVariant()||{}).add_units||[])];
+  const origDef=allUnits.find(d=>d.type===u.type)||{};
+  currentUnit={type:u.type,base_cost:u.base_cost,movement:u.movement,ranged:u.ranged,melee:u.melee,armour:u.armour,keywords:u.keywords,abilities:u.abilities,conditional_abilities:origDef.conditional_abilities||{},conditional_keywords:origDef.conditional_keywords||{},conditional_restrict_items:origDef.conditional_restrict_items||{},base_equipment:u.base_equipment,base_size:origDef.base_size||u.base_size||'32mm',isElite:u.isElite,isMerc:u.isMerc,cost:u.glory_cost,min:0,max:99,gp_max:origDef.gp_max||0,gp_free:origDef.gp_free||[],ap_max:origDef.ap_max||0,restrict_armoury:origDef.restrict_armoury||false,unit_upgrades:origDef.unit_upgrades||[],restrict_armour_purchase:origDef.restrict_armour_purchase||false,restrict_ranged:origDef.restrict_ranged||false,restrict_grenades:origDef.restrict_grenades||false};
+  openEditor();document.getElementById('ue-name-input').value=u.name;
+  if(!u.isMerc){
+    // Restore equip — includes both gear and variant upgrades stored in equip
+    const allEquipNames=[...u.equip,...(u.variant_upgrades||[]).map(x=>x.name)];
+    document.querySelectorAll('#equip-picker input').forEach(cb=>{
+      cb.checked=allEquipNames.includes(cb.closest('.eq-item').querySelector('.eq-name').textContent);
+    });
+    enforceEquipLimits();
+    // Re-check Goetic Powers
+    const savedPowers=(u.powers||[]).map(p=>p.name);
+    document.querySelectorAll('.gp-check').forEach(cb=>{cb.checked=savedPowers.includes(cb.dataset.name);});
+    updateGoeticSlots();
+    // Re-check Arcana Powers
+    const savedArcana=(u.arcana||[]).map(p=>p.name);
+    document.querySelectorAll('.ap-check').forEach(cb=>{cb.checked=savedArcana.includes(cb.dataset.name);});
+    updateArcanaSlots();
+    updateEditorCost();
+  }
+  document.querySelectorAll('.r-unit').forEach(r=>r.classList.remove('selected'));
+  document.querySelectorAll('.r-unit')[idx]?.classList.add('selected');
+}
+function updateTopBar(){
+  const budget=parseInt(document.getElementById('d-budget').value)||700;
+  const gBudget=parseInt(document.getElementById('g-budget').value)||0;
+  const ducats=roster.filter(u=>!u.isMerc).reduce((s,u)=>s+u.total_cost,0);
+  const glory=roster.filter(u=>u.isMerc).reduce((s,u)=>s+u.glory_cost,0);
+  document.getElementById('d-spent').textContent=ducats;
+  document.getElementById('d-remain').textContent=budget-ducats;
+  document.getElementById('g-spent').textContent=glory;
+  document.getElementById('g-remain').textContent=gBudget>0?gBudget-glory:'—';
+  document.getElementById('d-models').textContent=roster.length;
+  document.getElementById('d-remain').parentElement.classList.toggle('warn',ducats>budget);
+  const gloryOver=gBudget>0&&glory>gBudget;
+  document.getElementById('g-spent').parentElement.classList.toggle('warn',gloryOver);
+  document.getElementById('g-remain').parentElement.classList.toggle('warn',gloryOver);
+}
+
+// ═══ CARD PREVIEW ═══
+function fmtDice(v){
+  if(!v||v==='-'||v==='0')return v;
+  const s=String(v).replace(/\s*DICE/i,'');
+  if(s.match(/^[+-]\d/))return s+'d';
+  return s;
+}
+function fmtEquipCard(name,escaped){
+  const raw=escaped?name.replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&#39;/g,"'").replace(/&quot;/g,'"'):name;
+  const gp=gearParse(raw);
+  if(gp){
+    let info='';
+    if(gp.cat==='weapon'){
+      const parts=[];
+      if(gp.range)parts.push(gp.range);
+      if(gp.diceMod!==0)parts.push((gp.diceMod>0?'+':'')+gp.diceMod+'d');
+      if(gp.injDiceStr)parts.push(gp.injDiceStr);
+      if(gp.injModStr)parts.push(gp.injModStr);
+      if(gp.keywords)parts.push(gp.keywords);
+      info=parts.join(', ');
+    } else {
+      // Armour/shield/equipment: keywords already includes injModStr — use directly
+      info=gp.keywords||'';
+    }
+    if(info)return`<div class="uc-gear"><b>${raw}</b> <i>${info}</i></div>`;
+  }
+  return`<div class="uc-gear"><b>${raw}</b></div>`;
+}
+// Parse a dice string like "+2 DICE", "+1d", "-1 DICE", "0" → number
+function parseDiceVal(v){
+  if(!v||v==='-'||v==='—')return 0;
+  const s=String(v).replace(/\s*DICE/i,'').replace(/d$/i,'');
+  const n=parseInt(s);return isNaN(n)?0:n;
+}
+// Calculate effective stats for stat boxes — reads from gear data
+function calcEffStats(unit){
+  const allEquip=[...(unit.base_equipment||[]),...(unit.equip||[])];
+  const baseR=parseDiceVal(unit.ranged),baseM=parseDiceVal(unit.melee);
+  let bestRangedMod=null,bestMeleeMod=null,armourMod=0;
+  allEquip.forEach(name=>{
+    const raw=name.replace(/&amp;/g,'&').replace(/&#39;/g,"'");
+    const w=gearParse(raw);
+    if(!w)return;
+    if(w.cat==='weapon'){
+      // Only count weapons with actual dice modifiers (not pure INJ dice weapons like Grand Cannon)
+      if(w.diceMod!==0){
+        if(w.isRanged||w.isDual){
+          if(bestRangedMod===null||w.diceMod>bestRangedMod)bestRangedMod=w.diceMod;
+        }
+        if(w.isMelee||w.isDual){
+          if(bestMeleeMod===null||w.diceMod>bestMeleeMod)bestMeleeMod=w.diceMod;
+        }
+      }
+    }
+    if(w.cat==='armour'||w.cat==='shield'){
+      armourMod+=w.injMod||0;
+    }
+  });
+  const effR=bestRangedMod!==null?baseR+bestRangedMod:null;
+  const effM=bestMeleeMod!==null?baseM+bestMeleeMod:null;
+  // Conditional base size — check if any conditional_keywords item changes base
+  let effBase=unit.base_size||'32mm';
+  const condKws=unit.conditional_keywords||{};
+  Object.entries(condKws).forEach(([item,kws])=>{
+    if(allEquip.includes(item)&&kws.includes('BULKY')){
+      // Machine Armour: base becomes 40mm unless already larger
+      const cur=parseInt(effBase)||32;
+      if(cur<40)effBase='40mm';
+    }
+  });
+  return{effR,effM,armourMod,effBase};
+}
+// Format stat box value — always show effective in parens when a weapon is equipped
+function fmtStatBox(label,baseVal,effVal){
+  const base=fmtDice(baseVal);
+  if(effVal===null||effVal===undefined)return`<div class="uc-st"><div class="sl">${label}</div><div class="sv">${base}</div></div>`;
+  const effStr=(effVal>=0?'+':'')+effVal+'d';
+  return`<div class="uc-st"><div class="sl">${label}</div><div class="sv">${base} <span class="se">(${effStr})</span></div></div>`;
+}
+function fmtArmourBox(baseVal,armourMod){
+  const base=String(baseVal||0);
+  if(armourMod===null||armourMod===undefined||armourMod===0)return`<div class="uc-st"><div class="sl">Armour</div><div class="sv">${base}</div></div>`;
+  const eff=(parseInt(base)||0)+armourMod;
+  return`<div class="uc-st"><div class="sl">Armour</div><div class="sv">${base} <span class="se">(${eff})</span></div></div>`;
+}
+// Build equipment section: weapon table + gear list — reads from gear data
+function buildEquipSection(allEquip,unit,doEsc){
+  const e=doEsc?esc:v=>v;
+  const weapons=[],gear=[];
+  allEquip.forEach(name=>{
+    const raw=name.replace(/&amp;/g,'&').replace(/&#39;/g,"'");
+    const w=gearParse(raw);
+    if(!w){gear.push(name);return;}
+    if(w.cat==='weapon'){
+      // Dice column: show dice modifier if non-zero, else show INJ dice if present, else —
+      const wd=w.diceMod;
+      let wdStr,kwDisplay=w.keywords;
+      if(wd!==0){
+        wdStr=(wd>=0?'+':'')+wd+'d';
+      } else if(w.injDice!==0){
+        // Injury dice shown in dice column as +Nd format
+        wdStr=(w.injDice>0?'+':'')+w.injDice+'d';
+        // Remove injDiceStr from keywords to avoid showing twice
+        kwDisplay=(w.keywords||'').replace(w.injDiceStr,'').replace(/^,\s*|,\s*$|,\s*,/g,',').replace(/^,|,$/,'').trim();
+      } else {
+        wdStr='—';
+      }
+      weapons.push({name:e(raw),hands:w.hands,range:w.range,effDice:wdStr,keywords:kwDisplay});
+    } else {
+      gear.push(name);
+    }
+  });
+  let html='';
+  if(weapons.length){
+    html+=`<table class="uc-wtbl"><tr><th>Weapon</th><th>Range</th><th>Dice</th><th>Keywords</th></tr>`;
+    weapons.forEach(w=>{
+      html+=`<tr><td>${w.name}</td><td>${w.range||'—'}</td><td class="wd">${w.effDice}</td><td class="wk">${w.keywords||'—'}</td></tr>`;
+    });
+    html+=`</table>`;
+  }
+  if(gear.length){
+    gear.forEach(name=>{
+      html+=fmtEquipCard(name,doEsc);
+    });
+  }
+  if(!weapons.length&&!gear.length)html='<div class="uc-gear"><i>None</i></div>';
+  return html;
+}
+function showPreview(){
+  if(!roster.length){alert('Add units first!');return;}
+  const fName=FACTIONS[selectedFaction]?.name||'';
+  const wbName=document.getElementById('wb-name-input').value||'Unnamed';
+  const xpBoxes='<div class="xb"></div>'.repeat(3)+'<div class="xb s"></div>';
+  const xpRow=xpBoxes.repeat(4);
+
+  document.getElementById('card-grid').innerHTML=roster.map(u=>{
+    const isElite=u.isElite&&!u.isMerc;
+    const isMerc=u.isMerc;
+    const cardClass=isElite||isMerc?'card-a6l':'card-a7';
+    const badge=isMerc?'☼ MERC':isElite?'‡ ELITE':'† TROOP';
+    const badgeCls=isElite||isMerc?'':'troop';
+
+    // Keywords — base + conditional (e.g. BULKY when Machine Armour equipped)
+    const allEquip=[...u.base_equipment,...u.equip];
+    const condKws=u.conditional_keywords||{};
+    const extraKws=[];
+    Object.entries(condKws).forEach(([item,kws])=>{if(allEquip.includes(item))extraKws.push(...kws);});
+    const kwHtml=[...u.keywords,...extraKws].map(k=>`<span class="kw">${k}</span>`).join('');
+
+    // Stats with effective modifiers
+    const eff=calcEffStats(u);
+    const baseChanged=eff.effBase&&eff.effBase!==(u.base_size||'32mm');
+    const statsHtml=fmtStatBox('Move',u.movement,null)+fmtStatBox('Ranged',u.ranged,eff.effR)+fmtStatBox('Melee',u.melee,eff.effM)+fmtArmourBox(u.armour,eff.armourMod)+fmtStatBox('Base',u.base_size||'32mm',baseChanged?eff.effBase:null);
+
+    // Equipment: weapon table + gear list
+    const equipHtml=buildEquipSection(allEquip,u,false);
+
+    // Abilities — base only + conditional (e.g. Machine Armour ability only when equipped)
+    const condAbs=u.conditional_abilities||{};
+    const activeAbs=[...u.abilities];
+    Object.entries(condAbs).forEach(([item,abs])=>{if(allEquip.includes(item))activeAbs.push(...abs);});
+    const abHtml=activeAbs.map(a=>{
+      const parts=a.match(/^([^:]+:)\s*(.*)/);
+      if(parts)return`<div class="uc-ab"><strong>${parts[1]}</strong> ${parts[2]}</div>`;
+      return`<div class="uc-ab">${a}</div>`;
+    }).join('');
+
+    // Goetic Powers
+    const pwHtml=(u.powers&&u.powers.length)?u.powers.map(p=>
+      `<div class="uc-pw"><strong>${p.name}</strong>${p.free?' <span class="ct">(free)</span>':` <span class="ct">(${typeof p.cost==='number'?p.cost+'D':p.cost})</span>`}${p.desc?' — '+p.desc:''}</div>`
+    ).join(''):'';
+
+    // Arcana Putrescere
+    const apHtml=(u.arcana&&u.arcana.length)?u.arcana.map(p=>
+      `<div class="uc-arcana uc-arcana-item"><strong>${p.name}</strong>${p.type?' <span class="ct">(${p.type})</span>':''}${p.desc?' — '+p.desc:''}</div>`
+    ).join(''):'';
+
+    // Variant upgrades
+    const vuHtml=(u.variant_upgrades&&u.variant_upgrades.length)?u.variant_upgrades.map(vu=>
+      `<div class="uc-ab"><strong>${vu.name}</strong>${vu.note?' — '+vu.note:''}</div>`
+    ).join(''):'';
+
+    // Aura
+    const auraHtml=u.sinAura?`<div class="uc-aura">✦ ${u.sinAura}</div>`:'';
+
+    // ═══ A6L: two-column elite card ═══
+    if(cardClass==='card-a6l'){
+      return`<div class="unit-card card-a6l">
+        <div class="uc-header"><div class="uc-name">${u.name?`<span class="uc-custom-name">${u.name}</span>`:''}${u.type}</div><div class="uc-hright"><div class="uc-badge ${badgeCls}">${badge}</div><div class="uc-cost-val">${isMerc?u.glory_cost+'☼':u.total_cost+'D'}</div></div></div>
+        <div class="uc-wbar"><span>${fName}</span><span>${wbName}</span></div>
+        <div class="uc-stats">${statsHtml}</div>
+        <div class="uc-body">
+          <div class="col-l">
+            <div class="uc-kw">${kwHtml}</div>
+            <div class="uc-sec">Equipment</div>
+            ${equipHtml}
+          </div>
+          <div class="col-div"></div>
+          <div class="col-r">
+            <div class="uc-sec">Abilities</div>
+            ${abHtml}
+            ${vuHtml?`<div class="uc-sec">Variant Upgrades</div>${vuHtml}`:''}
+            ${pwHtml?`<div class="uc-sec pwr">Goetic Powers</div>${pwHtml}`:''}
+            ${apHtml?`<div class="uc-sec" style="color:#7A3B1E;border-color:rgba(122,59,30,0.2);">Arcana Putrescere</div>${apHtml}`:''}
+            ${auraHtml}
+          </div>
+        </div>
+        <div class="uc-foot">
+          <div class="uc-xp"><span class="uc-xpl">Experience</span><div class="uc-xpb">${xpRow}</div></div>
+          <div class="uc-fr"><span class="uc-fl">Injuries</span><div class="uc-fline"></div><div class="uc-scars"><div class="uc-sc"></div><div class="uc-sc"></div><div class="uc-sc"></div></div></div>
+          <div class="uc-nl"></div><div class="uc-nl"></div>
+        </div>
+      </div>`;
+    }
+
+    // ═══ A7: single-column troop card ═══
+    return`<div class="unit-card card-a7">
+      <div class="uc-header"><div class="uc-name">${u.name?`<span class="uc-custom-name">${u.name}</span>`:''}${u.type}</div><div class="uc-hright"><div class="uc-badge troop">${badge}</div><div class="uc-cost-val">${u.total_cost}d</div></div></div>
+      <div class="uc-wbar"><span>${fName}</span><span>${wbName}</span></div>
+      <div class="uc-stats">${statsHtml}</div>
+      <div class="uc-body">
+        <div class="uc-kw">${kwHtml}</div>
+        <div class="uc-sec">Equipment</div>
+        ${equipHtml}
+        <div class="uc-sec">Abilities</div>
+        ${abHtml}
+        ${vuHtml?`<div class="uc-sec">Variant Upgrades</div>${vuHtml}`:''}
+        ${pwHtml?`<div class="uc-sec pwr">Goetic Powers</div>${pwHtml}`:''}
+        ${apHtml?`<div class="uc-sec" style="color:#7A3B1E;border-color:rgba(122,59,30,0.2);">Arcana Putrescere</div>${apHtml}`:''}
+        ${auraHtml}
+      </div>
+      <div class="uc-foot">
+        <div class="uc-fr"><span class="uc-fl">Kills</span><div class="uc-fline"></div></div>
+        <div class="uc-fr"><span class="uc-fl">Injuries</span><div class="uc-fline"></div></div>
+        <div class="uc-nl"></div><div class="uc-nl"></div><div class="uc-nl"></div>
+      </div>
+    </div>`;
+  }).join('');
+  showScreen('screen-preview');
+}
+
+function showMobileCards(){
+  if(!roster.length){alert('Add units first!');return;}
+  const fName=FACTIONS[selectedFaction]?.name||'';
+  const wbName=document.getElementById('wb-name-input').value||'Unnamed';
+  const xpBoxes='<div class="xb"></div>'.repeat(3)+'<div class="xb s"></div>';
+  const xpRow=xpBoxes.repeat(4);
+
+  document.getElementById('mobile-cards').innerHTML=roster.map(u=>{
+    const isElite=u.isElite&&!u.isMerc;
+    const isMerc=u.isMerc;
+    const badge=isMerc?'☼ MERC':isElite?'‡ ELITE':'† TROOP';
+
+    const allEquip=[...u.base_equipment,...u.equip];
+    const condKws=u.conditional_keywords||{};
+    const extraKws=[];
+    Object.entries(condKws).forEach(([item,kws])=>{if(allEquip.includes(item))extraKws.push(...kws);});
+    const kwHtml=[...u.keywords,...extraKws].map(k=>`<span class="kw">${esc(k)}</span>`).join('');
+
+    const eff=calcEffStats(u);
+    const baseChanged=eff.effBase&&eff.effBase!==(u.base_size||'32mm');
+    const statsHtml=fmtStatBox('Move',u.movement,null)+fmtStatBox('Ranged',u.ranged,eff.effR)+fmtStatBox('Melee',u.melee,eff.effM)+fmtArmourBox(u.armour,eff.armourMod)+fmtStatBox('Base',u.base_size||'32mm',baseChanged?eff.effBase:null);
+    const equipHtml=buildEquipSection(allEquip,u,true);
+
+    const condAbs=u.conditional_abilities||{};
+    const activeAbs=[...u.abilities];
+    Object.entries(condAbs).forEach(([item,abs])=>{if(allEquip.includes(item))activeAbs.push(...abs);});
+    const abHtml=activeAbs.map(a=>{
+      const parts=a.match(/^([^:]+:)\s*(.*)/);
+      if(parts)return`<div class="uc-ab"><strong>${esc(parts[1])}</strong> ${esc(parts[2])}</div>`;
+      return`<div class="uc-ab">${esc(a)}</div>`;
+    }).join('');
+
+    const pwHtml=(u.powers&&u.powers.length)?u.powers.map(p=>
+      `<div class="uc-pw"><strong>${esc(p.name)}</strong>${p.free?' <span class="ct">(free)</span>':` <span class="ct">(${typeof p.cost==='number'?p.cost+'D':esc(String(p.cost))})</span>`}${p.desc?' — '+esc(p.desc):''}</div>`
+    ).join(''):'';
+    const apHtml=(u.arcana&&u.arcana.length)?u.arcana.map(p=>
+      `<div class="uc-arcana uc-arcana-item"><strong>${esc(p.name)}</strong>${p.type?` <span class="ct">(${esc(p.type)})</span>`:''}${p.desc?' — '+esc(p.desc):''}</div>`
+    ).join(''):'';
+    const vuHtml=(u.variant_upgrades&&u.variant_upgrades.length)?u.variant_upgrades.map(vu=>
+      `<div class="uc-ab"><strong>${esc(vu.name)}</strong>${vu.note?' — '+esc(vu.note):''}</div>`
+    ).join(''):'';
+    const auraHtml=u.sinAura?`<div class="uc-aura">✦ ${esc(u.sinAura)}</div>`:'';
+
+    const footer=isElite?
+      `<div class="uc-foot"><div class="uc-xp"><span class="uc-xpl">Experience</span><div class="uc-xpb">${xpRow}</div></div><div class="uc-fr"><span class="uc-fl">Injuries</span><div class="uc-fline"></div><div class="uc-scars"><div class="uc-sc"></div><div class="uc-sc"></div><div class="uc-sc"></div></div></div><div class="uc-nl"></div><div class="uc-nl"></div></div>`:
+      `<div class="uc-foot"><div class="uc-fr"><span class="uc-fl">Kills</span><div class="uc-fline"></div></div><div class="uc-fr"><span class="uc-fl">Injuries</span><div class="uc-fline"></div></div><div class="uc-nl"></div><div class="uc-nl"></div><div class="uc-nl"></div></div>`;
+
+    return`<div class="mob-card">
+      <div class="uc-header"><div class="uc-name">${u.name?`<span class="uc-custom-name">${esc(u.name)}</span>`:''}${esc(u.type)}</div><div class="uc-hright"><div class="uc-badge">${badge}</div><div class="uc-cost-val">${isMerc?u.glory_cost+'☼':u.total_cost+'D'}</div></div></div>
+      <div class="uc-wbar"><span>${esc(fName)}</span><span>${esc(wbName)}</span></div>
+      <div class="uc-stats">${statsHtml}</div>
+      <div class="uc-body">
+        <div class="uc-kw">${kwHtml}</div>
+        <div class="uc-sec">Equipment</div>
+        ${equipHtml}
+        <div class="uc-sec">Abilities</div>
+        ${abHtml}
+        ${vuHtml?`<div class="uc-sec">Variant Upgrades</div>${vuHtml}`:''}
+        ${pwHtml?`<div class="uc-sec pwr">Goetic Powers</div>${pwHtml}`:''}
+        ${apHtml?`<div class="uc-sec" style="color:#7A3B1E;border-color:rgba(122,59,30,0.2);">Arcana Putrescere</div>${apHtml}`:''}
+        ${auraHtml}
+      </div>
+      ${footer}
+    </div>`;
+  }).join('');
+  showScreen('screen-mobile');
+}
+
+function showRoster(){
+  if(!roster.length){alert('Add units first!');return;}
+  const fName=FACTIONS[selectedFaction]?.name||'';
+  const wbName=document.getElementById('wb-name-input').value||'Unnamed';
+  const budget=parseInt(document.getElementById('d-budget').value)||700;
+  const gBudget=parseInt(document.getElementById('g-budget').value)||0;
+  const ducats=roster.filter(u=>!u.isMerc).reduce((s,u)=>s+u.total_cost,0);
+  const glory=roster.filter(u=>u.isMerc).reduce((s,u)=>s+u.glory_cost,0);
+  const varText=selectedSin?'Sin of '+selectedSin:(selectedVariant!=='standard'?(getVariant()||{}).name||'':'');
+  const xpRow='<div class="rp-xb"></div>'.repeat(3)+'<div class="rp-xb s"></div>';
+  const xpAll=xpRow.repeat(4);
+  const emptyRows=Array.from({length:10},(_,i)=>`<tr><td>${i+1}</td><td class="e"></td><td class="e"></td><td class="e"></td><td class="e"></td><td class="e"></td><td class="e"></td></tr>`).join('');
+  const elites=roster.filter(u=>u.isElite&&!u.isMerc);
+  const troops=roster.filter(u=>!u.isElite&&!u.isMerc);
+  const mercs=roster.filter(u=>u.isMerc);
+
+  // Table row helper
+  const trow=(u,cls)=>{
+    const allEq=[...u.base_equipment,...u.equip];
+    return`<tr class="${cls}"><td class="nm">${esc(u.name)||'(Unnamed)'}</td><td class="tp">${esc(u.type)}</td><td class="c">${u.movement}</td><td class="c">${fmtDice(u.ranged)}</td><td class="c">${fmtDice(u.melee)}</td><td class="c">${u.armour}</td><td>${allEq.map(e=>esc(e)).join(', ')||'—'}</td><td class="ct${u.isMerc?' gl':''}">${u.isMerc?u.glory_cost+'☼':u.total_cost+'D'}</td></tr>`;
+  };
+
+  // Unit detail block helper
+  const ublock=(u)=>{
+    const isE=u.isElite&&!u.isMerc;
+    const allEq=[...u.base_equipment,...u.equip];
+
+    // Conditional keywords
+    const condKws=u.conditional_keywords||{};
+    const extraKws=[];
+    Object.entries(condKws).forEach(([item,kws])=>{if(allEq.includes(item))extraKws.push(...kws);});
+    const allKws=[...u.keywords,...extraKws];
+
+    // Conditional abilities
+    const condAbs=u.conditional_abilities||{};
+    const activeAbs=[...u.abilities];
+    Object.entries(condAbs).forEach(([item,abs])=>{if(allEq.includes(item))activeAbs.push(...abs);});
+
+    const abHtml=activeAbs.map(a=>{const p=a.match(/^([^:]+:)\s*(.*)/);return p?`<div class="rp-ab"><strong>${esc(p[1])}</strong> ${esc(p[2])}</div>`:`<div class="rp-ab">${esc(a)}</div>`;}).join('');
+    const pwHtml=(u.powers||[]).map(p=>`<div class="rp-pw"><strong>${esc(p.name)}</strong>${p.free?' <span class="ct">(free)</span>':` <span class="ct">(${typeof p.cost==='number'?p.cost+'D':esc(String(p.cost))})</span>`}${p.desc?' — '+esc(p.desc):''}</div>`).join('');
+    const apHtml=(u.arcana||[]).map(p=>`<div class="rp-arcana"><strong>${esc(p.name)}</strong>${p.type?` <span class="ct">(${esc(p.type)})</span>`:''}${p.desc?' — '+esc(p.desc):''}</div>`).join('');
+    const vuHtml=(u.variant_upgrades||[]).map(vu=>`<div class="rp-ab"><strong>${esc(vu.name)}</strong>${vu.note?' — '+esc(vu.note):''}</div>`).join('');
+    const auraHtml=u.sinAura?`<div class="rp-aura">✦ ${esc(u.sinAura)}</div>`:'';
+    const campHtml=isE?`<div class="rp-camp"><span class="rp-cl">Exp</span><div class="rp-xpb">${xpAll}</div><span class="rp-cl">Kills</span><div class="rp-cvl"></div><span class="rp-cl">Injuries</span><div class="rp-cvl"></div><span class="rp-cl">Scars</span><div class="rp-cvl"></div></div>`
+      :`<div class="rp-camp"><span class="rp-cl">Kills</span><div class="rp-cvl"></div><span class="rp-cl">Injuries</span><div class="rp-cvl"></div></div>`;
+    return`<div class="rp-ub"><div class="rp-ubh"><div>${u.name?`<span class="uc">${esc(u.name)}</span>`:''}` +
+      `<span class="un">${esc(u.type)}</span></div><span class="ub${isE?'':' tr'}">${u.isMerc?'☼ MERC':isE?'‡ ELITE':'† TROOP'} · ${u.isMerc?u.glory_cost+'☼':u.total_cost+'D'}</span></div>` +
+      `<div class="rp-ubb"><div class="full rp-ust">${['Move','Ranged','Melee','Armour'].map((l,i)=>`<div class="rp-us"><div class="sl">${l}</div><div class="sv">${[u.movement,fmtDice(u.ranged),fmtDice(u.melee),u.armour][i]}</div></div>`).join('')}</div>` +
+      `<div class="full rp-kw">${allKws.map(k=>`<span>${esc(k)}</span>`).join('')}</div>` +
+      `<div><div class="rp-lbl">Equipment</div>${buildEquipSection(allEq,u,true)}</div>` +
+      `<div><div class="rp-lbl">Abilities</div>${abHtml}${vuHtml?`<div class="rp-lbl">Variant Upgrades</div>${vuHtml}`:''}${pwHtml?`<div class="rp-lbl pw">Goetic Powers</div>${pwHtml}`:''}${apHtml?`<div class="rp-lbl" style="color:#7A3B1E;">Arcana Putrescere</div>${apHtml}`:''}${auraHtml}</div>` +
+      `${campHtml}</div></div>`;
+  };
+
+  // Collect faction + variant special rules for the roster
+  const factionRules=FACTIONS[selectedFaction]?.special_rules||[];
+  const variantRules=(getVariant()||{}).add_rules||[];
+  const allSpecialRules=[...factionRules,...variantRules];
+
+  // Page 1: Overview
+  let page1=`<div class="roster-page"><div class="rp-header"><div><div class="rp-title">${esc(wbName)}</div><div class="rp-sub">Warband Roster</div></div><div class="rp-meta"><div class="rm-f">${esc(fName)}</div>${varText?`<div class="rm-v">${esc(varText)}</div>`:''}</div></div>` +
+    `<div class="rp-summary"><div class="rp-sc"><div class="sl">Spent</div><div class="sv" style="color:var(--gold)">${ducats}</div></div><div class="rp-sc"><div class="sl">Budget</div><div class="sv">${budget}</div></div><div class="rp-sc"><div class="sl">Remaining</div><div class="sv">${budget-ducats}</div></div><div class="rp-sc"><div class="sl">Glory</div><div class="sv" style="color:var(--glory)">${glory}</div></div><div class="rp-sc"><div class="sl">Models</div><div class="sv">${roster.length}</div></div><div class="rp-sc"><div class="sl">Games</div><div class="sv">—</div></div></div>`;
+  if(allSpecialRules.length){
+    // Format each rule: bold the part before the first colon
+    const ruleItems=allSpecialRules.map(r=>{
+      const colonIdx=r.indexOf(':');
+      if(colonIdx>0&&colonIdx<60){
+        const title=r.slice(0,colonIdx);
+        const body=r.slice(colonIdx+1).trim();
+        return`<div class="rp-sr-item"><b>${esc(title)}:</b> ${esc(body)}</div>`;
+      }
+      return`<div class="rp-sr-item">${esc(r)}</div>`;
+    }).join('');
+    page1+=`<div class="rp-sec rp-sr">Special Rules</div><div class="rp-sr-list">${ruleItems}</div>`;
+  }
+  page1+=`<div class="rp-sec">Warband Roster</div><table class="rp-tbl"><tr><th style="width:20%">Name</th><th style="width:16%">Type</th><th class="c" style="width:7%">Move</th><th class="c" style="width:7%">Rng</th><th class="c" style="width:7%">Mel</th><th class="c" style="width:7%">Arm</th><th style="width:26%">Equipment</th><th class="r" style="width:10%">Cost</th></tr>`;
+  if(elites.length){page1+=`<tr><td colspan="8" class="rp-tsec">‡ Elites</td></tr>`;elites.forEach(u=>page1+=trow(u,'er'));}
+  if(troops.length){page1+=`<tr><td colspan="8" class="rp-tsec">† Troops</td></tr>`;troops.forEach(u=>page1+=trow(u,''));}
+  if(mercs.length){page1+=`<tr><td colspan="8" class="rp-tsec gl">☼ Mercenaries</td></tr>`;mercs.forEach(u=>page1+=trow(u,'mr'));}
+  page1+=`</table>`;
+  page1+=`<div class="rp-sec">Campaign Battle Log</div><table class="rp-ctbl"><tr><th>#</th><th>Threshold</th><th>Strength</th><th>Opponent</th><th>Scenario</th><th>Result</th><th>Notes</th></tr>${emptyRows}</table>`;
+  page1+=`<div style="margin-top:3mm;"><div class="rp-sec">Warband Notes</div><div class="rp-nline"></div><div class="rp-nline"></div><div class="rp-nline"></div><div class="rp-nline"></div></div>`;
+  page1+=`<div class="rp-foot"><span>Warband Forge · v3.12</span><span>Trench Crusade © Factory Fortress</span></div></div>`;
+
+  // Page 2+: Unit Details
+  let page2=`<div class="roster-page"><div style="font-family:'IM Fell English SC',serif;font-size:4.5mm;color:var(--blood);border-bottom:0.5mm solid var(--blood);padding-bottom:1mm;margin-bottom:3mm;display:flex;justify-content:space-between;align-items:flex-end;"><span>Unit Details</span><span style="font-family:'Cinzel',serif;font-size:2.5mm;color:var(--gold);letter-spacing:0.1em;">${esc(wbName)} — ${esc(fName)}</span></div>`;
+  roster.forEach(u=>page2+=ublock(u));
+  page2+=`<div class="rp-foot"><span>Warband Forge · v3.12</span><span>Trench Crusade © Factory Fortress</span></div></div>`;
+
+  document.getElementById('roster-sheet').innerHTML=page1+page2;
+  showScreen('screen-roster');
+}
+
+async function downloadPDF(){
+  const wbName=document.getElementById('wb-name-input').value||'Unnamed Warband';
+  const fName=FACTIONS[selectedFaction]?.name||'Unknown';
+  const body=JSON.stringify({warband_name:wbName,faction_name:fName,units:roster.map(u=>({
+    type:u.type,name:u.name,base_cost:u.base_cost,movement:u.movement,ranged:u.ranged,
+    melee:u.melee,armour:u.armour,keywords:u.keywords,abilities:u.abilities,
+    base_equipment:u.base_equipment,equipment:u.equip.map(e=>[e,0]),
+    is_elite:u.isElite,powers:u.powers||[],sinAura:u.sinAura||'',
+  }))});
+  try{
+    const resp=await fetch('/api/pdf',{method:'POST',headers:{'Content-Type':'application/json'},body});
+    if(!resp.ok){alert('PDF generation failed');return;}
+    const blob=await resp.blob();
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');a.href=url;a.download=wbName.replace(/\s+/g,'_')+'_roster.pdf';
+    document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+    if(typeof umami!=='undefined'){
+      umami.track('PDF Exported', {faction: FACTIONS[selectedFaction]?.name||''});
+    }
+  }catch(e){console.error(e);alert('PDF generation failed: '+e.message);}
+}
+
+// ═══ IMPORT / EXPORT WARBAND JSON ═══
+function exportWarband(){
+  const wbName=document.getElementById('wb-name-input').value||'Unnamed Warband';
+  const fName=FACTIONS[selectedFaction]?.name||'';
+  const save={
+    _format:'warband-forge-v1',
+    _created:new Date().toISOString(),
+    _modified:new Date().toISOString(),
+    warband:{
+      name:wbName,
+      faction:selectedFaction,
+      variant:selectedVariant,
+      sin:selectedSin,
+      budget_ducats:parseInt(document.getElementById('d-budget').value)||700,
+      budget_glory:parseInt(document.getElementById('g-budget').value)||0,
+      notes:''
+    },
+    campaign:{games_played:0,wins:0,losses:0,glory_earned:0,glory_spent:0,ducats_earned:0,ducats_spent:0},
+    units:roster.map((u,i)=>({
+      id:'unit_'+String(i+1).padStart(3,'0'),
+      type:u.type,
+      name:u.name||'',
+      is_elite:u.isElite,
+      is_merc:u.isMerc||false,
+      base_cost:u.base_cost,
+      glory_cost:u.glory_cost||0,
+      equipment:u.equip.map(e=>({name:e,cost:0})),
+      goetic_powers:(u.powers||[]).filter(p=>!p.free).map(p=>({name:p.name,cost:typeof p.cost==='number'?p.cost:0})),
+      sin_aura:u.sinAura||'',
+      total_cost:u.total_cost,
+      campaign_data:null
+    }))
+  };
+  const blob=new Blob([JSON.stringify(save,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download=wbName.replace(/\s+/g,'_').replace(/[^a-zA-Z0-9_-]/g,'')+'.json';
+  document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+  // Track save event
+  if(typeof umami!=='undefined'){
+    umami.track('Warband Saved', {faction: fName, variant: selectedVariant||'standard'});
+  }
+}
+
+function importWarband(event){
+  const file=event.target.files[0];
+  if(!file)return;
+  // File size guard — max 1MB
+  if(file.size>1024*1024){alert('File too large (max 1MB).');event.target.value='';return;}
+  const reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      const raw=JSON.parse(e.target.result);
+      // Sanitize all imported data
+      const data=sanitizeImport(raw);
+      if(!FACTIONS[data.warband.faction]){
+        alert('Unknown faction: '+esc(data.warband.faction));return;
+      }
+      // Set faction/variant/sin state
+      selectedFaction=data.warband.faction;
+      selectedVariant=data.warband.variant||'standard';
+      selectedSin=data.warband.sin||null;
+      // Build roster from saved units
+      const f=FACTIONS[selectedFaction];
+      const allDefs=[...(f?.elites||[]),...(f?.troops||[])];
+      roster=data.units.map(u=>{
+        const def=allDefs.find(d=>d.type===u.type)||{};
+        return{
+          name:u.name||'',
+          type:u.type,
+          base_cost:u.base_cost||def.base_cost||0,
+          equip_cost:u.equipment?u.equipment.reduce((s,e)=>s+(e.cost||0),0):0,
+          total_cost:u.total_cost||u.base_cost||0,
+          equip:u.equipment?u.equipment.map(e=>e.name):[],
+          isElite:u.is_elite||false,
+          isMerc:u.is_merc||false,
+          glory_cost:u.glory_cost||0,
+          movement:def.movement||'6"',
+          ranged:def.ranged||'+0',
+          melee:def.melee||'+0',
+          armour:def.armour||'0',
+          keywords:def.keywords||[],
+          abilities:def.abilities||[],
+          base_equipment:def.base_equipment||[],
+          powers:(u.goetic_powers||[]).map(p=>({name:p.name,cost:p.cost,desc:'',free:false})),
+          sinAura:u.sin_aura||'',
+        };
+      });
+      // Set up the builder screen
+      document.getElementById('wb-faction-label').textContent=f.name;
+      const vl=document.getElementById('wb-variant-label');
+      let variantText='';
+      if(selectedVariant!=='standard'){const v=getVariant();if(v)variantText=v.name;}
+      if(selectedSin)variantText=(variantText?variantText+' · ':'')+'Sin of '+selectedSin;
+      if(variantText){vl.textContent=variantText;vl.style.display='block';}else{vl.style.display='none';}
+      document.getElementById('wb-name-input').value=data.warband.name||'';
+      document.getElementById('d-budget').value=data.warband.budget_ducats||700;
+      document.getElementById('g-budget').value=data.warband.budget_glory||0;
+      // Skip to builder
+      renderRoster();showEmpty();showScreen('screen-builder');
+    }catch(err){
+      console.error(err);alert('Error reading warband file: '+err.message);
+    }
+    // Discard file reference
+    event.target.value='';
+  };
+  reader.readAsText(file);
+}
+
+// ═══ SHARE ═══
+function shareClipboard(){
+  const url=window.location.href;
+  navigator.clipboard.writeText(url).then(()=>{
+    const btn=document.querySelector('.share-btn');
+    const orig=btn.textContent;btn.textContent='✓ Copied!';
+    setTimeout(()=>btn.textContent=orig,1500);
+  }).catch(()=>alert('Copy failed. URL: '+window.location.href));
+}
+
+function updateShareLinks(){
+  const url=encodeURIComponent(window.location.href);
+  const text=encodeURIComponent('Check out my warband on Warband Forge!');
+  document.getElementById('share-x').href=`https://x.com/intent/tweet?text=${text}&url=${url}`;
+  document.getElementById('share-reddit').href=`https://reddit.com/submit?url=${url}&title=${text}`;
+  document.getElementById('share-fb').href=`https://www.facebook.com/sharer/sharer.php?u=${url}`;
+}
+
+// ═══ INIT — load data from Flask API ═══
+updateShareLinks();
+loadData().then(()=>{console.log('Data loaded, ready.')}).catch(e=>{
+  console.warn('API not available, using empty data. Run app.py for full data.',e);
+});
+</script>
+
+<!-- PWA offline banner -->
+<div id="pwa-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#2A2318;border-top:1px solid #C9A84C;padding:10px 16px;display:none;align-items:center;justify-content:space-between;z-index:9999;font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.05em;color:#C9A84C;">
+  <span>✠ App ready for offline use. Add to Home Screen for the best experience.</span>
+  <button onclick="this.parentElement.style.display='none';localStorage.setItem('pwa-banner-dismissed','1')" style="background:none;border:1px solid #C9A84C;color:#C9A84C;font-family:'Cinzel',serif;font-size:0.65rem;padding:4px 10px;cursor:pointer;letter-spacing:0.05em;">Dismiss</button>
+</div>
+
+<script>
+// Register service worker and show offline banner on first install
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('/service_worker.js').then(reg=>{
+    reg.addEventListener('updatefound',()=>{
+      const sw=reg.installing;
+      sw.addEventListener('statechange',()=>{
+        if(sw.state==='activated'&&!navigator.serviceWorker.controller){
+          // First install — show banner if not previously dismissed
+          if(!localStorage.getItem('pwa-banner-dismissed')){
+            const banner=document.getElementById('pwa-banner');
+            if(banner)banner.style.display='flex';
+          }
+        }
+      });
+    });
+  }).catch(err=>console.warn('Service worker registration failed:',err));
+}
+</script>
+</body>
+</html>

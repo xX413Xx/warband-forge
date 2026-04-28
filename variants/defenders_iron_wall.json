@@ -1,0 +1,134 @@
+{
+  "name": "Defenders of the Iron Wall",
+  "parent_faction": "iron_sultanate",
+  "description": "Defensive specialists. Grand Cannons, elite Janissaries, marksmen from the Wall.",
+  "restrict_units": [
+    "Lion of Jabir",
+    "Yüzbaşı",
+    "Sultanate Assassin"
+  ],
+  "required_units_override": {
+    "remove_required": "Yüzbaşı",
+    "add_required": "Silahdar"
+  },
+  "limit_overrides": {
+    "Sultanate Sapper": "0-4",
+    "Janissary": "0-2"
+  },
+  "add_rules": [
+    "Far from the Sublime Gate: No Lions, Yüzbaşı, or Assassins. No Cloak of Alamut or Wind Amulet.",
+    "Grand Cannons: 0-2 Grand Cannons (60d each). Given to Brazen Bull or as gun battery.",
+    "Janissary Officers: Janissaries (max 2) gain ELITE for free.",
+    "Marksmanship of the Iron Wall: +2 DICE (instead of +1) for Elevated Position.",
+    "Sappers Corps: 0-4 Sappers (instead of 0-2).",
+    "Siege Jezzail Teams: +1 DICE for Siege Jezzail if friendly within 1\".",
+    "Silahdar: Leader uses Yüzbaşı profile but replaces Mubarizun with STRONG.",
+    "Sipahi: 0-2 Sipahi (Janissary profile, STRONG, can use Automaton Horse for deployment)."
+  ],
+  "add_units": [
+    {
+      "type": "Silahdar",
+      "limit": "1 (required)",
+      "base_cost": 70,
+      "movement": "6\"",
+      "ranged": "+2 DICE",
+      "melee": "+2 DICE",
+      "armour": "0",
+      "base_size": "32mm",
+      "keywords": [
+        "SULTANATE",
+        "ELITE",
+        "LEADER",
+        "NEGATE FEAR",
+        "STRONG",
+        "TOUGH"
+      ],
+      "abilities": [
+        "Uses Yüzbaşı profile. STRONG replaces Mubarizun.",
+        "Can have Alaybozan, Anqā Guard, and Explosive Charges from the Sapper armoury."
+      ],
+      "base_equipment": [],
+      "is_elite": true
+    },
+    {
+      "type": "Sipahi",
+      "limit": "0-2",
+      "base_cost": 55,
+      "movement": "6\"",
+      "ranged": "+1 DICE",
+      "melee": "+1 DICE",
+      "armour": "0",
+      "base_size": "32mm",
+      "keywords": [
+        "SULTANATE",
+        "STRONG"
+      ],
+      "abilities": [
+        "Automaton Horse: Can deploy as INFILTRATOR in scenarios allowing it."
+      ],
+      "base_equipment": [],
+      "is_elite": false
+    },
+    {
+      "type": "Grand Cannon Battery",
+      "limit": "0-2",
+      "base_cost": 60,
+      "movement": "—",
+      "ranged": "+0 DICE",
+      "melee": "—",
+      "armour": "—",
+      "base_size": "—",
+      "keywords": [
+        "SULTANATE",
+        "ARTILLERY"
+      ],
+      "abilities": [
+        "Stationary artillery piece. Cannot move. Not a model — cannot be targeted in melee.",
+        "Fires as per Grand Cannon rules. Requires crew (friendly model within 1\") to fire."
+      ],
+      "base_equipment": [
+        "Grand Cannon"
+      ],
+      "restrict_armoury": true,
+      "unit_upgrades": [],
+      "is_elite": false
+    }
+  ],
+  "add_armoury": {
+    "Equipment": [
+      [
+        "Anqā Guard",
+        15,
+        "Silahdar/Sapper only"
+      ],
+      [
+        "Explosive Charges",
+        10,
+        "Sapper only, Limit: 2"
+      ]
+    ],
+    "Ranged Weapons": [
+      [
+        "Grand Cannon",
+        60,
+        "Brazen Bull/battery, Limit: 2"
+      ],
+      [
+        "Alaybozan",
+        9,
+        "Silahdar/Sapper only, Shield Combo"
+      ]
+    ]
+  },
+  "remove_armoury": [
+    "Cloak of Alamut",
+    "Wind Amulet",
+    "Alaybozan"
+  ],
+  "cost_overrides": {},
+  "stat_overrides": {},
+  "ability_replacements": {},
+  "elite_overrides": [
+    "Janissary"
+  ]
+}

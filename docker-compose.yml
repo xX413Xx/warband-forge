@@ -1,0 +1,32 @@
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    restart: always
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: umami
+      POSTGRES_USER: umami
+      POSTGRES_PASSWORD: be3c6e1b2031281cf5fd98d574166b38
+    volumes:
+      - umami-db:/var/lib/postgresql/data
+
+  umami:
+    image: ghcr.io/umami-software/umami:postgresql-latest
+    ports:
+      - "3000:3000"
+    restart: always
+    environment:
+      DATABASE_URL: postgresql://umami:be3c6e1b2031281cf5fd98d574166b38@db:5432/umami
+      APP_SECRET: 1c8da0693d74351cb5d972c3ee021e00060eec4ae50e955e6699b203c475bdb6
+    depends_on:
+      - db
+
+volumes:
+  umami-db:

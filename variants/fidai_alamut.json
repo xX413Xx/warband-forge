@@ -1,0 +1,83 @@
+{
+  "name": "Fida'i of Alamut",
+  "parent_faction": "iron_sultanate",
+  "description": "Assassin cabal. No conventional troops — only assassins, dervishes, and acolytes.",
+  "restrict_units": [
+    "Yüzbaşı",
+    "Jabirean Alchemist",
+    "Janissary",
+    "Lion of Jabir",
+    "Brazen Bull"
+  ],
+  "required_units_override": {
+    "remove_required": "Yüzbaşı",
+    "add_required": "Master Assassin"
+  },
+  "limit_overrides": {
+    "Sultanate Assassin": "0-2"
+  },
+  "add_rules": [
+    "Alamut Alone: Cannot include Yüzbaşı, Alchemist, Janissaries, Lions, or Brazen Bulls.",
+    "Master Assassin: Must include 1 Master Assassin (uses Assassin profile +LEADER +TOUGH).",
+    "Art of Assassination: Each Assassin can buy 1 unique ability — Hallucinogen Disguise (20d), Mirage of Time (15d, -1 DICE to attacks targeting), Secret Paths (10d, delayed deploy), Thunderbolt (20d, +2\" movement).",
+    "Flock of Assassins: Can include 0-2 Sultanate Assassins.",
+    "Assassin Acolytes: Up to 3 Azebs gain INFILTRATOR for +10d each.",
+    "Dervishes: 0-4 Dervishes (Azeb profile but +1 DICE Melee, -1 DICE Ranged, NEGATE FEAR, 32mm base).",
+    "Killing Squad: 1 Fireteam of any 2 models."
+  ],
+  "add_armoury": {
+    "Equipment": [
+      [
+        "Hashishin Leaf",
+        5,
+        "Consumable, Limit: 2"
+      ]
+    ]
+  },
+  "add_units": [
+    {
+      "type": "Master Assassin",
+      "limit": "1 (required)",
+      "base_cost": 85,
+      "movement": "6\"",
+      "ranged": "+1 DICE",
+      "melee": "+2 DICE",
+      "armour": "0",
+      "base_size": "32mm",
+      "keywords": [
+        "SULTANATE",
+        "ELITE",
+        "INFILTRATOR",
+        "LEADER",
+        "TOUGH"
+      ],
+      "abilities": [
+        "Uses Sultanate Assassin profile with LEADER and TOUGH.",
+        "Art of Assassination: Can buy 1 unique ability."
+      ],
+      "base_equipment": []
+    },
+    {
+      "type": "Dervish",
+      "limit": "0-4",
+      "base_cost": 25,
+      "movement": "6\"",
+      "ranged": "-1 DICE",
+      "melee": "+0 DICE",
+      "armour": "0",
+      "base_size": "32mm",
+      "keywords": [
+        "SULTANATE",
+        "NEGATE FEAR"
+      ],
+      "abilities": [
+        "Whirling Dervish: Hypnotic dance — enemy within 1\" at start of their activation must pass Risky Success Roll or activation ends."
+      ],
+      "base_equipment": []
+    }
+  ],
+  "cost_overrides": {},
+  "stat_overrides": {},
+  "ability_replacements": {},
+  "remove_armoury": []
+}

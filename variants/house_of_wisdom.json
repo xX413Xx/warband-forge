@@ -1,0 +1,88 @@
+{
+  "name": "The House of Wisdom",
+  "parent_faction": "iron_sultanate",
+  "description": "Alchemist-heavy with custom Takwin creations and cross-faction armoury access.",
+  "restrict_units": [],
+  "required_units_override": {
+    "add_required": "Jabirean Alchemist"
+  },
+  "limit_overrides": {
+    "Jabirean Alchemist": "1-2 (required)"
+  },
+  "add_rules": [
+    "Alchemists: Must include 1-2 Jabirean Alchemists. Alchemist Armour Limit: 2.",
+    "Kavasses: Azebs become 'Kavasses' — cannot buy SKIRMISHER but can gain +1 DICE Melee for +5d.",
+    "Noble Guardians: Can include 0-2 Fāris (Janissary profile with ELITE keyword).",
+    "Weapon Collections: Can purchase 1 item from New Antioch Armoury and 1 from Trench Pilgrims Armoury.",
+    "Takwin Homunculus: Can include 0-2 custom 40d units. Buy abilities: Hypnotic Eyes (15d), Inhuman Strength (15d, +STRONG), Massive Size (30d, 50mm base, FEAR), Regenerative Tissue (25d, REGENERATE 1), Seal of Solomon (10d, +intelligence), Startling Speed (10d, +1 DICE Dash), Terrifying Appearance (10d, FEAR or +1 DICE), Two Heads (5d), Wings (30d, FLYING)."
+  ],
+  "add_units": [
+    {
+      "type": "Kavass",
+      "limit": "No limit",
+      "base_cost": 25,
+      "movement": "6\"",
+      "ranged": "+0 DICE",
+      "melee": "-1 DICE",
+      "armour": "0",
+      "base_size": "25mm",
+      "keywords": [
+        "SULTANATE"
+      ],
+      "abilities": [
+        "Can gain +1 DICE Melee for +5d."
+      ],
+      "base_equipment": []
+    },
+    {
+      "type": "Fāris",
+      "limit": "0-2",
+      "base_cost": 55,
+      "movement": "6\"",
+      "ranged": "+1 DICE",
+      "melee": "+1 DICE",
+      "armour": "0",
+      "base_size": "32mm",
+      "keywords": [
+        "SULTANATE",
+        "ELITE",
+        "STRONG"
+      ],
+      "abilities": [
+        "Noble Guardian: Uses Janissary profile with ELITE keyword."
+      ],
+      "base_equipment": []
+    },
+    {
+      "type": "Takwin Homunculus",
+      "limit": "0-2",
+      "base_cost": 40,
+      "movement": "6\"",
+      "ranged": "+0 DICE",
+      "melee": "+0 DICE",
+      "armour": "0",
+      "base_size": "32mm",
+      "keywords": [
+        "SULTANATE",
+        "ARTIFICIAL"
+      ],
+      "abilities": [
+        "Custom creation. Purchase formula abilities at recruitment."
+      ],
+      "base_equipment": []
+    }
+  ],
+  "add_armoury": {
+    "Equipment": [
+      [
+        "Elixir of Al-Khidr",
+        15,
+        "Consumable, Limit: 1"
+      ]
+    ]
+  },
+  "cost_overrides": {},
+  "stat_overrides": {},
+  "ability_replacements": {},
+  "remove_armoury": []
+}

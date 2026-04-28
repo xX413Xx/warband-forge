@@ -1,0 +1,219 @@
+{
+  "name": "The Great Hunger",
+  "parent_faction": "black_grail",
+  "description": "A festering subfaction of the Black Grail. Ravenous thralls, devouring spells, and two monstrous new leaders.",
+  "restrict_units": [
+    "Corpse Guard",
+    "Herald of Beelzebub",
+    "Amalgam"
+  ],
+  "restrict_mercenaries": false,
+  "limit_overrides": {
+    "Lord of Tumours": "0-1",
+    "Plague Knight": "0-2"
+  },
+  "add_rules": [
+    "Spawn of Gluttony: Must include 1 Matagot Hag OR 1 Lord of Tumours (not both). 0-2 Plague Knights. Cannot include Corpse Guard, Heralds of Beelzebub, or an Amalgam.",
+    "Arcana Putrescere: Matagot Hag can have up to 3 Arcana Putrescere Powers; Lord of Tumours can have 1; Gregori Gula can have 1. Powers are either Abilities (passive) or Spells (cost INFECTION MARKERS to cast, removed from models within 12\", friend or foe, non-ARTIFICIAL). A model cannot take more than 1 Cast Spell ACTION per Activation.",
+    "Butcher Knights: Plague Knights gain Ravenous Infection ACTION free. Plague Knight Ranks are replaced by: Butcher King (10D, +1 Glory if not OoA and took enemy OoA in melee), Knight Companion of the Feast (5D, +1 DICE to Ravenous Infection rolls for self or friendly within 3\"), Knight of Twin Cleavers (5D, IGNORE OFF-HAND + SHRAPNEL on all melee attacks).",
+    "Cradle of Filth: Grail/Fly Thralls become The Ravenous — Melee +0 DICE, melee attacks gain CRITICAL, gain Ravenous Infection ACTION, cost 35D. Can have Grasping Maw and Unending Starvation.",
+    "Cradle Thralls: 0-3 Cradle Thralls. Use The Ravenous entry but do not count toward Field Strength, have INFILTRATOR, cost 2 Glory (no ducats).",
+    "Desiccated Husks: 0-2. Use Corpse Guard entry but replace Bodyguard with +2 DICE Melee and CRITICAL on melee attacks.",
+    "Excruciating Hunger: Cannot have: Beelzebub's Axe, Black Grail Shields, Bolt-Action Rifles, Blunderbusses, Compound Eyes Helmets, Corruption Belchers, Gas Grenades, Infested Rifles, Machine Guns, Musical Instruments, Muskets, Pistols, Troop Standards, Viscera Cannons. Grail Hounds CAN have Grasping Maw.",
+    "Ravenous Infection ACTION: Plague Knights, Ravenous, and Cradle Thralls can take this action. Risky roll — on Success or Critical Success, place 1 INFECTION MARKER next to any model within 1\". Activation ends immediately regardless of result."
+  ],
+  "add_armoury": {
+    "Ranged Weapons": [
+      [
+        "Black Spot Rifle",
+        25,
+        "ELITE only, Bayonet Lug, Limit: 2"
+      ]
+    ],
+    "Melee Weapons": [
+      [
+        "Butcher Bayonet",
+        15,
+        "Shield Combo, Limit: 2"
+      ],
+      [
+        "Pestilent Fang",
+        15,
+        "Limit: 2"
+      ]
+    ],
+    "Equipment": [
+      [
+        "Devouring Jaws",
+        "2 Glory",
+        "Limit: 2"
+      ],
+      [
+        "Grasping Maw",
+        15,
+        ""
+      ],
+      [
+        "Unending Starvation",
+        5,
+        "Ravenous, Lord of Tumours & Plague Knights only"
+      ]
+    ]
+  },
+  "remove_armoury": [
+    "Beelzebub's Axe",
+    "Black Grail Shield",
+    "Blunderbuss",
+    "Compound Eyes Helmet",
+    "Corruption Belcher",
+    "Gas Grenades",
+    "Infested Rifle",
+    "Machine Gun",
+    "Musical Instrument",
+    "Musket",
+    "Pistol",
+    "Viscera Cannon"
+  ],
+  "cost_overrides": {},
+  "stat_overrides": {},
+  "ability_replacements": {},
+  "arcana_putrescere": [
+    {
+      "name": "Feral Hunger",
+      "cost": 20,
+      "type": "Ability",
+      "limit": 3,
+      "description": "When this model makes a charge move, count Movement as 12\". Do not roll D6 for Charge Bonus. If not targeting the closest enemy model, take a Risky roll first — Failure stops the charge."
+    },
+    {
+      "name": "Miasma of Pestilence",
+      "cost": 20,
+      "type": "Spell",
+      "spell_cost": 2,
+      "limit": 1,
+      "description": "Cast Spell ACTION. Pay 2 INFECTION MARKERS. Until end of Turn, add -1 DICE to Ranged Attacks targeting friendly models within 6\" of this model (including self)."
+    },
+    {
+      "name": "Mother's Call",
+      "cost": 10,
+      "type": "Spell",
+      "spell_cost": 1,
+      "limit": 1,
+      "who": "Matagot Hag only",
+      "description": "Cast Spell ACTION. Once per Turn, pay 1 INFECTION MARKER and command 1 Ravenous within 8\" to Feast (Ravenous Infection ACTION + extra marker on success), Fight (Melee Attack), or Move. Does not stop the Ravenous being Activated normally."
+    },
+    {
+      "name": "Rapturous Feast",
+      "cost": 15,
+      "type": "Ability",
+      "limit": 1,
+      "description": "Friendly models within 4\" of this model (including self) add INFECTION MARKERS to their melee attacks if they charged this Activation."
+    },
+    {
+      "name": "Vomitus",
+      "cost": 40,
+      "type": "Spell",
+      "spell_cost": "1-3",
+      "limit": 1,
+      "description": "Cast Spell ACTION. Pay 1-3 INFECTION MARKERS. Make a Ranged Attack without a Success Roll — draw an 8\" line from this model. Every model touched takes an Injury Roll with INFECTION MARKERS. +1 INJ MOD if 2 markers paid; +2 INJ MOD if 3 markers paid."
+    },
+    {
+      "name": "Vile Churning",
+      "cost": 20,
+      "type": "Spell",
+      "spell_cost": "1-2",
+      "limit": 2,
+      "description": "Cast Spell ACTION. Pay 1-2 INFECTION MARKERS. Place 1 BLOOD MARKER next to every model without ARTIFICIAL or DEMONIC Keywords within 1\" of this model (not self) for each marker paid."
+    },
+    {
+      "name": "Virulent Clot",
+      "cost": 30,
+      "type": "Spell",
+      "spell_cost": "2/4/6",
+      "limit": 1,
+      "description": "Cast before an Injury Roll is made for this model. Pay 2, 4, or 6 INFECTION MARKERS. Add -1 INJ MOD per 2 markers paid. This model has NEGATE FIRE for that roll."
+    }
+  ],
+  "add_units": [
+    {
+      "type": "Matagot Hag",
+      "limit": "0-1",
+      "base_cost": 135,
+      "movement": "6\"",
+      "ranged": "-",
+      "melee": "+3 DICE",
+      "armour": "0",
+      "base_size": "60mm",
+      "keywords": [
+        "BLACK GRAIL",
+        "ELITE",
+        "FEAR",
+        "LEADER",
+        "NEGATE GAS",
+        "TOUGH"
+      ],
+      "abilities": [
+        "Arcana Putrescere: Can have up to 3 Arcana Putrescere Powers.",
+        "Cadre of Flesh: If this model is hit by a Ranged or Melee Attack, a friendly Ravenous within 4\" can take the hit instead (not vs BLAST).",
+        "Frenzied Followers: Add +1 DICE to Risky Dash rolls for friendly models within 8\".",
+        "Pestilent: Can make a Melee Attack with INFECTION MARKERS and CRITICAL without a weapon. If any INFECTION MARKERS are placed on the target, place 1 extra.",
+        "Undead Fortitude: -1 INJURY DICE to Injury Rolls unless the attack has the FIRE Keyword."
+      ],
+      "base_equipment": [],
+      "battlekit_notes": "Can only have Devouring Jaws, Grasping Maw, and/or Grail Devotees.",
+      "is_elite": true,
+      "ap_max": 3
+    },
+    {
+      "type": "Gregori Gula",
+      "limit": "0-2",
+      "base_cost": 145,
+      "movement": "9\"",
+      "ranged": "-",
+      "melee": "+2 DICE",
+      "armour": "0",
+      "base_size": "60mm",
+      "keywords": [
+        "BLACK GRAIL",
+        "FEAR",
+        "FLYING",
+        "IGNORE OFF-HAND",
+        "INFILTRATOR",
+        "NEGATE GAS"
+      ],
+      "abilities": [
+        "Arcana Putrescere: Can have 1 Arcana Putrescere Power.",
+        "Dormant Hunger: Once per Turn, when this model would be taken Out of Action, it goes dormant instead — replace with a 60mm Marker (dangerous terrain, not a model). If a friendly Ravenous finishes a move within 1\" of the Marker, remove both the Marker and the Ravenous and set up this model (Down). The Ravenous is removed from the roster in the Trauma Step. Counts as OoA for Morale and end-of-battle Trauma.",
+        "Gnashing and Tearing: Can make 2 Melee Attacks without a weapon when taking a Fight ACTION (first with +1 INJ DICE, second with +1 INJ DICE and IGNORE OFF-HAND). A third attack (+1 INJ DICE) is made if this model charged this Activation.",
+        "Plague-Ridden Flesh: -2 INJURY DICE to Injury Rolls unless the attack has the FIRE Keyword."
+      ],
+      "base_equipment": [],
+      "battlekit_notes": "Can only have a Grasping Maw.",
+      "is_elite": true,
+      "ap_max": 3
+    },
+    {
+      "type": "Desiccated Husk",
+      "limit": "0-2",
+      "base_cost": 55,
+      "movement": "6\"",
+      "ranged": "+0 DICE",
+      "melee": "+3 DICE",
+      "armour": "0",
+      "base_size": "32mm",
+      "keywords": [
+        "BLACK GRAIL",
+        "ELITE",
+        "FEAR",
+        "NEGATE GAS"
+      ],
+      "abilities": [
+        "Corpse Guard profile with Bodyguard replaced: Melee +2 DICE bonus (reflected in stat above as +3 total) and melee attacks gain CRITICAL Keyword.",
+        "Parasite Host: Whenever a Melee Attack causes any BLOOD or INFECTION MARKERS on the target, remove up to 1 BLOOD or INFECTION MARKER from this model.",
+        "Undead Fortitude: -1 INJURY DICE to Injury Rolls unless the attack has the FIRE Keyword."
+      ],
+      "base_equipment": [],
+      "is_elite": true
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "name": "Cult of the Black Grail",
+  "side": "Fallen",
+  "starting_ducats": 700,
+  "special_rules": [
+    "INFECTION MARKERS: Some weapons cause Infection Markers instead of Blood Markers.",
+    "Morale: Opponent adds -1 DICE to all Morale Checks (unless Court or Black Grail).",
+    "Leader: Must include at least 1 Lord of Tumours or 1 Plague Knight.",
+    "If Lord of Tumours taken: up to 2 Plague Knights. If no Lord of Tumours: 1-3 Plague Knights."
+  ],
+  "elites": [
+    {"type":"Lord of Tumours","limit":"0-1","base_cost":130,"movement":"6\"","ranged":"+1 DICE","melee":"+4 DICE","armour":"0","base_size":"50mm","keywords":["BLACK GRAIL","ELITE","FEAR","LEADER","NEGATE GAS"],"abilities":["Beelzebub's Touch: Melee Attacks place Infection Markers instead of Blood Markers.","Crushing Blows: Can make Melee Attack without weapon with IGNORE ARMOUR.","Undead Fortitude: -1 INJURY DICE to Injury Rolls for this model."],"base_equipment":[]},
+    {"type":"Plague Knight","limit":"0-2","base_cost":60,"movement":"6\"","ranged":"+0 DICE","melee":"+2 DICE","armour":"0","base_size":"32mm","keywords":["BLACK GRAIL","ELITE","FEAR","NEGATE GAS","STRONG"],"abilities":["Undead Fortitude: -1 INJURY DICE to Injury Rolls for this model.","Plague Knight Ranks: Can purchase one rank — Plague Almoner (10d), Knight Companion (5d, +1 DICE R or M), Knight of the Rotten Cross (5d, Limit: 1, buy 1 weapon from NA or HL armoury)."],"base_equipment":[]},
+    {"type":"Corpse Guard","limit":"0-3","base_cost":55,"movement":"6\"","ranged":"+0 DICE","melee":"+1 DICE","armour":"0","base_size":"32mm","keywords":["BLACK GRAIL","ELITE","FEAR","NEGATE GAS"],"abilities":["Bodyguard: Take hit for friendly BLACK GRAIL within 1\" (not BLAST).","Undead Fortitude: -1 INJURY DICE to Injury Rolls for this model."],"base_equipment":[]}
+  ],
+  "troops": [
+    {"type":"Grail Thrall","limit":"No limit","base_cost":25,"movement":"5\"","ranged":"-","melee":"-1 DICE","armour":"0","base_size":"25mm","keywords":["BLACK GRAIL","FEAR"],"abilities":["Fly Thrall variant: 6\"/Flying instead of 5\"/Infantry. Same cost.","Shambling Horde: Expendable plague-ridden fodder."],"base_equipment":[],"battlekit_notes":"Cannot have any Battlekit."},
+    {"type":"Hound of the Black Grail","limit":"0-3","base_cost":55,"movement":"8\"","ranged":"-","melee":"+1 DICE","armour":"0","base_size":"30x60mm","keywords":["BLACK GRAIL","FEAR","NEGATE GAS"],"abilities":["Disease Carrier: Enemy activated within 1\" gains Infection Marker.","Frightening Speed: +1 DICE to Risky for Dash."],"base_equipment":[],"battlekit_notes":"Cannot have any Battlekit."},
+    {"type":"Herald of Beelzebub","limit":"0-4","base_cost":50,"movement":"10\"","ranged":"+0 DICE","melee":"+0 DICE","armour":"0","base_size":"40mm","keywords":["BLACK GRAIL","FEAR","FLYING","NEGATE GAS"],"abilities":["Infected Proboscis: Melee Attack with +1 INJURY MODIFIER, CRITICAL. Places Infection Markers.","Flying: Measures movement through the air."],"base_equipment":[],"battlekit_notes":"Can only have Ranged Weapons and Compound Eyes Helmet. No other Battlekit."},
+    {"type":"Amalgam","limit":"0-1","base_cost":140,"movement":"6\"","ranged":"+0 DICE","melee":"+0 DICE","armour":"0","base_size":"60mm","keywords":["BLACK GRAIL","FEAR","NEGATE GAS","STRONG","TOUGH"],"abilities":["Six-armed Monstrosity: Can take 1 Shoot and 1 Fight ACTION per activation with up to 3 weapons each.","Corpulent: -2 INJURY DICE for attacks with SHRAPNEL keyword.","Trample ACTION: Melee vs Downed with IGNORE ARMOUR.","Unstoppable: Enemies on 40mm or smaller cannot Block charge."],"base_equipment":[],"battlekit_notes":"Can carry up to 6 weapons. Cannot have same weapon more than twice. No Grenades. Can have Shield with Shield Combo. No other Battlekit."}
+  ],
+  "armoury": {
+    "Ranged Weapons": [
+      ["Blunderbuss",5,"Shield Combo"],
+      ["Corruption Belcher",30,"Limit: 2"],
+      ["Infested Rifle",15,"Bayonet Lug"],
+      ["Machine Gun",50,"Amalgam only, Limit: 1"],
+      ["Putrid Shotgun",20,"Bayonet Lug, Shield Combo, Limit: 2"],
+      ["Shotgun",10,"Bayonet Lug, Shield Combo"],
+      ["Viscera Cannon",50,"ELITE only, Limit: 2"]
+    ],
+    "Melee Weapons": [
+      ["Bayonet",2,"Shield Combo"],
+      ["Beelzebub's Axe",30,"ELITE only, Limit: 1"],
+      ["Flail/Scourge",5,""],
+      ["Great Hammer/Maul",10,""],
+      ["Great Sword/Axe",12,""],
+      ["Plague Blade",7,"ELITE only, Limit: 3"],
+      ["Polearm",7,"Shield Combo"],
+      ["Sword/Axe",4,""],
+      ["Trench Club",3,""],
+      ["Trench Knife",1,""]
+    ],
+    "Grenades": [
+      ["Frag Grenades",7,""],
+      ["Parasite Grenades",15,""]
+    ],
+    "Shields": [
+      ["Black Grail Shield",20,"ELITE only, Shield Combo"],
+      ["Trench Shield",10,"Shield Combo"]
+    ],
+    "Armour": [
+      ["Reinforced Armour",40,"ELITE only"],
+      ["Standard Armour",15,""]
+    ],
+    "Equipment": [
+      ["Combat Helmet",5,"Headgear"],
+      ["Compound Eyes Helmet",10,"ELITE/Herald only, Headgear, Limit: 3"],
+      ["Field Shrine","2 Glory",""],
+      ["Grail Devotee","2 Glory","ELITE only, Limit: 2"],
+      ["Musical Instrument",15,"Limit: 1"],
+      ["Troop Flag","1 Glory","Limit: 1"],
+      ["Unholy Trinket",15,"Consumable"]
+    ]
+  }
+}

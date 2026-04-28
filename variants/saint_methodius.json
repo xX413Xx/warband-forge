@@ -1,0 +1,135 @@
+{
+  "name": "War Pilgrimage of Saint Methodius",
+  "parent_faction": "trench_pilgrims",
+  "description": "Orthodox monks. Armed Anchorites, no Communicants, no Martyrdom Devices, no resurrection.",
+  "restrict_units": [
+    "Communicant"
+  ],
+  "restrict_mercenaries_specific": [
+    "Communicant Anti-Tank Hunter",
+    "Mendelist Ammo Monk"
+  ],
+  "limit_overrides": {
+    "Anchorite Shrine": "0-2",
+    "Stigmatic Nun": "0-3"
+  },
+  "add_rules": [
+    "Anchorite Armoury: Anchorite Shrines gain +0 DICE Ranged and can equip Anchorite Ranged Weapons + Anchorite Battlekit.",
+    "Anchorite Cloister: Up to 2 Anchorite Shrines.",
+    "Chaste Order: Stigmatic Nuns must have Standard Armour. Max 3 Nuns.",
+    "Communicant Heresy: Cannot include Communicants, Ammo Monks, or Anti-Tank Hunters.",
+    "Followers of Saint Methodius: Patron is always Learned Saint.",
+    "Mortal Sin: Ecclesiastic Prisoners cannot have Martyrdom Device. Cannot be Broken on the Wheel.",
+    "Treasure in Heaven: Trench Pilgrims cannot be resurrected as Martyr Penitents."
+  ],
+  "stat_overrides": {
+    "Anchorite Shrine": {
+      "ranged": "+0 DICE"
+    }
+  },
+  "add_armoury": {
+    "Anchorite Ranged Weapons": [
+      [
+        "Anti-Materiel Rifle",
+        40,
+        "Anchorite only"
+      ],
+      [
+        "Autocannon",
+        55,
+        "Anchorite only"
+      ],
+      [
+        "Gas Censer",
+        50,
+        "Anchorite only"
+      ],
+      [
+        "Heavy Flamethrower",
+        45,
+        "Anchorite only"
+      ],
+      [
+        "Punt Gun",
+        10,
+        "Anchorite only"
+      ],
+      [
+        "Trench Mortar",
+        40,
+        "Anchorite only"
+      ]
+    ],
+    "Anchorite Battlekit": [
+      [
+        "Gas Filters",
+        5,
+        "Anchorite only"
+      ],
+      [
+        "Grand Anchorite",
+        15,
+        "Anchorite only, Limit: 1"
+      ],
+      [
+        "Hallowed Anchorite",
+        10,
+        "Anchorite only, Limit: 1"
+      ],
+      [
+        "Holy Diesel Engine",
+        10,
+        "Anchorite only"
+      ],
+      [
+        "Piston Legs",
+        10,
+        "Anchorite only"
+      ],
+      [
+        "Sacred Geometry",
+        10,
+        "Anchorite only, Limit: 1"
+      ],
+      [
+        "Wrathful Cherub Face",
+        20,
+        "Anchorite only"
+      ]
+    ],
+    "Ranged Weapons": [
+      [
+        "Automatic Rifle",
+        40,
+        "Bayonet Lug, Limit: 1"
+      ],
+      [
+        "Machine Gun",
+        50,
+        "Limit: 1"
+      ],
+      [
+        "Submachine Gun",
+        30,
+        ""
+      ]
+    ]
+  },
+  "cost_overrides": {},
+  "ability_replacements": {},
+  "remove_armoury": [],
+  "unit_stat_overrides": {
+    "Anchorite Shrine": {
+      "ranged": "+0 DICE"
+    }
+  },
+  "restrict_unit_upgrades": {
+    "Ecclesiastic Prisoner": [
+      "Martyrdom Device"
+    ]
+  },
+  "restrict_mercenaries_list": [
+    "Mendelist Ammo Monk",
+    "Communicant Anti-Tank Hunter"
+  ]
+}

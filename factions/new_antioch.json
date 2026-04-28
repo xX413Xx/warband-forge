@@ -1,0 +1,431 @@
+{
+  "name": "The Principality of New Antioch",
+  "side": "Faithful",
+  "starting_ducats": 700,
+  "special_rules": [
+    "Fireteams: Up to 2 Fireteams of 2 models each, FIRETEAM keyword free.",
+    "Concentrated Attack: If Fireteam member hits target already hit by partner this activation, spend 3 Blood Markers to convert Injury Roll to Bloodbath."
+  ],
+  "elites": [
+    {
+      "type": "Lieutenant",
+      "limit": "1 (required)",
+      "base_cost": 70,
+      "movement": "6\"",
+      "ranged": "+2 DICE",
+      "melee": "+2 DICE",
+      "armour": "0",
+      "base_size": "32mm",
+      "keywords": [
+        "NEW ANTIOCH",
+        "ELITE",
+        "LEADER",
+        "TOUGH"
+      ],
+      "abilities": [
+        "Hold Your Fire! ACTION: Pick 1 enemy in LoS; opponent must Activate that model next."
+      ],
+      "base_equipment": []
+    },
+    {
+      "type": "Sniper Priest",
+      "limit": "0-2",
+      "base_cost": 50,
+      "movement": "6\"",
+      "ranged": "+2 DICE",
+      "melee": "-1 DICE",
+      "armour": "0",
+      "base_size": "25mm",
+      "keywords": [
+        "NEW ANTIOCH",
+        "ELITE"
+      ],
+      "abilities": [
+        "Absolute Faith: Opponent cannot spend Blood Markers for -DICE on this model's Ranged.",
+        "Aim ACTION: Risky +2 DICE. On success, +2 DICE to Ranged rest of Activation."
+      ],
+      "base_equipment": []
+    },
+    {
+      "type": "Trench Cleric",
+      "limit": "0-1",
+      "base_cost": 60,
+      "movement": "6\"",
+      "ranged": "+1 DICE",
+      "melee": "+1 DICE",
+      "armour": "0",
+      "base_size": "32mm",
+      "keywords": [
+        "NEW ANTIOCH",
+        "ELITE",
+        "NEGATE FEAR"
+      ],
+      "abilities": [
+        "God is With Us! ACTION: Risky — place 1 BLESSING MARKER on self or friendly within 6\".",
+        "Onward Christian Soldiers!: Friendly NEW ANTIOCH within 8\" have NEGATE FEAR."
+      ],
+      "base_equipment": []
+    }
+  ],
+  "troops": [
+    {
+      "type": "Yeoman",
+      "limit": "No limit",
+      "base_cost": 30,
+      "movement": "6\"",
+      "ranged": "+0 DICE",
+      "melee": "+0 DICE",
+      "armour": "0",
+      "base_size": "25mm",
+      "keywords": [
+        "NEW ANTIOCH"
+      ],
+      "abilities": [
+        "Bolt-Action Rifle for 5d (reduced cost).",
+        "Trench Moles: Up to 2 gain INFILTRATOR for +10d each (3rd at 1000d+ warband)."
+      ],
+      "base_equipment": [],
+      "unit_upgrades": [
+        [
+          "Trench Mole (INFILTRATOR)",
+          10,
+          "Warband limit: 2 (3 if warband ≥1000D)",
+          2
+        ]
+      ]
+    },
+    {
+      "type": "Shock Trooper",
+      "limit": "0-5",
+      "base_cost": 45,
+      "movement": "6\"",
+      "ranged": "+0 DICE",
+      "melee": "+1 DICE",
+      "armour": "0",
+      "base_size": "25mm",
+      "keywords": [
+        "NEW ANTIOCH"
+      ],
+      "abilities": [
+        "Assault Drill: Ignores HEAVY for 1 Melee Weapon.",
+        "Shock Charge: Roll extra D6 on Charge, pick highest."
+      ],
+      "base_equipment": []
+    },
+    {
+      "type": "Mechanized Heavy Infantry",
+      "limit": "0-3",
+      "base_cost": 85,
+      "movement": "6\"",
+      "ranged": "+1 DICE",
+      "melee": "+0 DICE",
+      "armour": "0",
+      "base_size": "40mm",
+      "keywords": [
+        "NEW ANTIOCH",
+        "STRONG"
+      ],
+      "abilities": [
+        "Armour included in base cost: Reinforced Armour (-2) at 85D, or upgrade to Machine Armour (-3) for +10D."
+      ],
+      "base_equipment": [
+        "Reinforced Armour"
+      ],
+      "battlekit_notes": "Armour included in base cost — cannot purchase additional Armour.",
+      "unit_upgrades": [
+        [
+          "Upgrade to Machine Armour",
+          10,
+          "Replaces Reinforced Armour. Bulky, Standfast, no Shield, D3\" Charge Bonus."
+        ]
+      ],
+      "restrict_armour_purchase": true,
+      "conditional_abilities": {
+        "Machine Armour": [
+          "Steadfast: When this model suffers a Down result on the Injury table, treat it as a Minor Hit instead.",
+          "Bulky: Base becomes 40mm. Cannot be equipped with a Trench Shield. Charge Bonus D3\" instead of D6\"."
+        ]
+      },
+      "conditional_keywords": {
+        "Machine Armour": [
+          "BULKY",
+          "STEADFAST"
+        ]
+      },
+      "conditional_restrict_items": {
+        "Machine Armour": [
+          "Trench Shield"
+        ]
+      }
+    },
+    {
+      "type": "Combat Engineer",
+      "limit": "0-2",
+      "base_cost": 80,
+      "movement": "6\"",
+      "ranged": "+0 DICE",
+      "melee": "+1 DICE",
+      "armour": "-2",
+      "base_size": "25mm",
+      "keywords": [
+        "NEW ANTIOCH",
+        "NEGATE MINED"
+      ],
+      "abilities": [
+        "Battlefield Demolition: Ignores HEAVY for 1 Satchel Charge.",
+        "Set Mine ACTION: Success +2 DICE — terrain gains MINED.",
+        "Defuse Mine: Risky — disarm MINED terrain.",
+        "Fortify ACTION: Risky — gain COVER until moves."
+      ],
+      "base_equipment": [
+        "Shovel",
+        "Engineer Body Armour (-2, NEGATE SHRAPNEL)"
+      ],
+      "battlekit_notes": "Cannot have other Armour."
+    },
+    {
+      "type": "Combat Medic",
+      "limit": "0-1",
+      "base_cost": 65,
+      "movement": "6\"",
+      "ranged": "+0 DICE",
+      "melee": "+0 DICE",
+      "armour": "-1",
+      "base_size": "25mm",
+      "keywords": [
+        "NEW ANTIOCH",
+        "NEGATE FEAR"
+      ],
+      "abilities": [
+        "Expert Medic: +2 DICE to Risky for Treat ACTION.",
+        "Finish the Fallen: +1 INJURY DICE vs Downed non-BLACK GRAIL/DEMONIC."
+      ],
+      "base_equipment": [
+        "Standard Armour",
+        "Gas Mask",
+        "Medi-kit",
+        "Misericordia"
+      ],
+      "battlekit_notes": "Cannot have other Armour."
+    }
+  ],
+  "armoury": {
+    "Ranged Weapons": [
+      [
+        "Automatic Pistol",
+        20,
+        "ELITE only, Limit: 3"
+      ],
+      [
+        "Automatic Rifle",
+        40,
+        "Bayonet Lug, Limit: 1"
+      ],
+      [
+        "Automatic Shotgun",
+        15,
+        "Bayonet Lug, Shield Combo, Limit: 2"
+      ],
+      [
+        "Bolt-Action Rifle",
+        10,
+        "Bayonet Lug"
+      ],
+      [
+        "Flamethrower",
+        30,
+        "Limit: 3"
+      ],
+      [
+        "Grenade Launcher",
+        30,
+        "Limit: 2"
+      ],
+      [
+        "Heavy Flamethrower",
+        55,
+        "Limit: 1"
+      ],
+      [
+        "Heavy Shotgun",
+        20,
+        "Shield Combo, Limit: 2"
+      ],
+      [
+        "Machine Gun",
+        50,
+        "Limit: 2"
+      ],
+      [
+        "Pistol",
+        6,
+        ""
+      ],
+      [
+        "Semi-Automatic Rifle",
+        15,
+        "Bayonet Lug"
+      ],
+      [
+        "Shotgun",
+        10,
+        "Bayonet Lug, Shield Combo"
+      ],
+      [
+        "Sniper Rifle",
+        35,
+        "Limit: 3"
+      ],
+      [
+        "Submachine Gun",
+        30,
+        "Bayonet Lug, Shield Combo, Limit: 2"
+      ]
+    ],
+    "Melee Weapons": [
+      [
+        "Bayonet",
+        2,
+        "Shield Combo"
+      ],
+      [
+        "Great Hammer/Maul",
+        10,
+        ""
+      ],
+      [
+        "Great Sword/Axe",
+        12,
+        ""
+      ],
+      [
+        "Misericordia",
+        15,
+        "Combat Medic only, Limit: 1"
+      ],
+      [
+        "Polearm",
+        7,
+        "Shield Combo"
+      ],
+      [
+        "Sword/Axe",
+        4,
+        ""
+      ],
+      [
+        "Trench Club",
+        3,
+        ""
+      ],
+      [
+        "Trench Knife",
+        1,
+        ""
+      ]
+    ],
+    "Grenades": [
+      [
+        "Frag Grenades",
+        7,
+        ""
+      ],
+      [
+        "Incendiary Grenades",
+        15,
+        "Limit: 2"
+      ],
+      [
+        "Satchel Charge",
+        15,
+        "Consumable, Limit: 3"
+      ]
+    ],
+    "Shields": [
+      [
+        "Heavy Ballistic Shield",
+        15,
+        "Machine Armour only, Shield Combo"
+      ],
+      [
+        "Trench Shield",
+        10,
+        "Shield Combo"
+      ]
+    ],
+    "Armour": [
+      [
+        "Engineer Body Armour",
+        45,
+        "Combat Engineer only"
+      ],
+      [
+        "Machine Armour",
+        50,
+        "ELITE/Mechanized Heavy Infantry only, Limit: 1"
+      ],
+      [
+        "Reinforced Armour",
+        40,
+        "ELITE/Mechanized Heavy Infantry only"
+      ],
+      [
+        "Standard Armour",
+        15,
+        ""
+      ]
+    ],
+    "Equipment": [
+      [
+        "Binoculars",
+        10,
+        "ELITE only"
+      ],
+      [
+        "Combat Helmet",
+        5,
+        "Headgear"
+      ],
+      [
+        "Field Shrine",
+        "2 Glory",
+        ""
+      ],
+      [
+        "Gas Mask",
+        5,
+        ""
+      ],
+      [
+        "Martyrdom Pills",
+        "1 Glory",
+        "Consumable, ELITE only, Limit: 2"
+      ],
+      [
+        "Medi-kit",
+        5,
+        ""
+      ],
+      [
+        "Mountaineer Kit",
+        3,
+        "Limit: 4"
+      ],
+      [
+        "Musical Instrument",
+        15,
+        "Limit: 1"
+      ],
+      [
+        "Shovel",
+        5,
+        ""
+      ],
+      [
+        "Troop Flag",
+        "1 Glory",
+        "Limit: 1"
+      ]
+    ]
+  }
+}

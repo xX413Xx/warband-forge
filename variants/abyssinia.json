@@ -1,0 +1,106 @@
+{
+  "name": "Expeditionary Forces of Abyssinia",
+  "parent_faction": "new_antioch",
+  "description": "Ethiopian warriors. Chewa elite, flanking specialists, short-range marksmen. No MHI.",
+  "restrict_units": [
+    "Sniper Priest"
+  ],
+  "limit_overrides": {
+    "Trench Cleric": "0-1",
+    "Combat Medic": "0-2"
+  },
+  "add_rules": [
+    "Abyssinian Healers: 0-2 Combat Medics. Misericordia has Limit: 2 instead of Limit: 1.",
+    "Chieftain Panoply: Mechanized Heavy Infantry cannot have Machine Armour.",
+    "Faith of Ethiopia: Cannot include Sniper Priests.",
+    "Holy Warriors: Use Trench Cleric profile for Holy Warriors. 0-1 Trench Cleric and 0-2 Holy Warriors. Holy Warriors gain Blessed Psalm ACTION + Arise and be Healed! ACTION.",
+    "Short-Range Marksmanship: +1 DICE to Ranged Attacks at Short Range for Lieutenant and Yeomen (not Grenades, not HEAVY weapons).",
+    "Vanguard Forces: Cannot include Trench Moles. Up to 4 Yeomen can have Flanking ability for +5D each (deploy from any battlefield edge, 8\" from enemies).",
+    "Warrior Nobles: Shock Troopers and ELITE models can have the Chewa ability for +5D each. Chewa: +1 DICE per friendly model within 1\" of target (max +2 DICE).",
+    "Weapons of Mobile Warfare: Warband can have max 3 Ranged Weapons with HEAVY keyword (Satchel Charges don't count)."
+  ],
+  "add_armoury": {
+    "Melee Weapons": [
+      [
+        "Shotel",
+        5,
+        "Chewa/ELITE only"
+      ]
+    ],
+    "Equipment": [
+      [
+        "Holy Water of Lalibela",
+        3,
+        "Consumable, Limit: 5"
+      ],
+      [
+        "Anfarro (Warriors Crown)",
+        10,
+        "Chewa/ELITE only, Headgear, Limit: 6"
+      ],
+      [
+        "Tabot",
+        "4 Glory",
+        "Holy Warrior only, Limit: 1"
+      ]
+    ]
+  },
+  "remove_armoury": [],
+  "cost_overrides": {},
+  "stat_overrides": {},
+  "ability_replacements": {},
+  "variant_unit_upgrades": {
+    "Yeoman": [
+      [
+        "Flanking",
+        5,
+        "Up to 4 Yeomen. Deploy from any edge, 8\" from enemies."
+      ]
+    ],
+    "Shock Trooper": [
+      [
+        "Chewa",
+        5,
+        "+1 DICE Melee per friendly adjacent target (max +2)"
+      ]
+    ],
+    "Lieutenant": [
+      [
+        "Chewa",
+        5,
+        "+1 DICE Melee per friendly adjacent target (max +2)"
+      ]
+    ],
+    "Trench Cleric": [
+      [
+        "Chewa",
+        5,
+        "+1 DICE Melee per friendly adjacent target (max +2)"
+      ]
+    ]
+  },
+  "add_units": [
+    {
+      "type": "Holy Warrior",
+      "limit": "0-2",
+      "base_cost": 60,
+      "movement": "6\"",
+      "ranged": "+1 DICE",
+      "melee": "+1 DICE",
+      "armour": "0",
+      "base_size": "32mm",
+      "keywords": [
+        "NEW ANTIOCH",
+        "ELITE",
+        "NEGATE FEAR"
+      ],
+      "abilities": [
+        "Uses Trench Cleric Warband Entry. All Trench Cleric rules apply.",
+        "Blessed Psalm ACTION: Remove 1 BLESSED MARKER from this model and place it beside a friendly model. No Success Roll required.",
+        "Arise and be Healed! ACTION: Risky roll. On Success or Critical Success, pick this model or a friendly within 3\" — it stands up for free and removes up to D3 BLOOD MARKERS and/or INFECTION MARKERS."
+      ],
+      "base_equipment": [],
+      "is_elite": true
+    }
+  ]
+}

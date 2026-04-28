@@ -1,0 +1,70 @@
+{
+  "name": "Éire Rangers",
+  "parent_faction": "new_antioch",
+  "description": "Irish guerrilla fighters. Fianna warriors, extra priests, limited heavy equipment.",
+  "restrict_units": [],
+  "restrict_upgrades": [],
+  "limit_overrides": {
+    "Mechanized Heavy Infantry": "0-1",
+    "Combat Engineer": "0-4",
+    "Trench Cleric": "0-2"
+  },
+  "add_rules": [
+    "Anointed Ammunition: Armour-Piercing Bullets available for 5D each (Limit: 2).",
+    "Berserker: Lieutenant or one Shock Trooper can become Berserker for +15D. Cannot have Armour (shields OK). NEGATE FEAR. Never gains BLOOD MARKERS.",
+    "Carnyx: One Musical Instrument gains FEAR keyword at no extra cost.",
+    "Fianna: Shock Troopers can gain INFILTRATOR and SKIRMISHER keywords for +10D each.",
+    "Followers of Saint Patrick: Patron is always a Learned Saint.",
+    "Hit & Run Tactics: -1 DICE to Melee Attacks targeting models retreating from combat.",
+    "Light Infantry: Max 1 MHI. Up to 4 Combat Engineers (Satchel Charges Limit: 4). Max 3 models with Great Sword/Axe (not MHI). Only MHI can have HEAVY Ranged/Melee weapons (except Great Sword/Axe). Only MHI can have Reinforced/Machine Armour.",
+    "Loose Formation: Lieutenant replaces Hold Your Fire! with SKIRMISHER keyword (no cost change).",
+    "Strong in Faith: 0-2 Trench Clerics. Clerics replace Onward Christian Soldiers with Arise and be Healed! ACTION + Away Serpents! ACTION."
+  ],
+  "add_armoury": {
+    "Equipment": [
+      [
+        "Armour-Piercing Bullets",
+        5,
+        "Limit: 2"
+      ]
+    ]
+  },
+  "ability_replacements": {
+    "Shock Trooper": {
+      "rename": "Fianna",
+      "add_keywords": [
+        "INFILTRATOR"
+      ]
+    },
+    "Lieutenant": {
+      "remove": "Hold Your Fire! ACTION",
+      "add": "Loose Formation: Friendly within 6\" gain +1 DICE to Risky for Dash."
+    }
+  },
+  "cost_overrides": {},
+  "stat_overrides": {},
+  "remove_armoury": [],
+  "variant_unit_upgrades": {
+    "Shock Trooper": [
+      [
+        "Fianna (INFILTRATOR + SKIRMISHER)",
+        10,
+        "Éire Rangers only"
+      ],
+      [
+        "Berserker",
+        15,
+        "Warband limit: 1. NEGATE FEAR. Ignore Blood Markers. Cannot wear Armour.",
+        1
+      ]
+    ],
+    "Lieutenant": [
+      [
+        "Berserker",
+        15,
+        "Warband limit: 1. NEGATE FEAR. Ignore Blood Markers. Cannot wear Armour.",
+        1
+      ]
+    ]
+  }
+}

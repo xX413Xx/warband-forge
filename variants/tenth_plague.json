@@ -1,0 +1,46 @@
+{
+  "name": "Cavalcade of the Tenth Plague",
+  "parent_faction": "trench_pilgrims",
+  "description": "Blood sacrifice zealots. Free Blessings each turn, Communicants cost Glory, reject resurrection.",
+  "restrict_units": [],
+  "limit_overrides": {
+    "Ecclesiastic Prisoner": "0-2"
+  },
+  "add_rules": [
+    "Blood of the Lamb: Castigators gain TOUGH keyword for free.",
+    "Day of His Wrath: War Prophet replaces Laying on of Hands with Day of His Wrath ACTION (Risky — Injury Roll IGNORE ARMOUR to enemy within 3\", Crit adds +1 INJURY DICE).",
+    "Favour of the Lord: Place 1 free BLESSING MARKER on any warband model at start of each Turn.",
+    "Heaven Awaits: Trench Pilgrims cannot be resurrected as Martyr Penitents.",
+    "Only the Righteous: Any PILGRIM model (except Ecclesiastic Prisoners) can have Sacrificial Lamb for 5D (Consumable). Includes Anchorite Shrines.",
+    "Stolen Communicants: Communicants cost 3 Glory (instead of 100D).",
+    "The Unclean: Can only include 0-2 Ecclesiastic Prisoners."
+  ],
+  "add_armoury": {
+    "Equipment": [
+      [
+        "Sacrificial Lamb",
+        5,
+        "PILGRIM only, not Prisoners"
+      ]
+    ]
+  },
+  "cost_overrides": {
+    "Communicant": 0
+  },
+  "stat_overrides": {},
+  "ability_replacements": {
+    "War Prophet": {
+      "remove": "Laying on of Hands ACTION",
+      "add": "Day of His Wrath ACTION: Risky — Injury Roll with IGNORE ARMOUR for 1 enemy within 3\". +1 INJURY DICE on Critical."
+    },
+    "Castigator": {
+      "add_keywords": [
+        "TOUGH"
+      ]
+    }
+  },
+  "remove_armoury": [],
+  "glory_cost_overrides": {
+    "Communicant": 3
+  }
+}

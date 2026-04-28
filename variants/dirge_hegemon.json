@@ -1,0 +1,71 @@
+{
+  "name": "Dirge of the Great Hegemon",
+  "parent_faction": "black_grail",
+  "description": "Fallen Hegemon's shattered legions. Bereaved thralls controlled by Plague Knights.",
+  "restrict_units": [
+    "Lord of Tumours"
+  ],
+  "restrict_mercenaries": true,
+  "required_units_override": {
+    "remove_required": "Lord of Tumours",
+    "add_required": "Executor"
+  },
+  "limit_overrides": {
+    "Corpse Guard": "0-2"
+  },
+  "add_rules": [
+    "The Executor: Must include 1 Executor (Plague Knight profile with LEADER, TOUGH). +10d for Broken Crown.",
+    "The Fallen: Cannot include Lord of Tumours.",
+    "The Lost: Max 0-2 Corpse Guards.",
+    "The Bereaved: Grail/Fly Thralls become 'Bereaved' — cannot activate normally. Controlled by Hegemon's Will.",
+    "Hegemon's Will: Plague Knights can issue commands (Charge/Fight/Move/Shoot) to Bereaved within 8\".",
+    "Dishonoured: Cannot have Mercenaries or any items costing Glory.",
+    "Hegemon's Last Blessing: Putrid Shotguns Limit: 3. Heavy Weapons lose Limit restrictions.",
+    "Locus of Despair: Executor's activation — all models within 8\" (friend and foe) take Risky Success Roll."
+  ],
+  "add_units": [
+    {
+      "type": "Executor",
+      "limit": "1 (required)",
+      "base_cost": 70,
+      "movement": "6\"",
+      "ranged": "+0 DICE",
+      "melee": "+2 DICE",
+      "armour": "0",
+      "base_size": "32mm",
+      "keywords": [
+        "BLACK GRAIL",
+        "ELITE",
+        "FEAR",
+        "LEADER",
+        "NEGATE GAS",
+        "STRONG",
+        "TOUGH"
+      ],
+      "abilities": [
+        "Plague Knight with LEADER and TOUGH.",
+        "Broken Crown: +10d. Locus of Despair aura.",
+        "Undead Fortitude: -1 INJURY DICE."
+      ],
+      "base_equipment": []
+    }
+  ],
+  "add_armoury": {
+    "Equipment": [
+      [
+        "Broken Crown",
+        10,
+        "Executor only"
+      ],
+      [
+        "Urn of the Bitter Ashes",
+        40,
+        "Executor only"
+      ]
+    ]
+  },
+  "cost_overrides": {},
+  "stat_overrides": {},
+  "ability_replacements": {},
+  "remove_armoury": []
+}

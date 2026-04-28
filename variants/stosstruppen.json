@@ -1,0 +1,54 @@
+{
+  "name": "Stosstruppen of the Free State of Prussia",
+  "parent_faction": "new_antioch",
+  "description": "Prussian assault specialists. 3 Fireteams, grenade masters, 2-8 Shock Troopers required.",
+  "restrict_units": [],
+  "restrict_upgrades": ["Trench Moles"],
+  "limit_overrides": {
+    "Shock Trooper": "2-8 (required)",
+    "Sniper Priest": "0-1",
+    "Mechanized Heavy Infantry": "0-1"
+  },
+  "add_rules": [
+    "Prussian Names: Lieutenant = Hauptmann, Trench Cleric = Feldkaplan, Shock Trooper = Stosstruppen. Treat as the same entries.",
+    "Expert Fireteams: Up to 3 Fireteams instead of 2.",
+    "Masters of the Grenade: +4\" Range to all Grenades.",
+    "Rapid Assault: +1 DICE to Risky Success Roll for Dash ACTION (purchasable upgrade).",
+    "Athleticism: Lieutenant (Hauptmann) and Shock Troopers can have Rapid Assault for +5D each.",
+    "Forward Positions: Up to 2 Shock Troopers can gain INFILTRATOR for +10D each.",
+    "Lightly-armoured: Only Lieutenant (Hauptmann) and Mechanized Heavy Infantry can have Reinforced Armour or Machine Armour.",
+    "Automatic Pistols are NOT ELITE-only in this warband (Limit: 3).",
+    "Troop Selection: Must include 2-8 Shock Troopers. No Trench Moles. Max 1 Sniper Priest, max 1 Mechanized Heavy Infantry."
+  ],
+  "add_armoury": {
+    "Melee Weapons": [
+      ["Tank-Splitter Sword", 15, "Limit: 2"]
+    ],
+    "Equipment": [
+      ["Holy Smoke", 15, "Consumable, Feldkaplan (Trench Cleric) only"]
+    ]
+  },
+  "remove_armoury": [
+    "Grenade Launcher",
+    "Martyrdom Pills"
+  ],
+  "cost_overrides": {
+    "Automatic Pistol": 20,
+    "Submachine Gun": 30
+  },
+  "stat_overrides": {},
+  "ability_replacements": {
+    "Shock Trooper": {
+      "remove": "Assault Drill"
+    }
+  },
+  "variant_unit_upgrades": {
+    "Shock Trooper": [
+      ["Rapid Assault", 5, "+1 DICE to Risky Dash"],
+      ["Forward Positions (INFILTRATOR)", 10, "Up to 2 Shock Troopers only"]
+    ],
+    "Lieutenant": [
+      ["Rapid Assault", 5, "+1 DICE to Risky Dash"]
+    ]
+  }
+}

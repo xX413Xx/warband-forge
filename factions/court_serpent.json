@@ -1,0 +1,266 @@
+{
+  "name": "Court of the Seven-Headed Serpent",
+  "side": "Fallen",
+  "starting_ducats": 700,
+
+  "special_rules": [
+    "Seven Deadly Sins: Before recruiting, choose a Sin: Wrath, Envy, Lust, Pride, Sloth, Gluttony, or Greed. This determines available Goetic Powers and Desecrated Saint aura.",
+    "Goetic Powers: ELITE models can have Goetic Powers (number per Warband Entry). Powers are Abilities (passive) or Spells (cast by spending Blood Markers from any non-BLACK GRAIL/DEMONIC model on battlefield).",
+    "Cast Spell ACTION: Can use multiple times per activation, but cannot cast same spell twice. Cost paid in Blood Markers.",
+    "Leader: Must include either a Praetor or a Sorcerer (can have both).",
+    "Wretched Limit: Number of Wretched must be less than models with DEMONIC keyword."
+  ],
+
+  "sin_selection": {
+    "description": "Choose one Sin for the warband. This unlocks Sin-specific Goetic Powers and determines the Desecrated Saint's aura.",
+    "sins": ["Wrath", "Envy", "Lust", "Pride", "Sloth", "Gluttony", "Greed"]
+  },
+
+  "elites": [
+    {
+      "type": "Praetor",
+      "limit": "0-1",
+      "base_cost": 115,
+      "movement": "8\"",
+      "ranged": "+3 DICE",
+      "melee": "+3 DICE",
+      "armour": "0",
+      "base_size": "50mm",
+      "keywords": ["THE COURT", "DEMONIC", "ELITE", "FEAR", "FLYING", "LEADER", "STRONG", "TOUGH"],
+      "abilities": [
+        "Must include Praetor OR Sorcerer (can have both)."
+      ],
+      "goetic_powers_max": 2,
+      "base_equipment": []
+    },
+    {
+      "type": "Sorcerer",
+      "limit": "0-1",
+      "base_cost": 75,
+      "movement": "6\"",
+      "ranged": "+1 DICE",
+      "melee": "+1 DICE",
+      "armour": "0",
+      "base_size": "50mm",
+      "keywords": ["THE COURT", "DEMONIC", "ELITE", "FEAR", "FLYING"],
+      "abilities": [
+        "Can be leader if no Praetor.",
+        "Blessing of the Serpent Moon: Free built-in spell (Cost 2/4/6). Before Injury Roll on self, add -1 INJURY MODIFIER per 2 Blood Markers paid."
+      ],
+      "goetic_powers_max": 3,
+      "goetic_powers_free": ["Blessing of the Serpent Moon"],
+      "base_equipment": [],
+      "battlekit_notes": "Cannot have Ranged Weapons or Grenades."
+    },
+    {
+      "type": "Hunter of the Left-Hand Path",
+      "limit": "0-1",
+      "base_cost": 110,
+      "movement": "6\"",
+      "ranged": "+2 DICE",
+      "melee": "+1 DICE",
+      "armour": "0",
+      "base_size": "32mm",
+      "keywords": ["THE COURT", "DEMONIC", "ELITE", "INFILTRATOR"],
+      "abilities": [
+        "Bow of Lethe: 1-Handed, 24\", ASSAULT. Before Injury Roll choose +2 INJURY DICE or IGNORE ARMOUR.",
+        "Left-Hand Path: Free spell (Cost 2). Teleport to another terrain piece during move/charge.",
+        "Oracle Beast Cloak: Free spell (Cost 3, 1/Turn). Change Injury Roll result to No Effect.",
+        "Shadow-walker: Free spell (Cost 2). Retreat without enemy Melee Attacks."
+      ],
+      "goetic_powers_max": 0,
+      "goetic_powers_free": ["Left-Hand Path", "Oracle Beast Cloak", "Shadow-walker"],
+      "base_equipment": ["Bow of Lethe (1-H, 24\", ASSAULT)"],
+      "battlekit_notes": "Must always hold Bow. Cannot have 2-Handed Weapons."
+    },
+    {
+      "type": "Hell Knight",
+      "limit": "0-3",
+      "base_cost": 100,
+      "movement": "6\"",
+      "ranged": "+0 DICE",
+      "melee": "+2 DICE",
+      "armour": "-2",
+      "base_size": "40mm",
+      "keywords": ["THE COURT", "DEMONIC", "ELITE", "STRONG"],
+      "abilities": [
+        "Blood Magic: Free built-in spell (Cost 1). Before Injury Rolls, add +1 INJURY DICE to all rolls for the attack."
+      ],
+      "goetic_powers_max": 2,
+      "goetic_powers_free": ["Blood Magic"],
+      "base_equipment": ["Infernal Iron Armour (-2, IMPERVIOUS)"],
+      "battlekit_notes": "Cannot have other Armour."
+    }
+  ],
+
+  "troops": [
+    {
+      "type": "Wretched",
+      "limit": "No limit",
+      "base_cost": 20,
+      "movement": "6\"",
+      "ranged": "-1 DICE",
+      "melee": "-1 DICE",
+      "armour": "0",
+      "base_size": "25mm",
+      "keywords": ["THE COURT"],
+      "abilities": [
+        "Law of Hell: If kills enemy ELITE, Wretched is freed and removed from game/roster."
+      ],
+      "base_equipment": [],
+      "battlekit_notes": "Can only have Battlekit costing up to 10d. Must have at least 1 Weapon. Count must be less than DEMONIC models."
+    },
+    {
+      "type": "Pit Locust",
+      "limit": "0-3",
+      "base_cost": 90,
+      "movement": "8\"",
+      "ranged": "+0 DICE",
+      "melee": "+2 DICE",
+      "armour": "-2",
+      "base_size": "30x60mm",
+      "keywords": ["THE COURT", "DEMONIC", "FEAR", "FLYING"],
+      "abilities": [
+        "Poison Stingers: Melee Attack with CLEAVE 2 and SHRAPNEL keywords.",
+        "Pit Locusts cannot retreat from melee."
+      ],
+      "base_equipment": [],
+      "battlekit_notes": "Can only have Crown of Hellfire. No other Battlekit."
+    },
+    {
+      "type": "Yoke Fiend",
+      "limit": "No limit",
+      "base_cost": 30,
+      "movement": "6\"",
+      "ranged": "+0 DICE",
+      "melee": "+1 DICE",
+      "armour": "0",
+      "base_size": "32mm",
+      "keywords": ["THE COURT", "DEMONIC"],
+      "abilities": [
+        "Hateful: Must charge nearest visible non-DEMONIC/BLACK GRAIL enemy within 12\" if more than 1\" away. Negated by Restraining Muzzle.",
+        "Torturer: Melee Attacks can target friendly Wretched within 1\" to generate Blood Markers for spellcasting."
+      ],
+      "base_equipment": [],
+      "battlekit_notes": "Can have 1 Ranged Weapon costing 30d or less. Can have other Battlekit except additional Ranged Weapons."
+    },
+    {
+      "type": "Desecrated Saint",
+      "limit": "0-1",
+      "base_cost": 140,
+      "movement": "6\"",
+      "ranged": "-",
+      "melee": "+3 DICE",
+      "armour": "-3",
+      "base_size": "60mm",
+      "keywords": ["THE COURT", "DEMONIC", "FEAR", "IGNORE OFF-HAND", "STRONG", "TOUGH"],
+      "abilities": [
+        "Annihilator: Can take 1 Fight ACTION per activation. Each Fight ACTION attacks with CLEAVE 3.",
+        "Demonic Aura: Has one aura based on warband's Sin (see sin_auras below)."
+      ],
+      "base_equipment": [],
+      "battlekit_notes": "Can have up to 3 Weapons (all count as 1-Handed). Cannot have any other Battlekit."
+    }
+  ],
+
+  "desecrated_saint_auras": {
+    "Wrath": "Aura of Wrath: +1 DICE to Melee Attacks made by friendly THE COURT models within 6\".",
+    "Envy": "Aura of Envy: Enemy models within 12\" cannot use Keywords or special rules (except DEMONIC, BLACK GRAIL, movement, and Morale). Choose to negate.",
+    "Lust": "Aura of Lust: Enemy within 4\" at start of their activation must pass Risky Roll or activation ends immediately.",
+    "Pride": "Aura of Pride: Place 1 Blood Marker next to each enemy model within 6\" that is activated while within range.",
+    "Sloth": "Aura of Sloth: Enemy within 8\" treat all terrain as DIFFICULT TERRAIN.",
+    "Gluttony": "Aura of Gluttony: -1 DICE to enemy Ranged Attacks targeting friendly models within 6\" of Desecrated Saint.",
+    "Greed": "Aura of Greed: Enemy within 12\" must pass Risky Roll before retreating or retreat fails."
+  },
+
+  "goetic_powers": {
+    "Universal": [
+      {"name": "Burning Inferno", "cost": 15, "type": "Spell (Cost 1-3)", "restriction": "Sorcerers only", "effect": "Cast Spell ACTION. Ranged Attack 36\", BLAST X\" (X = Blood Markers paid), FIRE, SCATTER. IGNORE ARMOUR on direct hit."},
+      {"name": "Slavemaster", "cost": 10, "type": "Spell (Cost 1)", "restriction": "ELITE only", "effect": "Cast during Yoke Fiend activation within 18\". Issue commands: Charge, Fight, Move, Shoot, Sacrifice."}
+    ],
+    "Wrath": [
+      {"name": "Blind Rage", "cost": 10, "type": "Ability", "restriction": "ELITE only, Limit: 3", "effect": "+1 DICE to Risky for Dash."},
+      {"name": "Charge of Hatred", "cost": 10, "type": "Ability", "restriction": "ELITE only, Limit: 3", "effect": "Charge ignores terrain penalties. Must charge in straight line."},
+      {"name": "Lesser Mark of Cain", "cost": "20 Glory", "type": "Ability", "restriction": "ELITE only, Limit: 1", "effect": "Model has IGNORE ARMOUR for Melee Attacks."}
+    ],
+    "Envy": [
+      {"name": "Coveted Position", "cost": 10, "type": "Spell (Cost 2)", "restriction": "Praetors/Sorcerers only", "effect": "Cast Spell ACTION. Swap positions with model within 12\" in LoS and 1\"+ from others."},
+      {"name": "Envious Eyes", "cost": 5, "type": "Ability", "restriction": "Praetors/Sorcerers only", "effect": "At start of game, pick 1 enemy model. +1 DICE to attacks targeting that model."},
+      {"name": "What is Yours is Mine", "cost": 10, "type": "Spell (Cost 1)", "restriction": "ELITE only", "effect": "Transfer 1 Blessing Marker from any model to spellcaster or friendly within 6\"."}
+    ],
+    "Lust": [
+      {"name": "Call of the Flesh", "cost": 15, "type": "Spell (Cost 2)", "restriction": "Praetors/Sorcerers only", "effect": "Cast Spell ACTION. Next enemy activated must move toward spellcaster instead of normal actions."},
+      {"name": "Exquisite Pain", "cost": 15, "type": "Spell (Cost 1-2)", "restriction": "ELITE only", "effect": "Place Blood Markers paid onto target model in LoS (friend or foe)."},
+      {"name": "Forbidden Pleasures", "cost": 10, "type": "Ability", "restriction": "Praetors/Sorcerers only", "effect": "Per model with this ability, pick 1 non-DEMONIC friendly. That model has -1 DICE to Morale Checks but +1 DICE to all other rolls."}
+    ],
+    "Pride": [
+      {"name": "Light of Samael", "cost": 15, "type": "Spell (Cost 2)", "restriction": "Praetors/Sorcerers only", "effect": "Cast Spell ACTION. Injury Roll on enemy within 24\" in LoS. +2 INJURY DICE if on base larger than 32mm."},
+      {"name": "Proud Defiance", "cost": 15, "type": "Ability", "restriction": "ELITE only", "effect": "No Morale Checks if warband has 1+ model with this ability."},
+      {"name": "Too Proud to Fall", "cost": 10, "type": "Spell (Cost 2)", "restriction": "Praetors/Sorcerers only", "effect": "Cast when spellcaster goes Down. Ignore Down result, remain standing (still takes Blood Markers)."}
+    ],
+    "Sloth": [
+      {"name": "Charm of Acedia", "cost": 15, "type": "Spell (Cost 1)", "restriction": "ELITE only", "effect": "Cast Spell ACTION. Pick enemy within 12\" in LoS. Enemy cannot take Dash, Charge, or Retreat until next activation."},
+      {"name": "Daemonium Meridianum", "cost": 20, "type": "Ability", "restriction": "ELITE only, Limit: 1", "effect": "8\" aura around this model counts as DIFFICULT TERRAIN for enemies."},
+      {"name": "Morphean Mind", "cost": 15, "type": "Ability", "restriction": "ELITE only, Limit: 2", "effect": "Opponent cannot spend more than 1 Blood Marker for -DICE on this model's Success Rolls."}
+    ],
+    "Gluttony": [
+      {"name": "Belly of the Beast", "cost": 5, "type": "Ability", "restriction": "ELITE only", "effect": "When this model takes a Blood Marker, place 1 additional Blood Marker on nearest enemy within 6\"."},
+      {"name": "Eater of the Flesh", "cost": 10, "type": "Ability", "restriction": "Praetors/Sorcerers only, Limit: 1", "effect": "After Melee Attack, remove Blood Markers from self equal to those placed on target."},
+      {"name": "Uncaring Gluttony", "cost": 10, "type": "Spell (Cost 2)", "restriction": "ELITE only, Limit: 1", "effect": "Cast when friendly DEMONIC model would go OoA. Change result to Down instead."}
+    ],
+    "Greed": [
+      {"name": "Black Heart", "cost": 5, "type": "Spell (Cost 1)", "restriction": "ELITE only, Limit: 2", "effect": "Cast before Success Roll. Add +1 DICE to the roll."},
+      {"name": "Body of Gold", "cost": 15, "type": "Ability", "restriction": "ELITE only, Limit: 1", "effect": "Model gains GOLEM keyword. Loses TOUGH and cannot gain it."},
+      {"name": "Greedy Hearts", "cost": 15, "type": "Ability", "restriction": "ELITE only, Limit: 1", "effect": "If warband has 1+ model with this ability, add +1 DICE to all Exploration rolls in campaign."}
+    ]
+  },
+
+  "armoury": {
+    "Ranged Weapons": [
+      ["Arquebus", 8, ""],
+      ["Blunderbuss", 5, "Shield Combo"],
+      ["Flamethrower", 30, "Limit: 2"],
+      ["Heavy Flamethrower", 55, "Limit: 1"],
+      ["Ophidian Rifle", 25, "ELITE only, Limit: 3"],
+      ["Pistol", 6, ""],
+      ["Serpent Assault Gun", 50, "Limit: 2"],
+      ["Shotgun", 10, "Shield Combo"]
+    ],
+    "Melee Weapons": [
+      ["Great Hammer/Maul", 10, ""],
+      ["Great Sword/Axe", 12, ""],
+      ["Headtaker", 15, "Limit: 2"],
+      ["Hellblade", 15, "Limit: 3"],
+      ["Malebranche Sword", 50, "Limit: 1"],
+      ["Polearm", 7, "Shield Combo"],
+      ["Sword/Axe", 4, ""],
+      ["Torture Instrument", 8, ""],
+      ["Trench Club", 3, ""],
+      ["Trench Knife", 1, ""]
+    ],
+    "Grenades": [
+      ["Gas Grenades", 10, ""],
+      ["Incendiary Grenades", 15, "Limit: 2"]
+    ],
+    "Shields": [
+      ["Trench Shield", 10, "Shield Combo"]
+    ],
+    "Armour": [
+      ["Infernal Iron Armour", 50, "Hell Knights only"],
+      ["Reinforced Armour", 40, "ELITE only"],
+      ["Standard Armour", 15, ""]
+    ],
+    "Equipment": [
+      ["Combat Helmet", 5, "Headgear"],
+      ["Crown of Hellfire", 15, "ELITE/Pit Locust only"],
+      ["Gas Mask", 5, ""],
+      ["Incendiary Ammunition", 15, "Consumable, Limit: 1"],
+      ["Musical Instrument", 15, "Limit: 1"],
+      ["Restraining Muzzle", 10, "Yoke Fiend only, Limit: 3"],
+      ["Shovel", 5, "Wretched/Yoke Fiend only"],
+      ["Troop Flag", "1 Glory", "Limit: 1"],
+      ["Unholy Relic", 15, ""],
+      ["Unholy Trinket", 15, "Consumable"]
+    ]
+  }
+}

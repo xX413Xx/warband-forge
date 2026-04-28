@@ -1,0 +1,37 @@
+{
+  "name": "Procession of the Sacred Affliction",
+  "parent_faction": "trench_pilgrims",
+  "description": "Melee-focused zealots. No ranged weapons (pistols and grenades OK). More STRONG, cheaper Holy Icon Shields.",
+  "restrict_units": [],
+  "limit_overrides": {},
+  "add_rules": [
+    "Face thy Fears: Models cannot have Iron Capirotes. Ecclesiastic Prisoners do not come with Iron Capirotes (cost unchanged).",
+    "Hammer and the Anvil: Anti-Tank Hammers lose the ELITE only stipulation.",
+    "Melee-focused: No Machine Guns. Punt Guns Limit: 1.",
+    "Punishing Millstones: +1 INJURY DICE for Melee Attacks vs Downed targets (not Ecclesiastic Prisoners).",
+    "Reliquary Armoury: Holy Icon Shields cost 20D and lose ELITE only restriction.",
+    "Wrath of God: 1 Castigator or Trench Pilgrim or Martyr Penitent can take Wrath of God for 15D. Ignores Blood Markers, NEGATE FEAR. Cannot be Broken on the Wheel. Cannot have Ranged Weapons or Armour (shield OK). Base 32mm.",
+    "Zealot Strength: Up to 3 Trench Pilgrims/Martyr Penitents can have Zealot Strength (instead of 1)."
+  ],
+  "cost_overrides": {
+    "Anti-Tank Hammer": 10,
+    "Holy Icon Shield": 20
+  },
+  "stat_overrides": {},
+  "ability_replacements": {},
+  "add_armoury": {
+    "Armour": [
+      [
+        "Holy Icon Armour",
+        30,
+        ""
+      ]
+    ]
+  },
+  "remove_armoury": [
+    "Iron Capirote"
+  ],
+  "remove_restrictions": {
+    "Holy Icon Shield": "ELITE only"
+  }
+}

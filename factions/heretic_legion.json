@@ -1,0 +1,420 @@
+{
+  "name": "The Heretic Legion",
+  "side": "Fallen",
+  "starting_ducats": 700,
+  "special_rules": [],
+  "elites": [
+    {
+      "type": "Heretic Priest",
+      "limit": "1 (required)",
+      "base_cost": 80,
+      "movement": "6\"",
+      "ranged": "+2 DICE",
+      "melee": "+2 DICE",
+      "armour": "0",
+      "base_size": "32mm",
+      "keywords": [
+        "HERETIC",
+        "ELITE",
+        "LEADER",
+        "TOUGH"
+      ],
+      "abilities": [
+        "Puppet Master ACTION: Risky — pick 1 model (friend/foe) within 12\" in LoS, move it D6\" in straight line."
+      ],
+      "base_equipment": []
+    },
+    {
+      "type": "Death Commando",
+      "limit": "0-1",
+      "base_cost": 90,
+      "movement": "6\"",
+      "ranged": "+1 DICE",
+      "melee": "+2 DICE",
+      "armour": "0",
+      "base_size": "32mm",
+      "keywords": [
+        "HERETIC",
+        "ELITE",
+        "INFILTRATOR"
+      ],
+      "abilities": [
+        "Stealth Generator: -1 DICE to Ranged Attacks targeting this model.",
+        "Hide ACTION: Risky +1 DICE. On success, cannot be targeted by Ranged/Charge until moves, attacks, or enemy within 1.5\"."
+      ],
+      "base_equipment": [],
+      "battlekit_notes": "Ranged limited to Silenced Pistols and Tormentor Chains. Grenades limited to Gas Grenades only."
+    },
+    {
+      "type": "Chorister",
+      "limit": "0-1",
+      "base_cost": 65,
+      "movement": "6\"",
+      "ranged": "-2 DICE",
+      "melee": "+2 DICE",
+      "armour": "0",
+      "base_size": "32mm",
+      "keywords": [
+        "HERETIC",
+        "ELITE",
+        "FEAR"
+      ],
+      "abilities": [
+        "Unholy Hymns: -1 DICE to Success Rolls for enemy models within 8\"."
+      ],
+      "base_equipment": []
+    }
+  ],
+  "troops": [
+    {
+      "type": "Heretic Trooper",
+      "limit": "No limit",
+      "base_cost": 30,
+      "movement": "6\"",
+      "ranged": "+0 DICE",
+      "melee": "+0 DICE",
+      "armour": "0",
+      "base_size": "25mm",
+      "keywords": [
+        "HERETIC"
+      ],
+      "abilities": [
+        "Heretic Legionnaires: Upgrade Heretic Troopers to Heretic Legionnaires for +10D each. Cannot have more Legionnaires than Troopers. Choose +1 to either Ranged or Melee Characteristic."
+      ],
+      "base_equipment": [],
+      "unit_upgrades": [
+        [
+          "Legionnaire (+1 Ranged)",
+          10,
+          "Max equal to Troopers. Gain +1 DICE Ranged."
+        ],
+        [
+          "Legionnaire (+1 Melee)",
+          10,
+          "Max equal to Troopers. Gain +1 DICE Melee."
+        ]
+      ]
+    },
+    {
+      "type": "War Wolf Assault Beast",
+      "limit": "0-1",
+      "base_cost": 145,
+      "movement": "8\"",
+      "ranged": "-",
+      "melee": "+2 DICE",
+      "armour": "-3",
+      "base_size": "50mm",
+      "keywords": [
+        "HERETIC",
+        "ARTIFICIAL",
+        "FEAR",
+        "NEGATE DIFFICULT TERRAIN",
+        "TOUGH"
+      ],
+      "abilities": [
+        "Assault Beast: Dual melee — Chainsaw Mouth then Shredding Claws. Both RISKY.",
+        "Loping Dash: +1 DICE to Risky for Dash."
+      ],
+      "base_equipment": [
+        "Chainsaw Mouth (+1 DICE, +1 INJ, IGNORE ARMOUR, RISKY)",
+        "Shredding Claws (+1 INJ, CUMBERSOME, RISKY)"
+      ],
+      "battlekit_notes": "Cannot have any other Battlekit."
+    },
+    {
+      "type": "Wretched",
+      "limit": "No limit",
+      "base_cost": 25,
+      "movement": "6\"",
+      "ranged": "-1 DICE",
+      "melee": "-1 DICE",
+      "armour": "0",
+      "base_size": "25mm",
+      "keywords": [
+        "HERETIC"
+      ],
+      "abilities": [
+        "Chattel: In campaign, can be sold in Quartermaster Step for 25D + half Battlekit cost.",
+        "Dark Blessing: When taken OoA, place 1 BLESSING MARKER on nearest friendly ELITE HERETIC model.",
+        "Law of Hell: If takes an enemy ELITE OoA, Wretched gains freedom and is removed from game and roster."
+      ],
+      "base_equipment": [],
+      "battlekit_notes": "Can only have Battlekit costing up to 10d. Must have at least 1 weapon.",
+      "battlekit_note": "Can only take Battlekit costing up to 10D. Must have at least 1 weapon."
+    },
+    {
+      "type": "Anointed Heavy Infantry",
+      "limit": "0-5",
+      "base_cost": 95,
+      "movement": "6\"",
+      "ranged": "+1 DICE",
+      "melee": "+1 DICE",
+      "armour": "-2",
+      "base_size": "32mm",
+      "keywords": [
+        "HERETIC",
+        "STRONG"
+      ],
+      "abilities": [
+        "Heavily armoured assault troops."
+      ],
+      "base_equipment": [
+        "Reinforced Armour",
+        "Infernal Brand"
+      ],
+      "battlekit_notes": "Armour included, cannot be changed."
+    },
+    {
+      "type": "Artillery Witch",
+      "limit": "0-1 (0-2 if warband ≥1000D)",
+      "base_cost": 100,
+      "movement": "6\"",
+      "ranged": "+0 DICE",
+      "melee": "-1 DICE",
+      "armour": "0",
+      "base_size": "32mm",
+      "keywords": [
+        "HERETIC",
+        "ARTIFICIAL",
+        "NEGATE FEAR",
+        "NEGATE GAS"
+      ],
+      "abilities": [
+        "Infernal Bombs: 36\" 1H, BLAST 3\", IGNORE COVER, IGNORE ELEVATED POSITION, IGNORE LONG RANGE, RELOAD, SCATTER, SHRAPNEL. Infernal Strike: DEADLY on direct hit. Mighty Explosion: blown D3\" if not OoA.",
+        "Abiotic Life: -1 INJURY DICE vs GAS attacks.",
+        "Artillery Witch Battery: 0-2 Artillery Witches if warband (excluding this one) ≥1000D.",
+        "Levitate: No Risky for Climb/Jump, no Injury Roll on Fall."
+      ],
+      "base_equipment": [
+        "Infernal Bombs"
+      ],
+      "battlekit_notes": "Cannot have Ranged Weapons or Grenades.",
+      "restrict_ranged": true,
+      "restrict_grenades": true
+    }
+  ],
+  "armoury": {
+    "Ranged Weapons": [
+      [
+        "Anti-Materiel Rifle",
+        "3 Glory",
+        "Limit: 1"
+      ],
+      [
+        "Automatic Rifle",
+        "2 Glory",
+        "Bayonet Lug, Limit: 2"
+      ],
+      [
+        "Automatic Shotgun",
+        15,
+        "Bayonet Lug, Shield Combo"
+      ],
+      [
+        "Bolt-Action Rifle",
+        10,
+        "Bayonet Lug"
+      ],
+      [
+        "Flamethrower",
+        30,
+        "Limit: 3"
+      ],
+      [
+        "Grenade Launcher",
+        30,
+        "Limit: 2"
+      ],
+      [
+        "Heavy Flamethrower",
+        55,
+        "Limit: 2"
+      ],
+      [
+        "Machine Gun",
+        50,
+        "Limit: 1"
+      ],
+      [
+        "Pistol",
+        6,
+        ""
+      ],
+      [
+        "Semi-Automatic Rifle",
+        15,
+        "Bayonet Lug"
+      ],
+      [
+        "Shotgun",
+        10,
+        "Bayonet Lug, Shield Combo"
+      ],
+      [
+        "Silenced Pistol",
+        15,
+        "ELITE only"
+      ],
+      [
+        "Submachine Gun",
+        "2 Glory",
+        "Bayonet Lug, Shield Combo"
+      ]
+    ],
+    "Melee Weapons": [
+      [
+        "Bayonet",
+        2,
+        "Shield Combo"
+      ],
+      [
+        "Blasphemous Staff",
+        "2 Glory",
+        "ELITE only"
+      ],
+      [
+        "Great Hammer/Maul",
+        10,
+        ""
+      ],
+      [
+        "Great Sword/Axe",
+        12,
+        ""
+      ],
+      [
+        "Hellblade",
+        "1 Glory",
+        "Limit: 2"
+      ],
+      [
+        "Polearm",
+        7,
+        "Shield Combo"
+      ],
+      [
+        "Sacrificial Blade",
+        23,
+        "ELITE only, Limit: 2"
+      ],
+      [
+        "Sword/Axe",
+        4,
+        ""
+      ],
+      [
+        "Tartarus Claws",
+        15,
+        "Death Commando only"
+      ],
+      [
+        "Trench Club",
+        3,
+        ""
+      ],
+      [
+        "Trench Knife",
+        1,
+        ""
+      ]
+    ],
+    "Grenades": [
+      [
+        "Frag Grenades",
+        7,
+        ""
+      ],
+      [
+        "Gas Grenades",
+        10,
+        ""
+      ],
+      [
+        "Incendiary Grenades",
+        15,
+        ""
+      ]
+    ],
+    "Shields": [
+      [
+        "Trench Shield",
+        10,
+        "Shield Combo"
+      ]
+    ],
+    "Armour": [
+      [
+        "Reinforced Armour",
+        40,
+        "Anointed Heavy Infantry & ELITE only"
+      ],
+      [
+        "Standard Armour",
+        15,
+        ""
+      ]
+    ],
+    "Equipment": [
+      [
+        "Binoculars",
+        10,
+        "ELITE only"
+      ],
+      [
+        "Combat Helmet",
+        5,
+        "Headgear"
+      ],
+      [
+        "Gas Mask",
+        5,
+        ""
+      ],
+      [
+        "Hellbound Soul Contract",
+        5,
+        "Troopers/Legionnaires only, Limit: 3"
+      ],
+      [
+        "Incendiary Ammunition",
+        15,
+        "Consumable, Limit: 1"
+      ],
+      [
+        "Infernal Brand",
+        5,
+        ""
+      ],
+      [
+        "Mountaineer Kit",
+        3,
+        "Limit: 2"
+      ],
+      [
+        "Musical Instrument",
+        15,
+        "Limit: 1"
+      ],
+      [
+        "Shovel",
+        5,
+        ""
+      ],
+      [
+        "Troop Flag",
+        "1 Glory",
+        "Limit: 1"
+      ],
+      [
+        "Unholy Relic",
+        15,
+        ""
+      ],
+      [
+        "Unholy Trinket",
+        15,
+        "Consumable"
+      ]
+    ]
+  }
+}

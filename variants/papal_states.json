@@ -1,0 +1,45 @@
+{
+  "name": "Papal States Intervention Force",
+  "parent_faction": "new_antioch",
+  "description": "Elite force commanded by a Trench Cleric. Fewer ducats but more Glory.",
+  "restrict_units": [],
+  "restrict_upgrades": [
+    "Trench Moles"
+  ],
+  "limit_overrides": {
+    "Trench Cleric": "1 (required, LEADER)"
+  },
+  "starting_resources_override": {
+    "ducats": 500,
+    "glory": 11
+  },
+  "required_units_override": {
+    "remove_required": "Lieutenant",
+    "add_required": "Trench Cleric"
+  },
+  "add_rules": [
+    "Specialist Force: Start with 500D and 11 Glory (instead of 700D). Threshold Value reduced by 200D. Gain 4 Glory per Reinforcements.",
+    "Lector: 1 Trench Cleric is required and replaces the Lieutenant as LEADER.",
+    "Supreme Blessing: Supreme Pontiff's Crucifix is FREE at warband creation (must be given to one model). If lost, replacement costs Glory normally.",
+    "Swiss Guard: Lieutenant and up to 4 models gain NEGATE FEAR keyword for no extra cost.",
+    "Far from Home: Cannot include Trench Moles.",
+    "Arise and be Healed! ACTION: Trench Cleric can take this ACTION — Risky Success Roll. On Success, pick self or friendly within 3\": stand up, remove up to D3 Blood/Infection Markers."
+  ],
+  "add_armoury": {
+    "Equipment": [
+      [
+        "Supreme Pontiff's Crucifix",
+        "3 Glory",
+        "Limit: 1"
+      ]
+    ]
+  },
+  "cost_overrides": {},
+  "stat_overrides": {},
+  "ability_replacements": {},
+  "remove_armoury": [],
+  "budget_override": {
+    "ducats": 500,
+    "glory": 11
+  }
+}

@@ -1,0 +1,285 @@
+{
+  "name": "Mercenaries",
+  "description": "Powerful warriors hired with Glory Points. Each mercenary lists which factions can recruit them.",
+  "currency": "Glory",
+  "mercenaries": [
+    {
+      "type": "Combat Biologist",
+      "limit": "0-1",
+      "base_cost": 3,
+      "cost_type": "Glory",
+      "available_to": [
+        "new_antioch",
+        "iron_sultanate"
+      ],
+      "side": "Faithful",
+      "movement": "6\"",
+      "ranged": "+0 DICE",
+      "melee": "+1 DICE",
+      "armour": "-1",
+      "base_size": "32mm",
+      "keywords": [
+        "NEGATE FEAR"
+      ],
+      "abilities": [
+        "Battlefield Vivisection: Adds 'Gather Knowledge' Glorious Deed to scenarios.",
+        "Gather Knowledge: Complete if 3+ enemies taken OoA within 1\" of friendly Combat Biologist.",
+        "Prize Specimens: When this model takes DEMONIC or BLACK GRAIL OoA in melee, place 1 BLESSING MARKER."
+      ],
+      "base_equipment": [
+        "Gas Grenades",
+        "Standard Armour",
+        "Gas Mask",
+        "Vivisector (BLOCK, CUMBERSOME)"
+      ]
+    },
+    {
+      "type": "Communicant Anti-Tank Hunter",
+      "limit": "0-1",
+      "base_cost": 5,
+      "cost_type": "Glory",
+      "available_to": [
+        "new_antioch",
+        "trench_pilgrims"
+      ],
+      "side": "Faithful",
+      "movement": "6\"",
+      "ranged": "+1 DICE",
+      "melee": "+1 DICE",
+      "armour": "-1",
+      "base_size": "40mm",
+      "keywords": [
+        "REGENERATE 1",
+        "STRONG",
+        "TOUGH"
+      ],
+      "abilities": [
+        "Communicant with Anti-Materiel Rifle — designed to destroy armoured targets.",
+        "Bodyguard: Take hit for friendly PILGRIM/NEW ANTIOCH within 1\"."
+      ],
+      "base_equipment": [
+        "Anti-Materiel Rifle",
+        "Communicant Cross (Iron Capirote + Gas Mask)"
+      ]
+    },
+    {
+      "type": "Goetic Warlock",
+      "limit": "0-1",
+      "base_cost": 4,
+      "cost_type": "Glory",
+      "available_to": [
+        "heretic_legion",
+        "court_serpent"
+      ],
+      "side": "Fallen",
+      "movement": "6\"",
+      "ranged": "+1 DICE",
+      "melee": "+1 DICE",
+      "armour": "-2",
+      "base_size": "40mm",
+      "keywords": [
+        "ARTIFICIAL",
+        "DEMONIC",
+        "FEAR"
+      ],
+      "abilities": [
+        "Goetic Portal ACTION: Teleport — redeploy anywhere on battlefield out of LoS and 8\" from enemies.",
+        "Melee attacks have CLEAVE 2 and CRITICAL.",
+        "Tortured holy captives fused with demonic machinery."
+      ],
+      "base_equipment": [
+        "Reinforced Armour",
+        "Claws (CLEAVE 2, CRITICAL)"
+      ]
+    },
+    {
+      "type": "Mamluk Faris",
+      "limit": "0-1",
+      "base_cost": 4,
+      "cost_type": "Glory",
+      "available_to": [
+        "new_antioch",
+        "iron_sultanate"
+      ],
+      "side": "Faithful",
+      "movement": "6\"",
+      "ranged": "+1 DICE",
+      "melee": "+1 DICE",
+      "armour": "-2 (-3)",
+      "base_size": "32mm",
+      "keywords": [
+        "IGNORE DIFFICULT TERRAIN"
+      ],
+      "abilities": [
+        "Automaton Destrier: Starts on warhorse — Vanguard Deployment 6\" forward. Lore: automaton horse built by Takwin engineers.",
+        "Sworn Brethren: Can form FIRETEAM with one friendly ELITE model.",
+        "Master of Furūsīyah: Martial Prowess replaced — +1D to Melee Attacks when charging."
+      ],
+      "base_equipment": [
+        "Reinforced Armour",
+        "Combat Helmet"
+      ],
+      "merc_can_equip": true
+    },
+    {
+      "type": "Mendelist Ammo Monk",
+      "limit": "0-1",
+      "base_cost": 2,
+      "cost_type": "Glory",
+      "available_to": [
+        "new_antioch",
+        "trench_pilgrims"
+      ],
+      "side": "Faithful",
+      "movement": "6\"",
+      "ranged": "-1 DICE",
+      "melee": "-1 DICE",
+      "armour": "0",
+      "base_size": "25mm",
+      "keywords": [],
+      "abilities": [
+        "Ammunition Supply: Friendly models within 6\" can re-roll Ranged Attack Success Rolls of 2-3.",
+        "Monks of the Mendelist order craft blessed ammunition for the faithful."
+      ],
+      "base_equipment": []
+    },
+    {
+      "type": "Observer",
+      "limit": "0-1",
+      "base_cost": 3,
+      "cost_type": "Glory",
+      "available_to": [
+        "new_antioch",
+        "trench_pilgrims"
+      ],
+      "side": "Faithful",
+      "movement": "8\"",
+      "ranged": "+1 DICE",
+      "melee": "+2 DICE",
+      "armour": "-1",
+      "base_size": "32mm",
+      "keywords": [],
+      "abilities": [
+        "Eye of God: Re-roll failed Success Rolls and Risky Success Rolls.",
+        "Trench Pole: Can attack twice with polearm melee weapon.",
+        "Can force a model (friend or foe) to activate."
+      ],
+      "base_equipment": [
+        "Standard Armour",
+        "Combat Helmet",
+        "Trench Pole"
+      ]
+    },
+    {
+      "type": "Scripture Guardian",
+      "limit": "0-1",
+      "base_cost": 7,
+      "cost_type": "Glory",
+      "available_to": [
+        "new_antioch",
+        "trench_pilgrims",
+        "iron_sultanate",
+        "heretic_legion",
+        "black_grail",
+        "court_serpent"
+      ],
+      "side": "Any",
+      "movement": "6\"",
+      "ranged": "-",
+      "melee": "+1 DICE",
+      "armour": "-2",
+      "base_size": "40mm",
+      "keywords": [
+        "GOLEM"
+      ],
+      "abilities": [
+        "GOLEM: OoA treated as Down (unless Bloodbath). Cannot remove own Blood Markers. NEGATE FEAR, NEGATE GAS.",
+        "Slow: Movement 3\" when Dashing.",
+        "Animated guardian of sacred texts. Can have weapons from hiring faction armoury."
+      ],
+      "base_equipment": [
+        "Reinforced Armour"
+      ],
+      "merc_can_equip": true
+    },
+    {
+      "type": "Sin Eater",
+      "limit": "0-1",
+      "base_cost": 6,
+      "cost_type": "Glory",
+      "available_to": [
+        "heretic_legion",
+        "black_grail",
+        "court_serpent"
+      ],
+      "side": "Fallen",
+      "movement": "6\"",
+      "ranged": "-",
+      "melee": "+2 DICE",
+      "armour": "-2",
+      "base_size": "50mm",
+      "keywords": [],
+      "abilities": [
+        "Devour the Guilty ACTION: Consume an adjacent Downed enemy model to heal.",
+        "Massive creature driven by insatiable hunger for sin."
+      ],
+      "base_equipment": [
+        "Reinforced Armour",
+        "Combat Helmet"
+      ]
+    },
+    {
+      "type": "Sister of Saint Cosmas",
+      "limit": "0-1",
+      "base_cost": 2,
+      "cost_type": "Glory",
+      "available_to": [
+        "trench_pilgrims"
+      ],
+      "side": "Faithful",
+      "movement": "6\"",
+      "ranged": "+0 DICE",
+      "melee": "+0 DICE",
+      "armour": "-1",
+      "base_size": "25mm",
+      "keywords": [
+        "NEGATE FEAR"
+      ],
+      "abilities": [
+        "Elite medical specialist for Trench Pilgrim warbands.",
+        "Advanced healing abilities beyond standard Medi-kit."
+      ],
+      "base_equipment": [
+        "Standard Armour"
+      ]
+    },
+    {
+      "type": "Witchburner",
+      "limit": "0-1",
+      "base_cost": 5,
+      "cost_type": "Glory",
+      "available_to": [
+        "new_antioch",
+        "trench_pilgrims"
+      ],
+      "side": "Faithful",
+      "movement": "6\"",
+      "ranged": "+0 DICE",
+      "melee": "+1 DICE",
+      "armour": "-2",
+      "base_size": "32mm",
+      "keywords": [
+        "ELITE",
+        "NEGATE FEAR"
+      ],
+      "abilities": [
+        "Dignified Conduct: Field officer of the Inquisition.",
+        "Witch Hunter: Specialized in hunting down heretics and the supernatural."
+      ],
+      "base_equipment": [
+        "Reinforced Armour",
+        "Combat Helmet"
+      ]
+    }
+  ]
+}

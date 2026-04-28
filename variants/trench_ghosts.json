@@ -1,0 +1,93 @@
+{
+  "name": "Trench Ghosts",
+  "parent_faction": "heretic_legion",
+  "description": "Undead Heretic troopers trapped between planes. Semi-corporeal, slow, terrifying. Hate all life.",
+  "restrict_units": [
+    "War Wolf Assault Beast",
+    "Artillery Witch",
+    "Chorister"
+  ],
+  "restrict_keywords": [
+    "ARTIFICIAL"
+  ],
+  "restrict_mercenaries": true,
+  "limit_overrides": {},
+  "cost_overrides": {},
+  "add_rules": [
+    "Barbed Wire Banshee: Can include a Barbed Wire Banshee (same profile/cost as Chorister) INSTEAD of a Chorister. Replaces Unholy Hymns with Wire Shriek: +1 INJURY DICE to enemy Injury Rolls within 8\".",
+    "Enemies of All: Cannot include Mercenaries.",
+    "Lost Souls: Cannot include ARTIFICIAL models (War Wolf, Artillery Witch banned). Anointed Heavy Infantry allowed but without Infernal Brand — still costs 95D. No Hellbound Soul Contracts or Infernal Brands.",
+    "Semi-corporeal: -1 INJURY DICE for Ranged Attack Injury Rolls on all warband models.",
+    "Slow and Creeping: Treat Movement as 3\"/Infantry when taking Dash ACTION. -1 DICE on attacks vs retreating enemies.",
+    "Undead Horror: All models gain FEAR, NEGATE DIFFICULT TERRAIN, NEGATE GAS keywords."
+  ],
+  "add_keywords_all": [
+    "FEAR",
+    "NEGATE DIFFICULT TERRAIN",
+    "NEGATE GAS"
+  ],
+  "unit_replacements": {
+    "Chorister": {
+      "new_type": "Barbed Wire Banshee",
+      "same_profile": true,
+      "same_cost": true,
+      "abilities": [
+        "Barbed Wail: +1 INJURY DICE to Injury Rolls for enemy models within 8\"."
+      ],
+      "replaces_abilities": [
+        "Unholy Hymns"
+      ]
+    }
+  },
+  "base_equip_remove": {
+    "Anointed Heavy Infantry": [
+      "Infernal Brand"
+    ]
+  },
+  "remove_armoury": [
+    "Hellbound Soul Contract",
+    "Infernal Brand"
+  ],
+  "add_armoury": {
+    "Armour": [
+      [
+        "Sarcophagus Mine",
+        30,
+        "Heretic Troopers only, Limit: 2"
+      ]
+    ],
+    "Equipment": [
+      [
+        "Tank Palanquin",
+        60,
+        "Heretic Priest only"
+      ]
+    ]
+  },
+  "stat_overrides": {},
+  "ability_replacements": {},
+  "add_units": [
+    {
+      "type": "Barbed Wire Banshee",
+      "limit": "0-1",
+      "base_cost": 65,
+      "movement": "6\"",
+      "ranged": "-2 DICE",
+      "melee": "+2 DICE",
+      "armour": "0",
+      "base_size": "32mm",
+      "keywords": [
+        "HERETIC",
+        "ELITE",
+        "FEAR"
+      ],
+      "abilities": [
+        "Barbed Wire Banshee: Same profile as Chorister but replaces Unholy Hymns.",
+        "Wire Shriek: Add +1 INJURY DICE to Injury Rolls for enemy models within 8\" of one or more Barbed Wire Banshees."
+      ],
+      "base_equipment": [],
+      "unit_upgrades": [],
+      "is_elite": true
+    }
+  ]
+}

@@ -1,0 +1,407 @@
+{
+  "name": "The Sultanate of the Iron Wall",
+  "side": "Faithful",
+  "starting_ducats": 700,
+  "special_rules": [],
+  "elites": [
+    {
+      "type": "Yüzbaşı",
+      "limit": "1 (required)",
+      "base_cost": 70,
+      "movement": "6\"",
+      "ranged": "+2 DICE",
+      "melee": "+2 DICE",
+      "armour": "0",
+      "base_size": "32mm",
+      "keywords": [
+        "SULTANATE",
+        "ELITE",
+        "LEADER",
+        "NEGATE FEAR",
+        "TOUGH"
+      ],
+      "abilities": [
+        "Janissary Veteran: Can become veteran for +15d. Gains Counter-Charge.",
+        "Counter-Charge (Veteran only): If first ACTION is Charge, +1 DICE to Melee that activation.",
+        "Mubarizun: Challenge enemy ELITE within 12\" to single combat."
+      ],
+      "base_equipment": []
+    },
+    {
+      "type": "Jabirean Alchemist",
+      "limit": "0-1",
+      "base_cost": 55,
+      "movement": "6\"",
+      "ranged": "+2 DICE",
+      "melee": "+1 DICE",
+      "armour": "0",
+      "base_size": "32mm",
+      "keywords": [
+        "SULTANATE",
+        "ELITE"
+      ],
+      "abilities": [
+        "Mastery of the Elements: On deploy, choose FIRE, GAS, or SHRAPNEL. Add keyword to all Ranged Weapons for the game.",
+        "Elemental Change ACTION: Risky — switch chosen element to a different one."
+      ],
+      "base_equipment": []
+    },
+    {
+      "type": "Sultanate Assassin",
+      "limit": "0-1",
+      "base_cost": 85,
+      "movement": "6\"",
+      "ranged": "+1 DICE",
+      "melee": "+2 DICE",
+      "armour": "0",
+      "base_size": "32mm",
+      "keywords": [
+        "SULTANATE",
+        "ELITE",
+        "INFILTRATOR"
+      ],
+      "abilities": [
+        "Temporal Assassin: Add Charge Bonus to all movement, not just charges.",
+        "Time Slip: If opponent fails Success Roll for attack targeting Assassin, Assassin can move D6\"."
+      ],
+      "base_equipment": []
+    }
+  ],
+  "troops": [
+    {
+      "type": "Azeb",
+      "limit": "No limit",
+      "base_cost": 25,
+      "movement": "6\"",
+      "ranged": "+0 DICE",
+      "melee": "-1 DICE",
+      "armour": "0",
+      "base_size": "25mm",
+      "keywords": [
+        "SULTANATE"
+      ],
+      "abilities": [
+        "Light Skirmishers: Any number of Azebs can have the SKIRMISHER Keyword at +5D each."
+      ],
+      "base_equipment": [],
+      "unit_upgrades": [
+        [
+          "SKIRMISHER keyword",
+          5,
+          "Any number of Azebs"
+        ]
+      ]
+    },
+    {
+      "type": "Sultanate Sapper",
+      "limit": "0-2",
+      "base_cost": 50,
+      "movement": "6\"",
+      "ranged": "+1 DICE",
+      "melee": "+0 DICE",
+      "armour": "0",
+      "base_size": "25mm",
+      "keywords": [
+        "SULTANATE",
+        "NEGATE MINED"
+      ],
+      "abilities": [
+        "Set Mine ACTION: Success +2 DICE — terrain gains MINED.",
+        "Defuse Mine: Risky — disarm MINED terrain.",
+        "Fortify ACTION: Risky — gain COVER until moves.",
+        "Forward Positions: Deployed as INFILTRATOR."
+      ],
+      "base_equipment": [
+        "Shovel"
+      ]
+    },
+    {
+      "type": "Lion of Jabir",
+      "limit": "0-2",
+      "base_cost": 60,
+      "movement": "8\"",
+      "ranged": "-",
+      "melee": "+2 DICE",
+      "armour": "-1",
+      "base_size": "40mm",
+      "keywords": [
+        "SULTANATE",
+        "ARTIFICIAL",
+        "NEGATE DIFFICULT TERRAIN"
+      ],
+      "abilities": [
+        "Takwin Beast: A Lion of Jabir is armed with two Melee Weapons. Can attack once with either, or twice first with Claws & Fangs then Shredding Claws (off-hand modifier applies). RISKY means Activation ends on Failure.",
+        "Artificial Life: Add -1 INJURY DICE to Injury Rolls for a Lion of Jabir.",
+        "Loping Charge: Add +1 DICE to the Risky Success Roll for a Lion of Jabir taking a Dash ACTION."
+      ],
+      "base_equipment": [
+        "Claws & Fangs (+1 DICE, +1 INJ, IGNORE ARMOUR, RISKY)",
+        "Shredding Claws (+1 INJ, CUMBERSOME, RISKY)"
+      ],
+      "battlekit_notes": "Can only have Armour and/or Wind Amulet. No Shields, no other Battlekit.",
+      "restrict_armoury": true
+    },
+    {
+      "type": "Janissary",
+      "limit": "0-6",
+      "base_cost": 55,
+      "movement": "6\"",
+      "ranged": "+1 DICE",
+      "melee": "+1 DICE",
+      "armour": "0",
+      "base_size": "32mm",
+      "keywords": [
+        "SULTANATE",
+        "STRONG"
+      ],
+      "abilities": [
+        "Counter-Charge: When an enemy model charges a Janissary, roll a D6. On a 4+, the Janissary can immediately charge the enemy model as if it were their turn.",
+        "Sultan's Finest: Janissaries can have Reinforced Armour and Machine Guns even though they are not ELITE."
+      ],
+      "base_equipment": []
+    },
+    {
+      "type": "Brazen Bull",
+      "limit": "0-1",
+      "base_cost": 100,
+      "movement": "6\"",
+      "ranged": "+0 DICE",
+      "melee": "+2 DICE",
+      "armour": "0",
+      "base_size": "50mm",
+      "keywords": [
+        "SULTANATE",
+        "ARTIFICIAL",
+        "FEAR",
+        "STRONG",
+        "TOUGH"
+      ],
+      "abilities": [
+        "Artificial Life: -1 INJURY DICE to Injury Rolls.",
+        "Trample ACTION: Melee Attack vs Downed enemy with IGNORE ARMOUR."
+      ],
+      "base_equipment": [],
+      "battlekit_notes": "Weapons must have HEAVY keyword. Cannot have Shovel unless Marid Shovel.",
+      "weapon_keyword_only": "HEAVY"
+    }
+  ],
+  "armoury": {
+    "Ranged Weapons": [
+      [
+        "Alaybozan",
+        9,
+        "Sultanate Sappers only, Shield Combo"
+      ],
+      [
+        "Flame Cannon",
+        60,
+        "Brazen Bull only, Limit: 1"
+      ],
+      [
+        "Flamethrower",
+        30,
+        "Limit: 3"
+      ],
+      [
+        "Jezzail",
+        7,
+        ""
+      ],
+      [
+        "Machine Gun",
+        50,
+        "ELITE & Janissaries only, Limit: 2"
+      ],
+      [
+        "M.U.R.A.D. Bombard",
+        50,
+        "Brazen Bull only, Limit: 1"
+      ],
+      [
+        "Musket",
+        5,
+        "Bayonet Lug"
+      ],
+      [
+        "Pistol",
+        6,
+        ""
+      ],
+      [
+        "Shotgun",
+        10,
+        "Bayonet Lug, Shield Combo"
+      ],
+      [
+        "Siege Jezzail",
+        30,
+        "ELITE & Janissaries only, Limit: 2"
+      ],
+      [
+        "Sniper Rifle",
+        35,
+        "ELITE/Janissary only, Limit: 2"
+      ]
+    ],
+    "Melee Weapons": [
+      [
+        "Assassin's Dagger",
+        15,
+        "Sultanate Assassin only"
+      ],
+      [
+        "Bayonet",
+        2,
+        "Shield Combo"
+      ],
+      [
+        "Great Hammer/Maul",
+        10,
+        ""
+      ],
+      [
+        "Great Sword/Axe",
+        12,
+        ""
+      ],
+      [
+        "Halberd-Gun",
+        20,
+        "ELITE only"
+      ],
+      [
+        "Polearm",
+        7,
+        "Shield Combo"
+      ],
+      [
+        "Sword/Axe",
+        4,
+        ""
+      ],
+      [
+        "Titan Zulfiqar",
+        30,
+        "Brazen Bull only"
+      ],
+      [
+        "Trench Club",
+        3,
+        ""
+      ],
+      [
+        "Trench Knife",
+        1,
+        ""
+      ]
+    ],
+    "Grenades": [
+      [
+        "Frag Grenades",
+        7,
+        "Jabirean Alchemist only"
+      ],
+      [
+        "Incendiary Grenades",
+        15,
+        "Jabirean Alchemist only"
+      ]
+    ],
+    "Shields": [
+      [
+        "Trench Shield",
+        10,
+        "Shield Combo"
+      ]
+    ],
+    "Armour": [
+      [
+        "Alchemist Armour",
+        50,
+        "ELITE only, Limit: 1"
+      ],
+      [
+        "Reinforced Armour",
+        40,
+        "ELITE & Janissaries only"
+      ],
+      [
+        "Standard Armour",
+        15,
+        ""
+      ]
+    ],
+    "Equipment": [
+      [
+        "Alchemical Ammunition",
+        3,
+        ""
+      ],
+      [
+        "Binoculars",
+        "10 Glory",
+        "ELITE only"
+      ],
+      [
+        "Cloak of Alamut",
+        "25 Glory",
+        "ELITE only, Limit: 1"
+      ],
+      [
+        "Combat Helmet",
+        5,
+        "Headgear"
+      ],
+      [
+        "Gas Mask",
+        5,
+        ""
+      ],
+      [
+        "Holy Relic",
+        "2 Glory",
+        "ELITE only"
+      ],
+      [
+        "Marid Shovel",
+        15,
+        "Brazen Bull only"
+      ],
+      [
+        "Medi-kit",
+        5,
+        ""
+      ],
+      [
+        "Mountaineer Kit",
+        3,
+        "Limit: 2"
+      ],
+      [
+        "Musical Instrument",
+        15,
+        "Limit: 1"
+      ],
+      [
+        "Shovel",
+        5,
+        ""
+      ],
+      [
+        "Takwin Anqā Bird",
+        "2 Glory",
+        "ELITE only, Limit: 1"
+      ],
+      [
+        "Troop Flag",
+        "1 Glory",
+        "Limit: 1"
+      ],
+      [
+        "Wind Amulet",
+        10,
+        "Limit: 2"
+      ]
+    ]
+  }
+}

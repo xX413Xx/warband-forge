@@ -1,0 +1,44 @@
+{
+  "name": "Heretic Naval Raiders",
+  "parent_faction": "heretic_legion",
+  "description": "Semi-autonomous marine infantry striking deep behind enemy lines. Fast, light, and infiltration-focused.",
+  "restrict_units": [
+    "War Wolf Assault Beast"
+  ],
+  "limit_overrides": {
+    "Anointed Heavy Infantry": "0-2",
+    "Artillery Witch": "0-1"
+  },
+  "cost_overrides": {
+    "Submachine Gun": 25
+  },
+  "add_rules": [
+    "Close Assault Weapons: Submachine Guns cost 25D (instead of 2 Glory).",
+    "Fast as Lightning: +1 DICE to Risky Success Roll for Dash ACTION for all models.",
+    "Let Sleeping Dogs Lie: Cannot include a War Wolf.",
+    "Light Troops: Max 2 Anointed Heavy Infantry. Max 1 Artillery Witch (even at ≥1000D).",
+    "Unseen Advance: Up to 3 non-ELITE models can gain INFILTRATOR for +10D each."
+  ],
+  "stat_overrides": {},
+  "ability_replacements": {},
+  "add_armoury": {},
+  "remove_armoury": [],
+  "variant_unit_upgrades": {
+    "Heretic Trooper": [
+      [
+        "Unseen Advance (INFILTRATOR)",
+        10,
+        "Up to 3 non-ELITE models total in warband",
+        3
+      ]
+    ],
+    "Wretched": [
+      [
+        "Unseen Advance (INFILTRATOR)",
+        10,
+        "Up to 3 non-ELITE models total in warband",
+        3
+      ]
+    ]
+  }
+}

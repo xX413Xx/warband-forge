@@ -1,0 +1,1757 @@
+{
+  "Anti-Materiel Rifle": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "36\"",
+    "dice_mod": 0,
+    "inj_dice": 1,
+    "inj_mod": 0,
+    "heavy": true,
+    "keywords": [
+      "CRITICAL",
+      "IGNORE ARMOUR"
+    ]
+  },
+  "Automatic Pistol": {
+    "cat": "ranged",
+    "hands": "1H",
+    "range": "12\"/Melee",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "ASSAULT",
+      "AUTO 2"
+    ]
+  },
+  "Automatic Rifle": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "24\"",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "ASSAULT",
+      "AUTO 2"
+    ]
+  },
+  "Automatic Shotgun": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "12\"",
+    "dice_mod": 1,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "ASSAULT",
+      "SHOTGUN"
+    ]
+  },
+  "Blunderbuss": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "10\"",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "SHRAPNEL"
+    ]
+  },
+  "Bolt-Action Rifle": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "24\"",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Flamethrower": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "8\"",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "FIRE",
+      "IGNORE ARMOUR"
+    ]
+  },
+  "Grenade Launcher": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "36\"",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": true,
+    "keywords": [
+      "BLAST 3\"",
+      "SHRAPNEL"
+    ]
+  },
+  "Heavy Flamethrower": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "10\"",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": true,
+    "keywords": [
+      "FIRE",
+      "AUTO 2",
+      "IGNORE ARMOUR"
+    ]
+  },
+  "Heavy Shotgun": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "12\"",
+    "dice_mod": 1,
+    "inj_dice": 1,
+    "inj_mod": 0,
+    "heavy": true,
+    "keywords": []
+  },
+  "Machine Gun": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "36\"",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": true,
+    "keywords": [
+      "AUTO 3",
+      "RELOAD"
+    ]
+  },
+  "Musket": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "18\"",
+    "dice_mod": 0,
+    "inj_dice": -1,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Pistol": {
+    "cat": "ranged",
+    "hands": "1H",
+    "range": "12\"/Melee",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Semi-Automatic Rifle": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "24\"",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "ASSAULT"
+    ]
+  },
+  "Shotgun": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "12\"",
+    "dice_mod": 1,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "SHOTGUN"
+    ]
+  },
+  "Silenced Pistol": {
+    "cat": "ranged",
+    "hands": "1H",
+    "range": "12\"/Melee",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "ASSAULT"
+    ]
+  },
+  "Sniper Rifle": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "48\"",
+    "dice_mod": 1,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "CRITICAL",
+      "RISKY"
+    ]
+  },
+  "Submachine Gun": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "16\"",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "ASSAULT"
+    ]
+  },
+  "Jezzail": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "18\"",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Siege Jezzail": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "30\"",
+    "dice_mod": 0,
+    "inj_dice": 1,
+    "inj_mod": 0,
+    "heavy": true,
+    "keywords": []
+  },
+  "Alaybozan": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "12\"",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "SHRAPNEL"
+    ]
+  },
+  "Halberd-Gun": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "Melee/24\"",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "ASSAULT",
+      "BLOCK"
+    ]
+  },
+  "Flame Cannon": {
+    "cat": "ranged",
+    "hands": "1H",
+    "range": "12\"",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "FIRE",
+      "IGNORE ARMOUR"
+    ]
+  },
+  "M.U.R.A.D. Bombard": {
+    "cat": "ranged",
+    "hands": "1H",
+    "range": "36\"",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "BLAST 3\"",
+      "SCATTER"
+    ]
+  },
+  "Grand Cannon": {
+    "cat": "ranged",
+    "hands": "1H",
+    "range": "48\"",
+    "dice_mod": 0,
+    "inj_dice": 2,
+    "inj_mod": 0,
+    "heavy": true,
+    "keywords": [
+      "DEPLOYABLE",
+      "IGNORE ARMOUR"
+    ]
+  },
+  "Ophidian Rifle": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "24\"",
+    "dice_mod": 1,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Viscera Cannon": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "18\"",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "BLAST 2\""
+    ]
+  },
+  "Infested Rifle": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "18\"",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "ARMOUR-PIERCING"
+    ]
+  },
+  "Putrid Shotgun": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "12\"",
+    "dice_mod": 1,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "ASSAULT",
+      "INFECTION MARKERS",
+      "SHOTGUN"
+    ]
+  },
+  "Corruption Belcher": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "8\"",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "FLAMETHROWER",
+      "GAS",
+      "IGNORE ARMOUR"
+    ]
+  },
+  "Serpent Assault Gun": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "16\"",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "ASSAULT"
+    ]
+  },
+  "Arquebus": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "18\"",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "CUMBERSOME"
+    ]
+  },
+  "Punt Gun": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "18\"",
+    "dice_mod": 0,
+    "inj_dice": 1,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "SHOTGUN"
+    ]
+  },
+  "Gas Bombs": {
+    "cat": "ranged",
+    "hands": "1H",
+    "range": "36\"",
+    "dice_mod": 0,
+    "inj_dice": -1,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "BLAST 3\"",
+      "GAS",
+      "IGNORE ARMOUR"
+    ]
+  },
+  "Infernal Bombs": {
+    "cat": "ranged",
+    "hands": "1H",
+    "range": "36\"",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "BLAST 3\"",
+      "RELOAD",
+      "SCATTER",
+      "SHRAPNEL"
+    ]
+  },
+  "Black Spot Rifle": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "24\"",
+    "dice_mod": 1,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "INFECTION MARKERS"
+    ]
+  },
+  "Anti-Tank Hammer": {
+    "cat": "melee",
+    "hands": "2H",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 1,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "CRITICAL",
+      "IGNORE ARMOUR",
+      "RISKY"
+    ]
+  },
+  "Bayonet": {
+    "cat": "melee",
+    "hands": "2H",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "CUMBERSOME"
+    ]
+  },
+  "Beelzebub's Axe": {
+    "cat": "melee",
+    "hands": "2H",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 1,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "HEAVY",
+      "INFECTION MARKERS"
+    ]
+  },
+  "Blasphemous Staff": {
+    "cat": "melee",
+    "hands": "1H",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "CRITICAL",
+      "FIRE"
+    ]
+  },
+  "Bonebreaker Mace": {
+    "cat": "melee",
+    "hands": "2H",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 1,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "CRITICAL"
+    ]
+  },
+  "Butcher Bayonet": {
+    "cat": "melee",
+    "hands": "2H",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 1,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "CUMBERSOME"
+    ]
+  },
+  "Chainsaw Mouth": {
+    "cat": "melee",
+    "hands": "special",
+    "range": "Melee",
+    "dice_mod": 1,
+    "inj_dice": 1,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "IGNORE ARMOUR",
+      "RISKY"
+    ]
+  },
+  "Coin Hammer": {
+    "cat": "melee",
+    "hands": "2H",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 1,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "HEAVY"
+    ]
+  },
+  "Flail/Scourge": {
+    "cat": "melee",
+    "hands": "1H",
+    "range": "Melee",
+    "dice_mod": 1,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Great Hammer/Maul": {
+    "cat": "melee",
+    "hands": "2H",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 1,
+    "heavy": true,
+    "keywords": []
+  },
+  "Great Sword/Axe": {
+    "cat": "melee",
+    "hands": "2H",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 1,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "CRITICAL"
+    ]
+  },
+  "Headtaker": {
+    "cat": "melee",
+    "hands": "1H",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 2,
+    "heavy": false,
+    "keywords": [],
+    "note": "INJ MOD vs unactivated only"
+  },
+  "Hellblade": {
+    "cat": "melee",
+    "hands": "2H",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 1,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "FIRE"
+    ]
+  },
+  "Lochaber Axe": {
+    "cat": "melee",
+    "hands": "2H",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 2,
+    "inj_mod": 0,
+    "heavy": true,
+    "keywords": [
+      "BLOCK",
+      "CRITICAL"
+    ]
+  },
+  "Malebranche Sword": {
+    "cat": "melee",
+    "hands": "1H",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "CRITICAL"
+    ]
+  },
+  "Misericordia": {
+    "cat": "melee",
+    "hands": "1H",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "IGNORE ARMOUR"
+    ],
+    "note": "IGNORE ARMOUR if Down only"
+  },
+  "Plague Blade": {
+    "cat": "melee",
+    "hands": "1H",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "INFECTION MARKERS"
+    ]
+  },
+  "Pestilent Fang": {
+    "cat": "melee",
+    "hands": "2H",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 1,
+    "heavy": true,
+    "keywords": []
+  },
+  "Polearm": {
+    "cat": "melee",
+    "hands": "2H",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "BLOCK",
+      "CUMBERSOME"
+    ]
+  },
+  "Red Banner": {
+    "cat": "melee",
+    "hands": "1H",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "BLOCK",
+      "HELD"
+    ]
+  },
+  "Atonement Bell": {
+    "cat": "melee",
+    "hands": "1H",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "HELD"
+    ]
+  },
+  "Sacrificial Blade": {
+    "cat": "melee",
+    "hands": "1H",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 2,
+    "heavy": false,
+    "keywords": [
+      "RISKY"
+    ]
+  },
+  "Shredding Claws": {
+    "cat": "melee",
+    "hands": "special",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 1,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "CUMBERSOME",
+      "RISKY"
+    ]
+  },
+  "Shotel": {
+    "cat": "melee",
+    "hands": "1H",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "CRITICAL"
+    ]
+  },
+  "Sword/Axe": {
+    "cat": "melee",
+    "hands": "1H",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "CRITICAL"
+    ]
+  },
+  "Tank-Splitter Sword": {
+    "cat": "melee",
+    "hands": "2H",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 1,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "CRITICAL",
+      "CUMBERSOME"
+    ]
+  },
+  "Tartarus Claws": {
+    "cat": "melee",
+    "hands": "2H",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "CLEAVE 2",
+      "CRITICAL",
+      "CUMBERSOME"
+    ]
+  },
+  "Titan Zulfiqar": {
+    "cat": "melee",
+    "hands": "1H",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 2,
+    "heavy": true,
+    "keywords": [
+      "CRITICAL"
+    ]
+  },
+  "Torture Instrument": {
+    "cat": "melee",
+    "hands": "1H",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Trench Club": {
+    "cat": "melee",
+    "hands": "1H",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Trench Knife": {
+    "cat": "melee",
+    "hands": "1H",
+    "range": "Melee",
+    "dice_mod": -1,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Assassin's Dagger": {
+    "cat": "melee",
+    "hands": "1H",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 1,
+    "heavy": false,
+    "keywords": [
+      "CRITICAL"
+    ]
+  },
+  "Frag Grenades": {
+    "cat": "grenade",
+    "hands": null,
+    "range": "8\"",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "BLAST 2\"",
+      "SHRAPNEL"
+    ]
+  },
+  "Gas Grenades": {
+    "cat": "grenade",
+    "hands": null,
+    "range": "8\"",
+    "dice_mod": 0,
+    "inj_dice": -1,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "BLAST 3\"",
+      "GAS",
+      "IGNORE ARMOUR"
+    ]
+  },
+  "Incendiary Grenades": {
+    "cat": "grenade",
+    "hands": null,
+    "range": "8\"",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "FIRE"
+    ]
+  },
+  "Molotov Cocktail": {
+    "cat": "grenade",
+    "hands": null,
+    "range": "8\"",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "FIRE",
+      "BLAST 1\""
+    ]
+  },
+  "Parasite Grenades": {
+    "cat": "grenade",
+    "hands": null,
+    "range": "8\"",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "ASSAULT",
+      "IGNORE COVER",
+      "IGNORE LONG RANGE"
+    ]
+  },
+  "Satchel Charge": {
+    "cat": "grenade",
+    "hands": null,
+    "range": "3\"",
+    "dice_mod": 0,
+    "inj_dice": 1,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "BLAST 3\"",
+      "IGNORE ARMOUR"
+    ]
+  },
+  "Black Grail Shield": {
+    "cat": "shield",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": -1,
+    "heavy": false,
+    "keywords": []
+  },
+  "Heavy Ballistic Shield": {
+    "cat": "shield",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "COVER"
+    ]
+  },
+  "Trench Shield": {
+    "cat": "shield",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": -1,
+    "heavy": false,
+    "keywords": []
+  },
+  "Alchemist Armour": {
+    "cat": "armour",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": -2,
+    "heavy": false,
+    "keywords": [
+      "NEGATE FIRE",
+      "NEGATE GAS"
+    ]
+  },
+  "Engineer Body Armour": {
+    "cat": "armour",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": -1,
+    "heavy": false,
+    "keywords": [],
+    "note": "-1 INJ vs SHRAPNEL only"
+  },
+  "Machine Armour": {
+    "cat": "armour",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": -3,
+    "heavy": false,
+    "keywords": []
+  },
+  "Reinforced Armour": {
+    "cat": "armour",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": -2,
+    "heavy": false,
+    "keywords": []
+  },
+  "Sarcophagus Mine": {
+    "cat": "armour",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": -3,
+    "heavy": false,
+    "keywords": [
+      "BLAST 3\""
+    ]
+  },
+  "Standard Armour": {
+    "cat": "armour",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": -1,
+    "heavy": false,
+    "keywords": []
+  },
+  "Tank Palanquin": {
+    "cat": "armour",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": -3,
+    "heavy": false,
+    "keywords": [
+      "STRONG"
+    ]
+  },
+  "Tarnished Armour": {
+    "cat": "armour",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": -2,
+    "heavy": false,
+    "keywords": [
+      "NEGATE GAS"
+    ]
+  },
+  "Binoculars": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Blood Cloak": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "SKIRMISHER"
+    ]
+  },
+  "Broken Crown": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Combat Helmet": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "HEADGEAR"
+    ]
+  },
+  "Compound Eyes Helmet": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "HEADGEAR",
+      "NEGATE SHRAPNEL"
+    ]
+  },
+  "Devouring Jaws": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "MUTATION"
+    ]
+  },
+  "Field Shrine": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Gas Mask": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "NEGATE GAS"
+    ]
+  },
+  "Gas Filters": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "NEGATE GAS"
+    ]
+  },
+  "Grail Devotee": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Grasping Maw": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "MUTATION"
+    ]
+  },
+  "Holy Relic": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Holy Smoke": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "CONSUMABLE"
+    ]
+  },
+  "Incendiary Ammunition": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "CONSUMABLE"
+    ]
+  },
+  "Infernal Brand": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Martyrdom Pills": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "CONSUMABLE"
+    ]
+  },
+  "Medi-kit": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Mountaineer Kit": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Musical Instrument": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Shovel": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Takwin Anqa Bird": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Troop Flag": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Unholy Relic": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Unholy Trinket": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "CONSUMABLE"
+    ]
+  },
+  "Unending Starvation": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "MUTATION"
+    ]
+  },
+  "Urn of the Bitter Ashes": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Wind Amulet": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Alchemical Ammunition": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Cloak of Alamut": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Marid Shovel": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "HEAVY"
+    ]
+  },
+  "Hellbound Soul Contract": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Infernal Iron Armour": {
+    "cat": "armour",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": -2,
+    "heavy": false,
+    "keywords": [
+      "NEGATE GAS"
+    ]
+  },
+  "Restraining Muzzle": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Crown of Hellfire": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "HEADGEAR"
+    ]
+  },
+  "Bow of Lethe": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "24\"",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "CRITICAL"
+    ]
+  },
+  "Takwin Anqā Bird": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Iron Capirote": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "HEADGEAR"
+    ]
+  },
+  "Blessed Icon": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Holy Icon Armour": {
+    "cat": "armour",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": -1,
+    "heavy": false,
+    "keywords": []
+  },
+  "Holy Icon Shield": {
+    "cat": "shield",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": -1,
+    "heavy": false,
+    "keywords": []
+  },
+  "Warcross": {
+    "cat": "melee",
+    "hands": "2H",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 1,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "CRITICAL"
+    ]
+  },
+  "Communicant Cross": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Catherine Wheel": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "12\"",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "FIRE",
+      "IGNORE ARMOUR"
+    ]
+  },
+  "Claws & Fangs": {
+    "cat": "melee",
+    "hands": "special",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 1,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Tabot": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Holy Water of Lalibela": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "CONSUMABLE"
+    ]
+  },
+  "Anfarro (Warriors Crown)": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "HEADGEAR"
+    ]
+  },
+  "Explosive Charges": {
+    "cat": "grenade",
+    "hands": null,
+    "range": "3\"",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "BLAST 2\"",
+      "IGNORE ARMOUR"
+    ]
+  },
+  "Anqā Guard": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Armour-Piercing Bullets": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "CONSUMABLE"
+    ]
+  },
+  "Hashishin Leaf": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "CONSUMABLE"
+    ]
+  },
+  "Elixir of Al-Khidr": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "CONSUMABLE"
+    ]
+  },
+  "Dum-Dum Bullets": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "CONSUMABLE"
+    ]
+  },
+  "Golden Calf Altar": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Standard of Mammon": {
+    "cat": "melee",
+    "hands": "1H",
+    "range": "Melee",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "HELD"
+    ]
+  },
+  "Supreme Pontiff's Crucifix": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Trench Mortar": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "36\"",
+    "dice_mod": 0,
+    "inj_dice": 1,
+    "inj_mod": 0,
+    "heavy": true,
+    "keywords": [
+      "BLAST 3\"",
+      "SCATTER"
+    ]
+  },
+  "Grand Anchorite": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Holy Diesel Engine": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Gas Censer": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "6\"",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "GAS",
+      "IGNORE ARMOUR",
+      "RELOAD"
+    ]
+  },
+  "Piston Legs": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Sacred Geometry": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Autocannon": {
+    "cat": "ranged",
+    "hands": "2H",
+    "range": "48\"",
+    "dice_mod": 0,
+    "inj_dice": 1,
+    "inj_mod": 0,
+    "heavy": true,
+    "keywords": [
+      "AUTO 3",
+      "RELOAD"
+    ]
+  },
+  "Wrathful Cherub Face": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Hallowed Anchorite": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": []
+  },
+  "Sacrificial Lamb": {
+    "cat": "equipment",
+    "hands": null,
+    "range": null,
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 0,
+    "heavy": false,
+    "keywords": [
+      "CONSUMABLE"
+    ]
+  }
+}

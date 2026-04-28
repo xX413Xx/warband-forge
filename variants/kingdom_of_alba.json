@@ -1,0 +1,47 @@
+{
+  "name": "Kingdom of Alba Assault Detachment",
+  "parent_faction": "new_antioch",
+  "description": "Scottish melee specialists. Shock Troopers and Lieutenant gain STRONG. MHI swap Ranged/Melee.",
+  "restrict_units": [],
+  "limit_overrides": {},
+  "add_rules": [
+    "Bagpipes: One Musical Instrument can be Bagpipes at no extra cost (friendly within 8\" gain NEGATE FEAR).",
+    "Brave: +1 DICE to Morale Check Success Rolls.",
+    "Celtic Machine Armour: Models with Machine Armour charge D6\" instead of reduced D3\".",
+    "Claymore Smiths: Great Swords/Axes cost 7D instead of 12D.",
+    "Cold Steel: The FIRST Melee Weapon purchased for the warband costs half price (round up).",
+    "Dum-Dum Ammunition: Models can have Dum-Dum Bullets for 5D each (Limit: 3).",
+    "Highland Strength: Lieutenant and Shock Troopers gain STRONG keyword at no cost.",
+    "Lightly-armoured: Only Lieutenant and MHI can have Reinforced or Machine Armour.",
+    "Melee-focused: MHI has Melee +1 DICE and Ranged +0 DICE (swap from base).",
+    "Rampant Charge: All models in the warband have IGNORE DEFENDED OBSTACLE keyword.",
+    "Strained Supply: Automatic Shotguns, Grenade Launchers, Machine Guns, Sniper Rifles, and Submachine Guns have Limit: 1."
+  ],
+  "stat_overrides": {
+    "Mechanized Heavy Infantry": {
+      "ranged": "+0 DICE",
+      "melee": "+1 DICE"
+    }
+  },
+  "cost_overrides": {
+    "Great Sword/Axe": 7
+  },
+  "add_armoury": {
+    "Melee Weapons": [
+      [
+        "Lochaber Axe",
+        20,
+        "Limit: 2"
+      ]
+    ],
+    "Equipment": [
+      [
+        "Dum-Dum Bullets",
+        5,
+        "Limit: 3"
+      ]
+    ]
+  },
+  "ability_replacements": {},
+  "remove_armoury": []
+}

@@ -1,0 +1,56 @@
+{
+  "name": "Knights of Avarice",
+  "parent_faction": "heretic_legion",
+  "description": "Wealthy followers of Mammon. Gilded armour, coin hammers, no crude weapons. Every model must be worth 80+ ducats.",
+  "restrict_units": [
+    "Death Commando"
+  ],
+  "limit_overrides": {},
+  "cost_overrides": {},
+  "add_rules": [
+    "Corrupt Merchants: At creation, buy 1 item from New Antioch Armoury + 1 from Iron Sultanate Armoury. Stipulations still apply. Can repurchase if lost.",
+    "Gas Bombs: Artillery Witches replace Infernal Bombs with Gas Bombs (-1 INJ DICE, BLAST 3\", GAS, IGNORE ARMOUR, IGNORE COVER, IGNORE ELEVATED, IGNORE LONG RANGE, RELOAD, SCATTER).",
+    "Goetic Warlocks: Can include up to 2 Goetic Warlocks as Mercenaries. First costs 110D instead of Glory.",
+    "Infernal Rivalry: Cannot include Death Commandos (Mammon rivals Beleth, patron of Death Commandos).",
+    "Mammon's Chosen: No model (except Wretched) can cost less than 80D including all Battlekit.",
+    "Preserve the Loot: Cannot have Battlekit with FIRE or SHRAPNEL keywords. Grenade Launchers replace SHRAPNEL with -1 INJURY DICE, GAS, IGNORE ARMOUR.",
+    "Price of Greed: Heretic Priest replaces Puppet Master with Price of Greed ACTION (Risky — Injury Roll on enemy within 12\" LoS, +1 INJ DICE on Crit, +1 INJ DICE per -1 INJ MOD on target).",
+    "Worship Mammon: Patron is always Mammon."
+  ],
+  "ability_replacements": {
+    "Heretic Priest": {
+      "remove": "Puppet Master ACTION",
+      "add": "Price of Greed ACTION: Risky — pick target within 12\". Roll Injury adding +1 DICE per point of target's armour."
+    }
+  },
+  "add_armoury": {
+    "Melee Weapons": [
+      [
+        "Coin Hammer",
+        20,
+        "Limit: 2"
+      ]
+    ],
+    "Equipment": [
+      [
+        "Golden Calf Altar",
+        20,
+        "Limit: 3, DEPLOYABLE, HEAVY"
+      ],
+      [
+        "Standard of Mammon",
+        25,
+        "Limit: 1, HELD, LEADER"
+      ]
+    ],
+    "Armour": [
+      [
+        "Tarnished Armour",
+        25,
+        "Limit: 1, -2 INJ MOD, NEGATE GAS"
+      ]
+    ]
+  },
+  "remove_armoury": [],
+  "stat_overrides": {}
+}

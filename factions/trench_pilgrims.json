@@ -1,0 +1,406 @@
+{
+  "name": "Trench Pilgrims",
+  "side": "Faithful",
+  "starting_ducats": 700,
+  "special_rules": [],
+  "elites": [
+    {
+      "type": "War Prophet",
+      "limit": "1 (required)",
+      "base_cost": 80,
+      "movement": "6\"",
+      "ranged": "+2 DICE",
+      "melee": "+2 DICE",
+      "armour": "0",
+      "base_size": "32mm",
+      "keywords": [
+        "PILGRIM",
+        "ELITE",
+        "LEADER"
+      ],
+      "abilities": [
+        "Loudspeakers ACTION: Risky +2 DICE. Move all friendly within 8\" up to 3\" toward nearest visible enemy.",
+        "Laying on of Hands ACTION: Success Roll — remove 1 Blood Marker from friendly within 6\" (3 on Crit). Can self-heal.",
+        "Memento Mori: First OoA result = No Effect. Cannot have TOUGH."
+      ],
+      "base_equipment": []
+    },
+    {
+      "type": "Communicant",
+      "limit": "0-1",
+      "base_cost": 100,
+      "movement": "6\"",
+      "ranged": "-3 DICE",
+      "melee": "+2 DICE",
+      "armour": "0",
+      "base_size": "40mm",
+      "keywords": [
+        "PILGRIM",
+        "ELITE",
+        "REGENERATE 1",
+        "STRONG",
+        "TOUGH"
+      ],
+      "abilities": [
+        "Bodyguard: Take hit for friendly PILGRIM within 1\" (not BLAST).",
+        "Communicant Cross: Free Iron Capirote + Gas Mask (permanent, cannot be removed)."
+      ],
+      "base_equipment": [
+        "Communicant Cross (Iron Capirote + Gas Mask)"
+      ]
+    },
+    {
+      "type": "Castigator",
+      "limit": "0-1",
+      "base_cost": 50,
+      "movement": "6\"",
+      "ranged": "+1 DICE",
+      "melee": "+1 DICE",
+      "armour": "0",
+      "base_size": "32mm",
+      "keywords": [
+        "PILGRIM",
+        "ELITE"
+      ],
+      "abilities": [
+        "Enforced Orthodoxy ACTION: Risky +1 DICE. All friendly Downed within 8\" stand up.",
+        "Whip of God: Can target friendly within 1\" with Melee Attack. Each friendly OoA grants +1 DICE to next Morale Check.",
+        "Zealot Strength: Can gain STRONG for +5d."
+      ],
+      "base_equipment": [],
+      "unit_upgrades": [
+        [
+          "Zealot Strength (STRONG)",
+          5,
+          "Gain STRONG keyword"
+        ]
+      ]
+    }
+  ],
+  "troops": [
+    {
+      "type": "Trench Pilgrim",
+      "limit": "No limit",
+      "base_cost": 30,
+      "movement": "6\"",
+      "ranged": "+0 DICE",
+      "melee": "+0 DICE",
+      "armour": "0",
+      "base_size": "25mm",
+      "keywords": [
+        "PILGRIM"
+      ],
+      "abilities": [
+        "Resurrection: If killed after game, can return as Martyr Penitent (45d, +1 Melee, -1 INJURY DICE).",
+        "Zealot Strength: Up to 1 can gain STRONG for +5d (base becomes 32mm)."
+      ],
+      "base_equipment": [],
+      "unit_upgrades": [
+        [
+          "Zealot Strength (STRONG)",
+          5,
+          "Up to 1 Trench Pilgrim or Martyr Penitent. Base size 32mm."
+        ]
+      ]
+    },
+    {
+      "type": "Stigmatic Nun",
+      "limit": "0-4",
+      "base_cost": 50,
+      "movement": "8\"",
+      "ranged": "+1 DICE",
+      "melee": "+1 DICE",
+      "armour": "0",
+      "base_size": "25mm",
+      "keywords": [
+        "PILGRIM",
+        "REGENERATE 1"
+      ],
+      "abilities": [
+        "Agile: +1 DICE to Risky for Climb, Jump, Diving Charge, Dash.",
+        "Blessed Stigmata: Each Blood Marker removed by REGENERATE places 1 Blessing Marker."
+      ],
+      "base_equipment": [],
+      "battlekit_notes": "Ranged limited to Auto Pistols, Pistols, and Warcrosses only."
+    },
+    {
+      "type": "Ecclesiastic Prisoner",
+      "limit": "No limit",
+      "base_cost": 20,
+      "movement": "6\"",
+      "ranged": "-",
+      "melee": "-1 DICE",
+      "armour": "0",
+      "base_size": "25mm",
+      "keywords": [
+        "PILGRIM"
+      ],
+      "abilities": [
+        "Martyrdom Device (35d): Trigger ACTION — Injury Roll for all within 3\". 4D6 for self. +1 INJURY DICE within 1\".",
+        "Feeble Flailing: Can make Melee Attack without weapon at -1 DICE.",
+        "Mad Dash: +1 DICE to Risky for Dash.",
+        "Awaited: OoA from Martyrdom Device doesn't count for Morale."
+      ],
+      "base_equipment": [
+        "Iron Capirote"
+      ],
+      "battlekit_notes": "Can only have Iron Capirote and Martyrdom Device. No other Battlekit.",
+      "restrict_armoury": true,
+      "unit_upgrades": [
+        [
+          "Martyrdom Device",
+          35,
+          "Limit: 4 across warband"
+        ]
+      ]
+    },
+    {
+      "type": "Anchorite Shrine",
+      "limit": "0-1",
+      "base_cost": 140,
+      "movement": "6\"",
+      "ranged": "-",
+      "melee": "+2 DICE",
+      "armour": "-3",
+      "base_size": "60mm",
+      "keywords": [
+        "PILGRIM",
+        "FEAR",
+        "NEGATE SHRAPNEL",
+        "STRONG",
+        "TOUGH"
+      ],
+      "abilities": [
+        "Broken on the Wheel: Before deployment, choose 1 Trench Pilgrim or Ecclesiastic Prisoner to be sacrificed. While they live, Anchorite has Armour 0 and NO NEGATE SHRAPNEL/TOUGH. Treats Down as Minor Hit. First OoA treated as No Effect, then victim dies; Anchorite gains its full -3 Armour and NEGATE SHRAPNEL/TOUGH.",
+        "Symphony of Slaughter: Armed with Catherine Wheel AND Bonebreaker Mace (both 1H Melee, built-in). Can attack once with either, or twice (Catherine Wheel then Bonebreaker Mace — off-hand modifier applies to second).",
+        "Catherine Wheel: 1H Melee, +1 DICE, DEADLY, HEAVY, RISKY",
+        "Bonebreaker Mace: 1H Melee, +1 INJURY DICE, RISKY"
+      ],
+      "base_equipment": [
+        "Catherine Wheel",
+        "Bonebreaker Mace"
+      ],
+      "restrict_armoury": true,
+      "unit_upgrades": []
+    }
+  ],
+  "armoury": {
+    "Ranged Weapons": [
+      [
+        "Automatic Pistol",
+        20,
+        "ELITE only, Limit: 2"
+      ],
+      [
+        "Blunderbuss",
+        8,
+        "Shield Combo"
+      ],
+      [
+        "Bolt-Action Rifle",
+        10,
+        "Bayonet Lug"
+      ],
+      [
+        "Flamethrower",
+        30,
+        "Limit: 2"
+      ],
+      [
+        "Machine Gun",
+        50,
+        "Limit: 1"
+      ],
+      [
+        "Musket",
+        5,
+        "Bayonet Lug"
+      ],
+      [
+        "Pistol",
+        6,
+        ""
+      ],
+      [
+        "Punt Gun",
+        20,
+        "Limit: 2"
+      ],
+      [
+        "Shotgun",
+        10,
+        "Bayonet Lug, Shield Combo"
+      ],
+      [
+        "Submachine Gun",
+        30,
+        "Bayonet Lug, Shield Combo, Limit: 2"
+      ]
+    ],
+    "Melee Weapons": [
+      [
+        "Anti-Tank Hammer",
+        35,
+        "ELITE only, Limit: 3"
+      ],
+      [
+        "Bayonet",
+        2,
+        "Shield Combo"
+      ],
+      [
+        "Flail/Scourge",
+        5,
+        ""
+      ],
+      [
+        "Great Hammer/Maul",
+        10,
+        ""
+      ],
+      [
+        "Great Sword/Axe",
+        12,
+        ""
+      ],
+      [
+        "Misericordia",
+        15,
+        "Limit: 1"
+      ],
+      [
+        "Polearm",
+        7,
+        "Shield Combo"
+      ],
+      [
+        "Sword/Axe",
+        4,
+        ""
+      ],
+      [
+        "Trench Club",
+        3,
+        ""
+      ],
+      [
+        "Trench Knife",
+        1,
+        ""
+      ]
+    ],
+    "Grenades": [
+      [
+        "Frag Grenades",
+        7,
+        ""
+      ],
+      [
+        "Incendiary Grenades",
+        15,
+        ""
+      ],
+      [
+        "Molotov Cocktail",
+        5,
+        ""
+      ],
+      [
+        "Warcross",
+        5,
+        ""
+      ]
+    ],
+    "Shields": [
+      [
+        "Holy Icon Shield",
+        "2 Glory",
+        "ELITE only, Shield Combo"
+      ],
+      [
+        "Trench Shield",
+        10,
+        "Shield Combo"
+      ]
+    ],
+    "Armour": [
+      [
+        "Holy Icon Armour",
+        30,
+        ""
+      ],
+      [
+        "Reinforced Armour",
+        40,
+        "ELITE only"
+      ],
+      [
+        "Standard Armour",
+        15,
+        ""
+      ]
+    ],
+    "Equipment": [
+      [
+        "Blessed Icon",
+        15,
+        "Consumable"
+      ],
+      [
+        "Field Shrine",
+        "2 Glory",
+        ""
+      ],
+      [
+        "Gas Mask",
+        5,
+        ""
+      ],
+      [
+        "Holy Relic",
+        "2 Glory",
+        "ELITE only"
+      ],
+      [
+        "Incendiary Ammunition",
+        15,
+        "Consumable, Limit: 1"
+      ],
+      [
+        "Iron Capirote",
+        7,
+        "Headgear"
+      ],
+      [
+        "Martyrdom Pills",
+        20,
+        "Consumable, Limit: 3"
+      ],
+      [
+        "Medi-kit",
+        5,
+        ""
+      ],
+      [
+        "Mountaineer Kit",
+        3,
+        "Limit: 1"
+      ],
+      [
+        "Musical Instrument",
+        15,
+        "Limit: 1"
+      ],
+      [
+        "Shovel",
+        5,
+        ""
+      ],
+      [
+        "Troop Flag",
+        "1 Glory",
+        "Limit: 1"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Large binary files not needed in container
+*.pdf
+
+# Documentation — not needed at runtime
+README.md
+WARBAND_FORMAT.md
+
+# Git history
+.git/
+.gitignore
+
+# CLI tool — not used by the web app
+main.py
+
+# Build artifacts
+*.zip
