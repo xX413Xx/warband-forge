@@ -361,6 +361,13 @@ body{font-family:'Crimson Text',Georgia,serif;background:var(--trench);color:var
 .card-a6l .col-div{width:0.2mm;background:rgba(139,26,26,0.1);align-self:stretch;flex-shrink:0;}
 .card-a6l .uc-arcana{font-size:2mm;line-height:1.25;margin-bottom:0.5mm;}
 .card-a6l .uc-arcana strong{font-size:2mm;}
+.card-a6l .uc-pw-zone{border-top:0.3mm solid rgba(139,26,26,0.15);padding:1.5mm 4mm 1mm;display:grid;grid-template-columns:1fr 1fr;gap:0.5mm 3mm;}
+.card-a6l .uc-pw-zone-title{grid-column:1/-1;font-family:'Cinzel',serif;font-size:1.8mm;letter-spacing:0.12em;color:var(--blood);text-transform:uppercase;margin-bottom:0.5mm;}
+.card-a6l .uc-pw-zone .uc-pw{font-size:2mm;margin-bottom:0.3mm;padding-left:2mm;}
+.card-a6l .uc-pw-zone .uc-pw::before{font-size:1.3mm;}
+.card-a6l .uc-pw-zone .uc-pw strong{font-size:2mm;}
+.card-a6l .uc-pw-zone .uc-arcana-item{font-size:2mm;margin-bottom:0.3mm;padding-left:2mm;}
+.card-a6l .uc-pw-zone .uc-arcana-item::before{font-size:1.3mm;}
 .card-a6l .uc-kw{gap:0.6mm;margin-bottom:1mm;}
 .card-a6l .uc-kw .kw{font-size:1.6mm;padding:0.3mm 0.8mm;}
 .card-a6l .uc-sec{font-size:1.6mm;letter-spacing:0.15em;padding-bottom:0.3mm;margin:1mm 0 0.5mm;}
@@ -1952,7 +1959,7 @@ function showPreview(){
     // Arcana Putrescere
     const apHtml=(u.arcana&&u.arcana.length)?u.arcana.map(p=>
       `<div class="uc-arcana uc-arcana-item"><strong>${p.name}</strong>${p.type?` <span class="ct">(${p.type})</span>`:''}${p.desc?' — '+p.desc:''}</div>`
-    ).join(''):''
+    ).join(''):'';
 
     // Variant upgrades
     const vuHtml=(u.variant_upgrades&&u.variant_upgrades.length)?u.variant_upgrades.map(vu=>
@@ -1964,6 +1971,13 @@ function showPreview(){
 
     // ═══ A6L: two-column elite card ═══
     if(cardClass==='card-a6l'){
+      // Powers footer — full width, two columns, only shown when powers/arcana present
+      const hasPowers=pwHtml||apHtml||auraHtml;
+      const pwZoneHtml=hasPowers?`<div class="uc-pw-zone">
+        ${pwHtml?`<div class="uc-pw-zone-title">Goetic Powers</div>${pwHtml}`:''}
+        ${apHtml?`<div class="uc-pw-zone-title" style="color:#7A3B1E;">Arcana Putrescere</div>${apHtml}`:''}
+        ${auraHtml?`<div class="uc-pw-zone-title">Aura</div><div class="uc-pw">${auraHtml}</div>`:''}
+      </div>`:'';
       return`<div class="unit-card card-a6l">
         <div class="uc-header"><div class="uc-name">${u.name?`<span class="uc-custom-name">${u.name}</span>`:''}${u.type}</div><div class="uc-hright"><div class="uc-badge ${badgeCls}">${badge}</div><div class="uc-cost-val">${isMerc?u.glory_cost+'☼':u.total_cost+'D'}</div></div></div>
         <div class="uc-wbar"><span>${fName}</span><span>${wbName}</span></div>
@@ -1979,11 +1993,9 @@ function showPreview(){
             <div class="uc-sec">Abilities</div>
             ${abHtml}
             ${vuHtml?`<div class="uc-sec">Variant Upgrades</div>${vuHtml}`:''}
-            ${pwHtml?`<div class="uc-sec pwr">Goetic Powers</div>${pwHtml}`:''}
-            ${apHtml?`<div class="uc-sec" style="color:#7A3B1E;border-color:rgba(122,59,30,0.2);">Arcana Putrescere</div>${apHtml}`:''}
-            ${auraHtml}
           </div>
         </div>
+        ${pwZoneHtml}
         <div class="uc-foot">
           <div class="uc-xp"><span class="uc-xpl">Experience</span><div class="uc-xpb">${xpRow}</div></div>
           <div class="uc-fr"><span class="uc-fl">Injuries</span><div class="uc-fline"></div><div class="uc-scars"><div class="uc-sc"></div><div class="uc-sc"></div><div class="uc-sc"></div></div></div>
@@ -2202,16 +2214,20 @@ async function downloadPDF(){
 }
 
 // ═══ IMPORT / EXPORT WARBAND JSON ═══
+// Bump this when the save schema changes — add a migration block in migrateSave()
 const CURRENT_FORMAT_VERSION = 2;
 
 function migrateSave(data){
   const v = parseInt((data._format_version)||1);
+  // v1 → v2: added variant_upgrades, arcana, conditional fields
   if(v < 2){
     (data.units||[]).forEach(u=>{
       if(!u.variant_upgrades) u.variant_upgrades=[];
       if(!u.arcana) u.arcana=[];
     });
   }
+  // Future migrations go here as:
+  // if(v < 3){ ... }
   data._format_version = CURRENT_FORMAT_VERSION;
   return data;
 }
