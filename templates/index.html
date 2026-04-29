@@ -357,8 +357,10 @@ body{font-family:'Crimson Text',Georgia,serif;background:var(--trench);color:var
 .card-a6l .uc-st .sl{font-size:1.6mm;letter-spacing:0.1em;margin-bottom:0.3mm;}
 .card-a6l .uc-st .sv{font-size:3.8mm;}
 .card-a6l .uc-body{padding:1.5mm 4mm 1mm;flex-direction:row;gap:3mm;}
-.card-a6l .col-l,.card-a6l .col-r{flex:1;min-width:0;}
+.card-a6l .col-l,.card-a6l .col-r{flex:1;min-width:0;overflow:hidden;}
 .card-a6l .col-div{width:0.2mm;background:rgba(139,26,26,0.1);align-self:stretch;flex-shrink:0;}
+.card-a6l .uc-arcana{font-size:2mm;line-height:1.25;margin-bottom:0.5mm;}
+.card-a6l .uc-arcana strong{font-size:2mm;}
 .card-a6l .uc-kw{gap:0.6mm;margin-bottom:1mm;}
 .card-a6l .uc-kw .kw{font-size:1.6mm;padding:0.3mm 0.8mm;}
 .card-a6l .uc-sec{font-size:1.6mm;letter-spacing:0.15em;padding-bottom:0.3mm;margin:1mm 0 0.5mm;}
@@ -1949,8 +1951,8 @@ function showPreview(){
 
     // Arcana Putrescere
     const apHtml=(u.arcana&&u.arcana.length)?u.arcana.map(p=>
-      `<div class="uc-arcana uc-arcana-item"><strong>${p.name}</strong>${p.type?' <span class="ct">(${p.type})</span>':''}${p.desc?' — '+p.desc:''}</div>`
-    ).join(''):'';
+      `<div class="uc-arcana uc-arcana-item"><strong>${p.name}</strong>${p.type?` <span class="ct">(${p.type})</span>`:''}${p.desc?' — '+p.desc:''}</div>`
+    ).join(''):''
 
     // Variant upgrades
     const vuHtml=(u.variant_upgrades&&u.variant_upgrades.length)?u.variant_upgrades.map(vu=>
@@ -2200,11 +2202,26 @@ async function downloadPDF(){
 }
 
 // ═══ IMPORT / EXPORT WARBAND JSON ═══
+const CURRENT_FORMAT_VERSION = 2;
+
+function migrateSave(data){
+  const v = parseInt((data._format_version)||1);
+  if(v < 2){
+    (data.units||[]).forEach(u=>{
+      if(!u.variant_upgrades) u.variant_upgrades=[];
+      if(!u.arcana) u.arcana=[];
+    });
+  }
+  data._format_version = CURRENT_FORMAT_VERSION;
+  return data;
+}
+
 function exportWarband(){
   const wbName=document.getElementById('wb-name-input').value||'Unnamed Warband';
   const fName=FACTIONS[selectedFaction]?.name||'';
   const save={
     _format:'warband-forge-v1',
+    _format_version: CURRENT_FORMAT_VERSION,
     _created:new Date().toISOString(),
     _modified:new Date().toISOString(),
     warband:{
@@ -2226,6 +2243,8 @@ function exportWarband(){
       base_cost:u.base_cost,
       glory_cost:u.glory_cost||0,
       equipment:u.equip.map(e=>({name:e,cost:0})),
+      variant_upgrades:u.variant_upgrades||[],
+      arcana:u.arcana||[],
       goetic_powers:(u.powers||[]).filter(p=>!p.free).map(p=>({name:p.name,cost:typeof p.cost==='number'?p.cost:0})),
       sin_aura:u.sinAura||'',
       total_cost:u.total_cost,
@@ -2253,7 +2272,7 @@ function importWarband(event){
     try{
       const raw=JSON.parse(e.target.result);
       // Sanitize all imported data
-      const data=sanitizeImport(raw);
+      const data=migrateSave(sanitizeImport(raw));
       if(!FACTIONS[data.warband.faction]){
         alert('Unknown faction: '+esc(data.warband.faction));return;
       }
@@ -2284,6 +2303,8 @@ function importWarband(event){
           abilities:def.abilities||[],
           base_equipment:def.base_equipment||[],
           powers:(u.goetic_powers||[]).map(p=>({name:p.name,cost:p.cost,desc:'',free:false})),
+          variant_upgrades:u.variant_upgrades||[],
+          arcana:u.arcana||[],
           sinAura:u.sin_aura||'',
         };
       });
