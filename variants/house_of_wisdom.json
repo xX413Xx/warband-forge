@@ -84,5 +84,9 @@
   "cost_overrides": {},
   "stat_overrides": {},
   "ability_replacements": {},
-  "remove_armoury": []
+  "remove_armoury": [],
+  "cross_faction_armoury": [
+    {"faction": "new_antioch", "label": "New Antioch Armoury", "limit": 1},
+    {"faction": "trench_pilgrims", "label": "Trench Pilgrims Armoury", "limit": 1}
+  ]
 }

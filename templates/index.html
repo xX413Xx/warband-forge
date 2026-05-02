@@ -40,6 +40,7 @@ body{font-family:'Crimson Text',Georgia,serif;background:var(--trench);color:var
 .faction-btn:hover{border-color:var(--gold);transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,0.4);}
 .faction-btn .f-icon{font-size:1.2rem;width:1.5rem;text-align:center;flex-shrink:0;}
 .faction-btn .f-name{font-family:'Cinzel',serif;font-size:clamp(0.7rem,1.5vw,0.82rem);font-weight:700;}
+.faction-btn .f-desc{font-size:0.62rem;color:rgba(240,230,208,0.55);margin-top:0.15rem;font-family:'Crimson Text',serif;font-style:italic;line-height:1.3;}
 .faction-btn[data-side="Fallen"]{border-color:var(--rust);}.faction-btn[data-side="Fallen"]:hover{border-color:var(--blood-hi);}
 .faction-btn.selected{border-color:var(--gold)!important;background:rgba(201,168,76,0.12);box-shadow:0 0 12px rgba(201,168,76,0.15);}
 .variant-selector{max-width:860px;width:100%;margin-top:1.2rem;display:none;}
@@ -217,7 +218,7 @@ body{font-family:'Crimson Text',Georgia,serif;background:var(--trench);color:var
 .eq-cat-title{font-family:'Cinzel',serif;font-size:0.55rem;color:var(--blood);letter-spacing:0.1em;text-transform:uppercase;padding-bottom:0.1rem;border-bottom:1px solid rgba(139,26,26,0.08);margin-bottom:0.15rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none;}
 .eq-cat-title .toggle{font-size:0.6rem;color:#A09080;}
 .eq-items.collapsed{display:none;}
-.eq-item{display:flex;align-items:center;gap:0.35rem;padding:0.25rem 0.15rem;cursor:pointer;transition:background 0.1s;}
+.eq-item{display:flex;align-items:center;gap:0.35rem;padding:0.25rem 0.15rem;cursor:pointer;transition:background 0.1s;min-height:44px;}
 .eq-item:hover{background:rgba(139,26,26,0.03);}
 .eq-item input[type=checkbox]{accent-color:var(--blood);cursor:pointer;width:13px;height:13px;}
 .eq-item .eq-name{flex:1;font-size:0.75rem;}
@@ -752,21 +753,21 @@ body{font-family:'Crimson Text',Georgia,serif;background:var(--trench);color:var
 
 <!-- ═══ SCREEN 1 ═══ -->
 <div id="screen-faction" class="screen active">
-  <div class="title-block">
-    <h1 class="main-title">Warband Forge</h1>
-    <p class="tagline">Build your warband, equip your warriors, forge your destiny</p>
+  <div id="onboarding-banner" style="display:none;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.25);padding:0.5rem 1rem;margin-bottom:0.5rem;max-width:860px;width:100%;position:relative;cursor:pointer;" onclick="document.getElementById('onboarding-banner').style.display='none';localStorage.setItem('wf-onboarded','1');">
+    <span style="font-family:'Crimson Text',serif;font-size:0.8rem;color:var(--parchment);opacity:0.85;">✠ <strong>Welcome to Warband Forge</strong> — an unofficial builder for Trench Crusade. Pick a faction, recruit and equip your warriors, then export a printable roster or save your warband as a file.</span>
+    <span style="position:absolute;top:0.3rem;right:0.6rem;color:var(--gold-dim);font-size:0.8rem;">✕</span>
   </div>
   <div class="side-header faithful">☩ The Faithful ☩</div>
   <div class="faction-grid">
-    <button class="faction-btn" data-side="Faithful" data-key="new_antioch" onclick="pickFaction(this)"><div class="f-icon">⚔</div><div class="f-name">Principality of New Antioch</div></button>
-    <button class="faction-btn" data-side="Faithful" data-key="trench_pilgrims" onclick="pickFaction(this)"><div class="f-icon">✠</div><div class="f-name">Trench Pilgrims</div></button>
-    <button class="faction-btn" data-side="Faithful" data-key="iron_sultanate" onclick="pickFaction(this)"><div class="f-icon">☪</div><div class="f-name">Sultanate of the Iron Wall</div></button>
+    <button class="faction-btn" data-side="Faithful" data-key="new_antioch" onclick="pickFaction(this)"><div class="f-icon">⚔</div><div class="f-name-block"><div class="f-name">Principality of New Antioch</div><div class="f-desc">Versatile and well-equipped. The beginner-friendly choice.</div></div></button>
+    <button class="faction-btn" data-side="Faithful" data-key="trench_pilgrims" onclick="pickFaction(this)"><div class="f-icon">✠</div><div class="f-name-block"><div class="f-name">Trench Pilgrims</div><div class="f-desc">Fanatical martyrs. Cheap, numerous, and expendable.</div></div></button>
+    <button class="faction-btn" data-side="Faithful" data-key="iron_sultanate" onclick="pickFaction(this)"><div class="f-icon">☪</div><div class="f-name-block"><div class="f-name">Sultanate of the Iron Wall</div><div class="f-desc">Disciplined warriors with elite cavalry and alchemical support.</div></div></button>
   </div>
   <div class="side-header fallen">🜏 The Fallen 🜏</div>
   <div class="faction-grid">
-    <button class="faction-btn" data-side="Fallen" data-key="heretic_legion" onclick="pickFaction(this)"><div class="f-icon">🝊</div><div class="f-name">The Heretic Legion</div></button>
-    <button class="faction-btn" data-side="Fallen" data-key="black_grail" onclick="pickFaction(this)"><div class="f-icon">☠</div><div class="f-name">Cult of the Black Grail</div></button>
-    <button class="faction-btn" data-side="Fallen" data-key="court_serpent" onclick="pickFaction(this)"><div class="f-icon">🐍</div><div class="f-name">Court of the Seven-Headed Serpent</div></button>
+    <button class="faction-btn" data-side="Fallen" data-key="heretic_legion" onclick="pickFaction(this)"><div class="f-icon">🝊</div><div class="f-name-block"><div class="f-name">The Heretic Legion</div><div class="f-desc">Demonic infantry with feared elites and unholy relics.</div></div></button>
+    <button class="faction-btn" data-side="Fallen" data-key="black_grail" onclick="pickFaction(this)"><div class="f-icon">☠</div><div class="f-name-block"><div class="f-name">Cult of the Black Grail</div><div class="f-desc">Undead plague knights. Resilient, infectious, and terrifying.</div></div></button>
+    <button class="faction-btn" data-side="Fallen" data-key="court_serpent" onclick="pickFaction(this)"><div class="f-icon">🐍</div><div class="f-name-block"><div class="f-name">Court of the Seven-Headed Serpent</div><div class="f-desc">Goetic sorcerers. Complex, powerful, and deeply customisable.</div></div></button>
   </div>
   <div class="variant-selector" id="variant-selector"><h3>SELECT VARIANT (OPTIONAL)</h3><div class="variant-options" id="variant-options"></div></div>
   <div class="variant-selector" id="sin-selector" style="display:none;"><h3>SELECT A DEADLY SIN</h3><div class="variant-options" id="sin-options"></div></div>
@@ -816,13 +817,13 @@ body{font-family:'Crimson Text',Georgia,serif;background:var(--trench);color:var
       <div class="rs models"><div class="v" id="d-models">0</div><div class="l">Models</div></div>
     </div>
     <button class="export-btn" onclick="showPreview()">Preview Cards</button>
-    <button class="export-btn" style="background:#6B5DAE;" onclick="exportWarband()">⬇ Save .json</button>
+    <button class="export-btn" style="background:#6B5DAE;" onclick="exportWarband()" title="Saves your warband as a .json file that can be imported back into Warband Forge">⬇ Save Warband</button>
   </div>
   <div class="builder-body">
     <div class="roster-panel">
       <div class="roster-head"><h2>Roster</h2><button class="add-btn" onclick="showTypePicker()">+ Add Unit</button></div>
       <div class="variant-banner" id="variant-banner" style="display:none;"><div class="vb-name" id="vb-name"></div><div id="vb-rules"></div></div>
-      <div class="roster-list" id="roster-list"><div class="roster-empty" id="roster-empty">No warriors recruited yet.</div></div>
+      <div class="roster-list" id="roster-list"><div class="roster-empty" id="roster-empty">No warriors recruited yet.<br><span style="font-size:0.75rem;opacity:0.7;">Use <strong>+ Add Unit</strong> above to recruit your first warrior.</span></div></div>
     </div>
     <div class="detail-panel" id="detail-panel">
       <div class="empty-detail" id="empty-detail"><div class="ed-icon">✠</div><div class="ed-text">Select a unit or click "+ Add Unit"</div></div>
@@ -857,7 +858,7 @@ body{font-family:'Crimson Text',Georgia,serif;background:var(--trench);color:var
     <button class="export-btn" onclick="showMobileCards()">📱 Mobile Cards</button>
     <button class="export-btn" onclick="showRoster()">📄 Roster Sheet</button>
     <button class="export-btn" onclick="window.print()">🖨 Print / Save PDF</button>
-    <button class="export-btn" style="background:#6B5DAE;" onclick="exportWarband()">⬇ Save .json</button>
+    <button class="export-btn" style="background:#6B5DAE;" onclick="exportWarband()" title="Saves your warband as a .json file that can be imported back into Warband Forge">⬇ Save Warband</button>
   </div>
   <div class="card-grid" id="card-grid"></div>
 </div>
@@ -868,7 +869,7 @@ body{font-family:'Crimson Text',Georgia,serif;background:var(--trench);color:var
     <button class="back-btn" onclick="showScreen('screen-preview')">← Cards</button>
     <h2>📄 Warband Roster</h2>
     <button class="export-btn" onclick="window.print()">🖨 Print / Save PDF</button>
-    <button class="export-btn" style="background:#6B5DAE;" onclick="exportWarband()">⬇ Save .json</button>
+    <button class="export-btn" style="background:#6B5DAE;" onclick="exportWarband()" title="Saves your warband as a .json file that can be imported back into Warband Forge">⬇ Save Warband</button>
   </div>
   <div id="roster-sheet"></div>
 </div>
@@ -879,7 +880,7 @@ body{font-family:'Crimson Text',Georgia,serif;background:var(--trench);color:var
     <button class="back-btn" onclick="showScreen('screen-preview')">← Cards</button>
     <h2>📱 Mobile Cards</h2>
     <button class="export-btn" onclick="window.print()">🖨 Print / Save PDF</button>
-    <button class="export-btn" style="background:#6B5DAE;" onclick="exportWarband()">⬇ Save .json</button>
+    <button class="export-btn" style="background:#6B5DAE;" onclick="exportWarband()" title="Saves your warband as a .json file that can be imported back into Warband Forge">⬇ Save Warband</button>
   </div>
   <div class="mobile-cards" id="mobile-cards"></div>
 </div>
@@ -1612,8 +1613,8 @@ function buildEquipPicker(){
   // Variant can add upgrades for specific units (e.g. Éire Rangers Fianna for Shock Troopers)
   const variantAdd=(v.variant_unit_upgrades||{})[currentUnit.type]||[];
   upgrades=upgrades.concat(variantAdd);
-  // Diagnostic: log what we found (visible in DevTools Console)
-  console.log('[WarbandForge] Unit upgrades check:',{unitType:currentUnit.type,variantKey:v.key,baseUpgrades:currentUnit.unit_upgrades,variantUpgrades:variantAdd,totalAfterMerge:upgrades.length});
+
+ 
   // Variant can restrict certain upgrades (e.g. Saint Methodius blocks Martyrdom Device)
   const variantRestrict=(v.restrict_unit_upgrades||{})[currentUnit.type]||[];
   if(variantRestrict.length)upgrades=upgrades.filter(u=>!variantRestrict.includes(u[0]));
@@ -1639,6 +1640,53 @@ function buildEquipPicker(){
       html+=`<label class="eq-item ${cls}"><input type="checkbox" data-cost="${costVal}" data-cat="Unit Upgrades" data-name="${esc(name)}" data-note="${esc(note)}" ${wbBlocked?'disabled data-perm="1"':''} onchange="enforceEquipLimits();updateEditorCost()"><span class="eq-name">${esc(name)}</span><span class="eq-cost">${costStr}</span>${note?`<span class="eq-note">${esc(note)}</span>`:''}${wbLock}</label>`;
     });
     html+='</div></div>';
+  }
+  // Cross-faction armoury sections (e.g. House of Wisdom)
+  const xfa=(v.cross_faction_armoury||[]);
+  if(xfa.length){
+    // Count cross-faction items already used across warband
+    const xfaCounts={};
+    roster.forEach((ru,ri)=>{
+      if(ri===editingIndex)return;
+      (ru.equip||[]).forEach(e=>{xfaCounts[e]=(xfaCounts[e]||0)+1;});
+    });
+    xfa.forEach(xf=>{
+      const xfFaction=FACTIONS[xf.faction];
+      if(!xfFaction)return;
+      const xfLimit=xf.limit||1;
+      // Count items from this faction's armoury already selected in this unit + warband
+      const allXfItems=new Set();
+      Object.values(xfFaction.armoury||{}).forEach(items=>items.forEach(i=>allXfItems.add(i[0])));
+      const xfUsed=Object.entries(xfaCounts).filter(([n])=>allXfItems.has(n)).reduce((s,[,c])=>s+c,0);
+      const xfSectionFull=xfUsed>=xfLimit;
+      html+=`<div class="equip-section"><div class="eq-cat-title" onclick="this.nextElementSibling.classList.toggle('collapsed');this.querySelector('.toggle').textContent=this.nextElementSibling.classList.contains('collapsed')?'▸':'▾';">
+        ${xf.label} <span style="font-weight:400;font-size:0.5rem;">(${xfUsed}/${xfLimit} used)</span> <span class="toggle">▸</span></div><div class="eq-items collapsed">`;
+      Object.entries(xfFaction.armoury||{}).forEach(([cat,items])=>{
+        items.forEach(item=>{
+          const name=item[0],cost=item[1],note=item[2]||'';
+          const costStr=typeof cost==='number'?cost+'D':cost;
+          const costVal=typeof cost==='number'?cost:0;
+          const gp=gearParse(name);
+          let wInfo='';
+          if(gp&&gp.cat==='weapon'){
+            const parts=[];
+            if(gp.range)parts.push(gp.range);
+            if(gp.diceMod!==0)parts.push((gp.diceMod>0?'+':'')+gp.diceMod+'d');
+            if(gp.injDiceStr)parts.push(gp.injDiceStr);
+            if(gp.keywords)parts.push(gp.keywords);
+            wInfo=parts.join(', ');
+          } else if(gp&&(gp.cat==='armour'||gp.cat==='shield')){
+            wInfo=gp.keywords||'';
+          }
+          const hands=getHands(name,cat);
+          const blocked=xfSectionFull;
+          const cls=blocked?'eq-restricted':'';
+          const lockIcon=blocked?` <span class="eq-lock">🔒 Limit ${xfLimit}</span>`:'';
+          html+=`<label class="eq-item ${cls}"><input type="checkbox" data-cost="${costVal}" data-cat="${cat}" data-hands="${hands}" data-name="${esc(name)}" data-note="${esc(note)}" data-xfa="${xf.faction}" ${blocked?'disabled data-perm="1"':''} onchange="enforceEquipLimits();updateEditorCost()"><span class="eq-name">${name}</span>${wInfo?`<span class="eq-info">${wInfo}</span>`:''}<span class="eq-cost">${costStr}</span>${note?`<span class="eq-note">${note}</span>`:''}${lockIcon}</label>`;
+        });
+      });
+      html+='</div></div>';
+    });
   }
   p.innerHTML=html;
 }
@@ -2180,12 +2228,12 @@ function showRoster(){
   page1+=`</table>`;
   page1+=`<div class="rp-sec">Campaign Battle Log</div><table class="rp-ctbl"><tr><th>#</th><th>Threshold</th><th>Strength</th><th>Opponent</th><th>Scenario</th><th>Result</th><th>Notes</th></tr>${emptyRows}</table>`;
   page1+=`<div style="margin-top:3mm;"><div class="rp-sec">Warband Notes</div><div class="rp-nline"></div><div class="rp-nline"></div><div class="rp-nline"></div><div class="rp-nline"></div></div>`;
-  page1+=`<div class="rp-foot"><span>Warband Forge · v3.12</span><span>Trench Crusade © Factory Fortress</span></div></div>`;
+  page1+=`<div class="rp-foot"><span>Warband Forge · v3.14</span><span>Trench Crusade © Factory Fortress</span></div></div>`;
 
   // Page 2+: Unit Details
   let page2=`<div class="roster-page"><div style="font-family:'IM Fell English SC',serif;font-size:4.5mm;color:var(--blood);border-bottom:0.5mm solid var(--blood);padding-bottom:1mm;margin-bottom:3mm;display:flex;justify-content:space-between;align-items:flex-end;"><span>Unit Details</span><span style="font-family:'Cinzel',serif;font-size:2.5mm;color:var(--gold);letter-spacing:0.1em;">${esc(wbName)} — ${esc(fName)}</span></div>`;
   roster.forEach(u=>page2+=ublock(u));
-  page2+=`<div class="rp-foot"><span>Warband Forge · v3.12</span><span>Trench Crusade © Factory Fortress</span></div></div>`;
+  page2+=`<div class="rp-foot"><span>Warband Forge · v3.14</span><span>Trench Crusade © Factory Fortress</span></div></div>`;
 
   document.getElementById('roster-sheet').innerHTML=page1+page2;
   showScreen('screen-roster');
@@ -2365,7 +2413,11 @@ function updateShareLinks(){
 
 // ═══ INIT — load data from Flask API ═══
 updateShareLinks();
-loadData().then(()=>{console.log('Data loaded, ready.')}).catch(e=>{
+loadData().then(()=>{
+  if(!localStorage.getItem('wf-onboarded')){
+    document.getElementById('onboarding-banner').style.display='block';
+  }
+}).catch(e=>{
   console.warn('API not available, using empty data. Run app.py for full data.',e);
 });
 </script>
