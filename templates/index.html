@@ -1684,7 +1684,7 @@ function buildEquipPicker(){
       // For 1H weapons: show a ×2 toggle so users can take two identical weapons
       const is1H=(cat==='Ranged Weapons'||cat==='Melee Weapons')&&hands==='1H';
       const dualBtn=is1H&&!itemDisabled?` <button class="eq-dual-btn" data-cost="${costVal}" data-name="${esc(name)}" data-cat="${cat}" data-hands="${hands}" onclick="toggleDual(this,event)" title="Take two of this weapon">×2</button>`:'';
-      html+=`<label class="eq-item ${cls}"><input type="checkbox" data-cost="${costVal}" data-cat="${cat}" data-hands="${hands}" data-name="${esc(name)}" data-note="${esc(note)}" ${itemDisabled?'disabled data-perm="1"':''} onchange="enforceEquipLimits();updateConditionalItems();updateEditorCost()"><span class="eq-name">${name}</span>${wInfo?`<span class="eq-info">${wInfo}</span>`:''}<span class="eq-cost ${modCls}">${costStr}</span>${note&&!itemDisabled?`<span class="eq-note">${note}</span>`:''}${lockIcon}${dualBtn}</label>`;
+      html+=`<label class="eq-item ${cls}"><input type="checkbox" data-cost="${costVal}" data-cat="${cat}" data-hands="${hands}" data-name="${esc(name)}" data-note="${esc(note)}" ${wkBlocked?'disabled data-perm="1"':itemDisabled?'disabled':''} onchange="enforceEquipLimits();updateConditionalItems();updateEditorCost()"><span class="eq-name">${name}</span>${wInfo?`<span class="eq-info">${wInfo}</span>`:''}<span class="eq-cost ${modCls}">${costStr}</span>${note&&!itemDisabled?`<span class="eq-note">${note}</span>`:''}${lockIcon}${dualBtn}</label>`;
     });
     html+='</div></div>';
   }
