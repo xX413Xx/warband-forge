@@ -1023,6 +1023,34 @@ let selectedFaction=null,selectedVariant=null,selectedSin=null,roster=[],editing
 let limitsOverridden=false;
 let allRestrictionsIgnored=false;
 
+function updateConditionalItems(){
+  // Re-evaluate canUseItem for all non-permanent disabled items
+  // This unlocks items whose prerequisites have just been met (e.g. Heavy Ballistic Shield when Machine Armour ticked)
+  document.querySelectorAll('#equip-picker .eq-item').forEach(label=>{
+    const cb=label.querySelector('input');
+    if(!cb||cb.dataset.perm==='1')return; // permanent restriction — skip
+    const note=cb.dataset.note||'';
+    if(!note||!note.toLowerCase().includes('only'))return; // no restriction note — skip
+    const nowAllowed=allRestrictionsIgnored?true:canUseItem(note,currentUnit);
+    const wasRestricted=label.classList.contains('eq-restricted');
+    if(nowAllowed&&wasRestricted){
+      label.classList.remove('eq-restricted');
+      cb.disabled=false;
+      // Remove lock icon
+      label.querySelectorAll('.eq-lock').forEach(l=>l.remove());
+    } else if(!nowAllowed&&!wasRestricted&&!cb.checked){
+      label.classList.add('eq-restricted');
+      cb.disabled=true;
+    }
+  });
+}
+
+function rebuildPickerOnUpgrade(changedCb){
+  // Re-evaluate conditional items (e.g. unlock Heavy Ballistic Shield when Machine Armour ticked)
+  updateConditionalItems();
+  enforceEquipLimits();
+  updateEditorCost();
+}
 function toggleLimitOverride(){
   limitsOverridden=!limitsOverridden;
   const btn=document.getElementById('limit-override-btn');
@@ -1590,7 +1618,7 @@ function buildEquipPicker(){
       let wbBlocked=false,wbLock='';
       if(wbLimit!==null){const used=wbCounts2[name]||0;if(used>=wbLimit){wbBlocked=true;wbLock=` <span class="eq-lock">🔒 Limit ${wbLimit}</span>`;}}
       const cls=wbBlocked?'eq-limit-blocked':'';
-      html+=`<label class="eq-item ${cls}"><input type="checkbox" data-cost="${costVal}" data-cat="Unit Upgrades" data-name="${esc(name)}" data-note="${esc(note)}" ${wbBlocked?'disabled data-perm="1"':''} onchange="updateEditorCost()"><span class="eq-name">${esc(name)}</span><span class="eq-cost">${costStr}</span>${note?`<span class="eq-note">${esc(note)}</span>`:''}${wbLock}</label>`;
+      html+=`<label class="eq-item ${cls}"><input type="checkbox" data-cost="${costVal}" data-cat="Unit Upgrades" data-name="${esc(name)}" data-note="${esc(note)}" ${wbBlocked?'disabled data-perm="1"':''} onchange="rebuildPickerOnUpgrade(this)"><span class="eq-name">${esc(name)}</span><span class="eq-cost">${costStr}</span>${note?`<span class="eq-note">${esc(note)}</span>`:''}${wbLock}</label>`;
     });
     html+='</div></div>';
     p.innerHTML=html;
@@ -1656,7 +1684,7 @@ function buildEquipPicker(){
       // For 1H weapons: show a ×2 toggle so users can take two identical weapons
       const is1H=(cat==='Ranged Weapons'||cat==='Melee Weapons')&&hands==='1H';
       const dualBtn=is1H&&!itemDisabled?` <button class="eq-dual-btn" data-cost="${costVal}" data-name="${esc(name)}" data-cat="${cat}" data-hands="${hands}" onclick="toggleDual(this,event)" title="Take two of this weapon">×2</button>`:'';
-      html+=`<label class="eq-item ${cls}"><input type="checkbox" data-cost="${costVal}" data-cat="${cat}" data-hands="${hands}" data-name="${esc(name)}" data-note="${esc(note)}" ${itemDisabled?'disabled data-perm="1"':''} onchange="enforceEquipLimits();updateEditorCost()"><span class="eq-name">${name}</span>${wInfo?`<span class="eq-info">${wInfo}</span>`:''}<span class="eq-cost ${modCls}">${costStr}</span>${note&&!itemDisabled?`<span class="eq-note">${note}</span>`:''}${lockIcon}${dualBtn}</label>`;
+      html+=`<label class="eq-item ${cls}"><input type="checkbox" data-cost="${costVal}" data-cat="${cat}" data-hands="${hands}" data-name="${esc(name)}" data-note="${esc(note)}" ${itemDisabled?'disabled data-perm="1"':''} onchange="enforceEquipLimits();updateConditionalItems();updateEditorCost()"><span class="eq-name">${name}</span>${wInfo?`<span class="eq-info">${wInfo}</span>`:''}<span class="eq-cost ${modCls}">${costStr}</span>${note&&!itemDisabled?`<span class="eq-note">${note}</span>`:''}${lockIcon}${dualBtn}</label>`;
     });
     html+='</div></div>';
   }
@@ -1854,6 +1882,8 @@ function editExisting(idx){
     document.querySelectorAll('#equip-picker input').forEach(cb=>{
       cb.checked=allEquipNames.includes(cb.closest('.eq-item').querySelector('.eq-name').textContent);
     });
+    // Re-evaluate conditional items with restored selections (e.g. Machine Armour unlocks Heavy Ballistic Shield)
+    updateConditionalItems();
     enforceEquipLimits();
     // Re-check Goetic Powers
     const savedPowers=(u.powers||[]).map(p=>p.name);
