@@ -1046,10 +1046,12 @@ function updateConditionalItems(){
 }
 
 function rebuildPickerOnUpgrade(changedCb){
-  // Re-evaluate conditional items (e.g. unlock Heavy Ballistic Shield when Machine Armour ticked)
-  updateConditionalItems();
-  enforceEquipLimits();
-  updateEditorCost();
+  // Defer so the checkbox checked state is fully committed before re-evaluating
+  setTimeout(()=>{
+    updateConditionalItems();
+    enforceEquipLimits();
+    updateEditorCost();
+  },0);
 }
 function toggleLimitOverride(){
   limitsOverridden=!limitsOverridden;
@@ -1641,6 +1643,9 @@ function buildEquipPicker(){
   let html='';
   for(const[cat,items]of Object.entries(merged)){
     if(!items.length)continue;
+    // For units with armour included in base cost, skip the Armour category entirely
+    // Their armour options are handled via unit_upgrades instead
+    if(!allRestrictionsIgnored&&currentUnit.restrict_armour_purchase&&cat==='Armour')continue;
     html+=`<div class="equip-section"><div class="eq-cat-title" onclick="this.nextElementSibling.classList.toggle('collapsed');this.querySelector('.toggle').textContent=this.nextElementSibling.classList.contains('collapsed')?'▸':'▾';">
       ${cat} <span class="toggle">▾</span></div><div class="eq-items">`;
     items.forEach(item=>{
@@ -1657,16 +1662,11 @@ function buildEquipPicker(){
       if(!allRestrictionsIgnored&&wkOnly&&(cat==='Ranged Weapons'||cat==='Melee Weapons')){
         if(!gearIsHeavy(name)){wkBlocked=true;}
       }
-      // Armour purchase restriction (e.g. MHI — armour included in base cost, upgrade via unit_upgrades)
-      let armourBlocked=false;
-      if(!allRestrictionsIgnored&&currentUnit.restrict_armour_purchase&&cat==='Armour'){
-        armourBlocked=true;
-      }
-      const cls=(!allowed||wkBlocked||armourBlocked)?'eq-restricted':'';
-      const lockIcon=armourBlocked?` <span class="eq-lock">🔒 Included in base cost</span>`:(!allowed&&note)?` <span class="eq-lock">🔒 ${note}</span>`:(wkBlocked?` <span class="eq-lock">🔒 ${wkOnly} only</span>`:'');
+      const cls=(!allowed||wkBlocked)?'eq-restricted':'';
+      const lockIcon=(!allowed&&note)?` <span class="eq-lock">🔒 ${note}</span>`:(wkBlocked?` <span class="eq-lock">🔒 ${wkOnly} only</span>`:'');
       const modCls=modified?'modified':'';
       const hands=getHands(name,cat);
-      const itemDisabled=!allowed||wkBlocked||armourBlocked;
+      const itemDisabled=!allowed||wkBlocked;
       // Build compact info string from gear data for picker display
       const gp=gearParse(name);
       let wInfo='';
