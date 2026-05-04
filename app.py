@@ -24,7 +24,7 @@ import tempfile
 # Import our existing modules
 from card_pdf import generate_warband_pdf
 
-VERSION = "3.15"
+VERSION = "3.16"
 
 # ═══════════════════════════════════════════════════════════════
 # Create the Flask application
@@ -174,6 +174,13 @@ def service_worker():
 @app.route("/static/<path:filename>")
 def static_files(filename):
     return send_file(os.path.join(BASE_DIR, "static", filename))
+
+@app.route("/.well-known/security.txt")
+def security_txt():
+    return send_file(
+        os.path.join(BASE_DIR, "static", "security.txt"),
+        mimetype="text/plain"
+    )
 
 
 @app.route("/api/data")
