@@ -1717,7 +1717,7 @@ function buildEquipPicker(){
         if(used>=wbLimit){wbBlocked=true;wbLock=` <span class="eq-lock">🔒 Limit ${wbLimit} (${used} in warband)</span>`;}
       }
       const cls=wbBlocked?'eq-limit-blocked':'';
-      html+=`<label class="eq-item ${cls}"><input type="checkbox" data-cost="${costVal}" data-cat="Unit Upgrades" data-name="${esc(name)}" data-note="${esc(note)}" ${wbBlocked?'disabled data-perm="1"':''} onchange="enforceEquipLimits();updateEditorCost()"><span class="eq-name">${esc(name)}</span><span class="eq-cost">${costStr}</span>${note?`<span class="eq-note">${esc(note)}</span>`:''}${wbLock}</label>`;
+      html+=`<label class="eq-item ${cls}"><input type="checkbox" data-cost="${costVal}" data-cat="Unit Upgrades" data-name="${esc(name)}" data-note="${esc(note)}" ${wbBlocked?'disabled data-perm="1"':''} onchange="rebuildPickerOnUpgrade(this)"><span class="eq-name">${esc(name)}</span><span class="eq-cost">${costStr}</span>${note?`<span class="eq-note">${esc(note)}</span>`:''}${wbLock}</label>`;
     });
     html+='</div></div>';
   }
