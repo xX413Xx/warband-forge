@@ -815,6 +815,9 @@ body{font-family:'Crimson Text',Georgia,serif;background:var(--trench);color:var
       <div class="rs glory"><div class="v" id="g-spent">0</div><div class="l">Used</div></div>
       <div class="rs glory"><div class="v" id="g-remain">0</div><div class="l">Left</div></div>
       <div class="rs models"><div class="v" id="d-models">0</div><div class="l">Models</div></div>
+      <div class="rs" id="limit-override-rs" style="cursor:pointer;user-select:none;" onclick="toggleLimitOverride()" title="Override unit limits — for campaign skills, scenarios, or custom play">
+        <div class="v" id="limit-override-icon">🔒</div><div class="l">Limits</div>
+      </div>
     </div>
     <button class="export-btn" onclick="showPreview()">Preview Cards</button>
     <button class="export-btn" style="background:#6B5DAE;" onclick="exportWarband()" title="Saves your warband as a .json file that can be imported back into Warband Forge">⬇ Save Warband</button>
@@ -823,7 +826,7 @@ body{font-family:'Crimson Text',Georgia,serif;background:var(--trench);color:var
     <div class="roster-panel">
       <div class="roster-head"><h2>Roster</h2><button class="add-btn" onclick="showTypePicker()">+ Add Unit</button></div>
       <div class="variant-banner" id="variant-banner" style="display:none;"><div class="vb-name" id="vb-name"></div><div id="vb-rules"></div></div>
-      <div class="roster-list" id="roster-list"><div class="roster-empty" id="roster-empty">No warriors recruited yet.<br><span style="font-size:0.75rem;opacity:0.7;">Use <strong>+ Add Unit</strong> above to recruit your first warrior.</span></div></div>
+      <div class="roster-list" id="roster-list"><div class="roster-empty" id="roster-empty">No warriors recruited yet.</div></div>
     </div>
     <div class="detail-panel" id="detail-panel">
       <div class="empty-detail" id="empty-detail"><div class="ed-icon">✠</div><div class="ed-text">Select a unit or click "+ Add Unit"</div></div>
@@ -964,7 +967,6 @@ async function loadData(){
         glory_cost_overrides:v.glory_cost_overrides||{},
         remove_restrictions:v.remove_restrictions||{},
         add_rules:v.add_rules||[],
-        cross_faction_armoury:v.cross_faction_armoury||[],
       });
     });
   }
@@ -1014,6 +1016,15 @@ async function loadData(){
 
 // ═══ STATE ═══
 let selectedFaction=null,selectedVariant=null,selectedSin=null,roster=[],editingIndex=-1,currentUnit=null;
+let limitsOverridden=false;
+function toggleLimitOverride(){
+  limitsOverridden=!limitsOverridden;
+  document.getElementById('limit-override-icon').textContent=limitsOverridden?'🔓':'🔒';
+  document.getElementById('limit-override-rs').style.color=limitsOverridden?'var(--gold)':'';
+  // Rebuild picker if open
+  const tp=document.getElementById('type-picker');
+  if(tp&&tp.style.display!=='none')showTypePicker();
+}
 
 // ═══ HELPERS ═══
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
@@ -1082,7 +1093,9 @@ function isRestricted(type){const v=getVariant();return v&&v.restrict_units&&v.r
 function pickFaction(btn){
   document.querySelectorAll('.faction-btn').forEach(b=>b.classList.remove('selected'));
   btn.classList.add('selected');
-  selectedFaction=btn.dataset.key;selectedVariant='standard';selectedSin=null;
+  selectedFaction=btn.dataset.key;selectedVariant='standard';selectedSin=null;limitsOverridden=false;
+  document.getElementById('limit-override-icon').textContent='🔒';
+  document.getElementById('limit-override-rs').style.color='';
   const vs=VARIANTS[selectedFaction]||[];
   const sel=document.getElementById('variant-selector'),opts=document.getElementById('variant-options');
   opts.innerHTML='';  // Clear all previous variant buttons
@@ -1161,11 +1174,12 @@ function showTypePicker(){
     const restricted=rep?false:isRestricted(u.type);
     const max=getEffectiveMax(u);
     const actualCount=countInRoster(displayUnit.type);
-    const maxed=actualCount>=max;
+    const maxed=!limitsOverridden&&actualCount>=max;
     const needsMore=u.min&&u.min>0&&actualCount<u.min;
     let cls=restricted?'restricted':maxed?'maxed':'';
     let countBadge='';
     if(restricted)countBadge=`<span class="tp-count full">Restricted</span>`;
+    else if(limitsOverridden&&max<99)countBadge=`<span class="tp-count available" style="color:var(--gold);border-color:var(--gold);">${actualCount}/${max} 🔓</span>`;
     else if(maxed)countBadge=`<span class="tp-count full">${actualCount}/${max} MAX</span>`;
     else if(needsMore)countBadge=`<span class="tp-count required">${actualCount}/${u.min} NEED</span>`;
     else if(max<99)countBadge=`<span class="tp-count available">${actualCount}/${max}</span>`;
@@ -1235,7 +1249,11 @@ function pickUnit(idx){
   const entry=_pickerUnits[idx];if(!entry)return;
   const v=getVariant()||{};
   const overrides=(v.unit_stat_overrides||{})[entry.unit.type]||{};
-  currentUnit={...entry.unit, ...overrides, isElite:entry.isElite, isMerc:entry.isMerc};
+  const removeRestrictions=(v.remove_restrictions||{})[entry.unit.type]||[];
+  let unitData={...entry.unit, ...overrides, isElite:entry.isElite, isMerc:entry.isMerc};
+  // Apply variant remove_restrictions (e.g. Saint Methodius removes restrict_armoury from Anchorite)
+  removeRestrictions.forEach(flag=>{unitData[flag]=false;});
+  currentUnit=unitData;
   openEditor();
 }
 
@@ -1340,6 +1358,14 @@ function canUseItem(note,unit){
   if(!n.includes('only'))return true;
   const uType=(unit.type||'').toLowerCase();
   const uKw=(unit.keywords||[]).map(k=>k.toLowerCase());
+  // Also check currently selected equipment in the picker
+  const uEquip=[];
+  document.querySelectorAll('#equip-picker input:checked').forEach(cb=>{
+    const nm=cb.dataset.name||cb.closest('.eq-item')?.querySelector('.eq-name')?.textContent||'';
+    if(nm)uEquip.push(nm.toLowerCase());
+  });
+  // And base equipment
+  (unit.base_equipment||[]).forEach(e=>uEquip.push(e.toLowerCase()));
   let before=n.split('only')[0].trim();
   // Strip noise words individually (not greedy)
   ['consumable','headgear','shield combo','bayonet lug'].forEach(w=>{before=before.replace(new RegExp(w,'gi'),'');});
@@ -1354,6 +1380,8 @@ function canUseItem(note,unit){
     const plural=req.endsWith('s')?req:req+'s';
     if(uType.includes(singular)||uType.includes(plural))return true;
     if(uKw.some(k=>k.includes(req)||k.includes(singular)))return true;
+    // Check equipped items (e.g. "Machine Armour only" passes if Machine Armour is selected)
+    if(uEquip.some(e=>e.includes(req)||e.includes(singular)))return true;
     return false;
   });
 }
