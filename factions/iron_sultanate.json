@@ -142,6 +142,7 @@
       "battlekit_notes": "Can only have Armour and/or Wind Amulet. No Shields, no other Battlekit.",
       "restrict_armoury": false,
       "restrict_ranged": true,
+      "restrict_melee": true,
       "restrict_grenades": true,
       "restrict_shields": true,
       "unit_upgrades": [

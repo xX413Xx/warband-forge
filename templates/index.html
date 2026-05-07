@@ -922,7 +922,9 @@ function transformUnit(u){
     conditional_keywords:u.conditional_keywords||{},
     conditional_restrict_items:u.conditional_restrict_items||{},
     restrict_ranged:u.restrict_ranged||false,
+    restrict_melee:u.restrict_melee||false,
     restrict_grenades:u.restrict_grenades||false,
+    restrict_equipment_to:u.restrict_equipment_to||null,
     restrict_shields:u.restrict_shields||false,
     restrict_equipment_to:u.restrict_equipment_to||null,
   };
@@ -1649,6 +1651,9 @@ function buildEquipPicker(){
     // Their armour options are handled via unit_upgrades instead
     if(!allRestrictionsIgnored&&currentUnit.restrict_armour_purchase&&cat==='Armour')continue;
     if(!allRestrictionsIgnored&&currentUnit.restrict_shields&&cat==='Shields')continue;
+    if(!allRestrictionsIgnored&&currentUnit.restrict_ranged&&cat==='Ranged Weapons')continue;
+    if(!allRestrictionsIgnored&&currentUnit.restrict_grenades&&cat==='Grenades')continue;
+    if(!allRestrictionsIgnored&&currentUnit.restrict_melee&&cat==='Melee Weapons')continue;
     // For units restricted to specific equipment only (e.g. Lion of Jabir: Wind Amulet only)
     // Items are filtered per-item below
     html+=`<div class="equip-section"><div class="eq-cat-title" onclick="this.nextElementSibling.classList.toggle('collapsed');this.querySelector('.toggle').textContent=this.nextElementSibling.classList.contains('collapsed')?'▸':'▾';">
@@ -1883,7 +1888,7 @@ function editExisting(idx){
   const f=FACTIONS[selectedFaction];
   const allUnits=[...(f?.elites||[]),...(f?.troops||[]),...((getVariant()||{}).add_units||[])];
   const origDef=allUnits.find(d=>d.type===u.type)||{};
-  currentUnit={type:u.type,base_cost:u.base_cost,movement:u.movement,ranged:u.ranged,melee:u.melee,armour:u.armour,keywords:u.keywords,abilities:u.abilities,conditional_abilities:origDef.conditional_abilities||{},conditional_keywords:origDef.conditional_keywords||{},conditional_restrict_items:origDef.conditional_restrict_items||{},base_equipment:u.base_equipment,base_size:origDef.base_size||u.base_size||'32mm',isElite:u.isElite,isMerc:u.isMerc,cost:u.glory_cost,min:0,max:99,gp_max:origDef.gp_max||0,gp_free:origDef.gp_free||[],ap_max:origDef.ap_max||0,restrict_armoury:origDef.restrict_armoury||false,unit_upgrades:origDef.unit_upgrades||[],restrict_armour_purchase:origDef.restrict_armour_purchase||false,restrict_ranged:origDef.restrict_ranged||false,restrict_grenades:origDef.restrict_grenades||false,restrict_shields:origDef.restrict_shields||false,restrict_equipment_to:origDef.restrict_equipment_to||null};
+  currentUnit={type:u.type,base_cost:u.base_cost,movement:u.movement,ranged:u.ranged,melee:u.melee,armour:u.armour,keywords:u.keywords,abilities:u.abilities,conditional_abilities:origDef.conditional_abilities||{},conditional_keywords:origDef.conditional_keywords||{},conditional_restrict_items:origDef.conditional_restrict_items||{},base_equipment:u.base_equipment,base_size:origDef.base_size||u.base_size||'32mm',isElite:u.isElite,isMerc:u.isMerc,cost:u.glory_cost,min:0,max:99,gp_max:origDef.gp_max||0,gp_free:origDef.gp_free||[],ap_max:origDef.ap_max||0,restrict_armoury:origDef.restrict_armoury||false,unit_upgrades:origDef.unit_upgrades||[],restrict_armour_purchase:origDef.restrict_armour_purchase||false,restrict_ranged:origDef.restrict_ranged||false,restrict_melee:origDef.restrict_melee||false,restrict_grenades:origDef.restrict_grenades||false,restrict_shields:origDef.restrict_shields||false,restrict_equipment_to:origDef.restrict_equipment_to||null};
   openEditor();document.getElementById('ue-name-input').value=u.name;
   if(!u.isMerc){
     // Restore equip — includes both gear and variant upgrades stored in equip
@@ -2324,12 +2329,12 @@ function showRoster(){
   page1+=`</table>`;
   page1+=`<div class="rp-sec">Campaign Battle Log</div><table class="rp-ctbl"><tr><th>#</th><th>Threshold</th><th>Strength</th><th>Opponent</th><th>Scenario</th><th>Result</th><th>Notes</th></tr>${emptyRows}</table>`;
   page1+=`<div style="margin-top:3mm;"><div class="rp-sec">Warband Notes</div><div class="rp-nline"></div><div class="rp-nline"></div><div class="rp-nline"></div><div class="rp-nline"></div></div>`;
-  page1+=`<div class="rp-foot"><span>Warband Forge · v3.14</span><span>Trench Crusade © Factory Fortress</span></div></div>`;
+  page1+=`<div class="rp-foot"><span>Warband Forge · v3.18</span><span>Trench Crusade © Factory Fortress</span></div></div>`;
 
   // Page 2+: Unit Details
   let page2=`<div class="roster-page"><div style="font-family:'IM Fell English SC',serif;font-size:4.5mm;color:var(--blood);border-bottom:0.5mm solid var(--blood);padding-bottom:1mm;margin-bottom:3mm;display:flex;justify-content:space-between;align-items:flex-end;"><span>Unit Details</span><span style="font-family:'Cinzel',serif;font-size:2.5mm;color:var(--gold);letter-spacing:0.1em;">${esc(wbName)} — ${esc(fName)}</span></div>`;
   roster.forEach(u=>page2+=ublock(u));
-  page2+=`<div class="rp-foot"><span>Warband Forge · v3.14</span><span>Trench Crusade © Factory Fortress</span></div></div>`;
+  page2+=`<div class="rp-foot"><span>Warband Forge · v3.18</span><span>Trench Crusade © Factory Fortress</span></div></div>`;
 
   document.getElementById('roster-sheet').innerHTML=page1+page2;
   showScreen('screen-roster');
