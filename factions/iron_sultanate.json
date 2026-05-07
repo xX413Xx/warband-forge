@@ -139,7 +139,17 @@
         "Shredding Claws (+1 INJ, CUMBERSOME, RISKY)"
       ],
       "battlekit_notes": "Can only have Armour and/or Wind Amulet. No Shields, no other Battlekit.",
-      "restrict_armoury": true
+      "restrict_armoury": false,
+      "restrict_ranged": true,
+      "restrict_grenades": true,
+      "restrict_shields": true,
+      "unit_upgrades": [
+        [
+          "FEAR keyword",
+          5,
+          "Any number of Lions of Jabir can have FEAR"
+        ]
+      ]
     },
     {
       "type": "Janissary",
