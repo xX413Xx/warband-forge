@@ -3,6 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#2C1A0E">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Warband Forge">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/static/icon-192.png">
+<script defer src="https://stats.warbandforge.com/script.js" data-website-id="3ba9efd1-c551-43fa-bf69-1813365ee1c8"></script>
 <title>Warband Forge</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=IM+Fell+English+SC&display=swap');
@@ -33,6 +40,7 @@ body{font-family:'Crimson Text',Georgia,serif;background:var(--trench);color:var
 .faction-btn:hover{border-color:var(--gold);transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,0.4);}
 .faction-btn .f-icon{font-size:1.2rem;width:1.5rem;text-align:center;flex-shrink:0;}
 .faction-btn .f-name{font-family:'Cinzel',serif;font-size:clamp(0.7rem,1.5vw,0.82rem);font-weight:700;}
+.faction-btn .f-desc{font-size:0.62rem;color:rgba(240,230,208,0.55);margin-top:0.15rem;font-family:'Crimson Text',serif;font-style:italic;line-height:1.3;}
 .faction-btn[data-side="Fallen"]{border-color:var(--rust);}.faction-btn[data-side="Fallen"]:hover{border-color:var(--blood-hi);}
 .faction-btn.selected{border-color:var(--gold)!important;background:rgba(201,168,76,0.12);box-shadow:0 0 12px rgba(201,168,76,0.15);}
 .variant-selector{max-width:860px;width:100%;margin-top:1.2rem;display:none;}
@@ -103,6 +111,22 @@ body{font-family:'Crimson Text',Georgia,serif;background:var(--trench);color:var
 .gp-item .gp-cost{font-family:'Cinzel',serif;font-size:0.72rem;color:var(--glory);min-width:2rem;text-align:right;white-space:nowrap;}
 .gp-item.gp-free{background:rgba(107,93,174,0.04);}
 .gp-item.gp-free .gp-name::after{content:' (free)';font-weight:400;font-size:0.62rem;color:#908070;}
+.eq-dual-btn{display:none;margin-left:auto;background:none;border:1px solid var(--blood);color:var(--blood);font-family:'Cinzel',serif;font-size:0.6rem;padding:1px 5px;cursor:pointer;border-radius:2px;white-space:nowrap;}
+.eq-dual-btn.active{background:var(--blood);color:var(--parchment);}
+.eq-item:has(input:checked) .eq-dual-btn{display:inline-block;}
+.ap-item:hover{background:rgba(122,59,30,0.04);}
+.ap-item input[type=checkbox]{accent-color:#7A3B1E;cursor:pointer;width:15px;height:15px;margin-top:0.15rem;}
+.ap-item .ap-info{flex:1;}
+.ap-item .ap-name{font-size:0.85rem;font-weight:600;color:#7A3B1E;}
+.ap-item .ap-type{font-size:0.62rem;color:#907060;font-style:italic;margin-top:0.02rem;}
+.ap-item .ap-desc{font-size:0.72rem;color:#504030;line-height:1.3;margin-top:0.05rem;}
+.ap-item .ap-who{font-size:0.62rem;color:#807060;font-style:italic;}
+.ap-item .ap-cost{font-family:'Cinzel',serif;font-size:0.72rem;color:#7A3B1E;min-width:2rem;text-align:right;white-space:nowrap;}
+.uc-arcana{font-size:0.72rem;color:#7A3B1E;margin-bottom:0.2rem;line-height:1.3;}
+.uc-arcana-item::before{content:'✦ ';color:#7A3B1E;font-size:0.55rem;}
+.rp-arcana{position:relative;padding-left:3mm;margin-bottom:0.8mm;font-family:'IM Fell English',serif;font-size:2mm;line-height:1.35;color:var(--ink);}
+.rp-arcana::before{content:'✦';position:absolute;left:0;color:#7A3B1E;font-size:1.4mm;top:0.1mm;}
+.rp-arcana strong{font-family:'Cinzel',serif;font-size:2.1mm;color:#7A3B1E;}
 .uc-powers{font-size:0.72rem;color:var(--glory);margin-bottom:0.2rem;line-height:1.3;}
 .uc-powers strong{font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.06em;}
 .uc-power-item{margin-left:0.3rem;}
@@ -194,7 +218,7 @@ body{font-family:'Crimson Text',Georgia,serif;background:var(--trench);color:var
 .eq-cat-title{font-family:'Cinzel',serif;font-size:0.55rem;color:var(--blood);letter-spacing:0.1em;text-transform:uppercase;padding-bottom:0.1rem;border-bottom:1px solid rgba(139,26,26,0.08);margin-bottom:0.15rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none;}
 .eq-cat-title .toggle{font-size:0.6rem;color:#A09080;}
 .eq-items.collapsed{display:none;}
-.eq-item{display:flex;align-items:center;gap:0.35rem;padding:0.25rem 0.15rem;cursor:pointer;transition:background 0.1s;}
+.eq-item{display:flex;align-items:center;gap:0.35rem;padding:0.25rem 0.15rem;cursor:pointer;transition:background 0.1s;min-height:44px;}
 .eq-item:hover{background:rgba(139,26,26,0.03);}
 .eq-item input[type=checkbox]{accent-color:var(--blood);cursor:pointer;width:13px;height:13px;}
 .eq-item .eq-name{flex:1;font-size:0.75rem;}
@@ -234,7 +258,7 @@ body{font-family:'Crimson Text',Georgia,serif;background:var(--trench);color:var
 .uc-badge.troop{color:#A09080;}
 .uc-cost-val{font-family:'Cinzel',serif;font-weight:700;color:#F0E6D0;}
 .uc-wbar{background:rgba(26,21,16,0.06);border-bottom:0.2mm solid rgba(139,26,26,0.1);display:flex;justify-content:space-between;font-family:'Cinzel',serif;color:#6B3A2A;position:relative;z-index:3;}
-.uc-stats{display:grid;grid-template-columns:repeat(4,1fr);border:0.25mm solid #8B1A1A;position:relative;z-index:3;}
+.uc-stats{display:grid;grid-template-columns:repeat(5,1fr);border:0.25mm solid #8B1A1A;position:relative;z-index:3;}
 .uc-st{text-align:center;border-right:0.15mm solid rgba(139,26,26,0.2);background:rgba(255,255,255,0.5);}
 .uc-st:last-child{border-right:none;}
 .uc-st .sl{font-family:'Cinzel',serif;color:#8B1A1A;text-transform:uppercase;}
@@ -334,8 +358,17 @@ body{font-family:'Crimson Text',Georgia,serif;background:var(--trench);color:var
 .card-a6l .uc-st .sl{font-size:1.6mm;letter-spacing:0.1em;margin-bottom:0.3mm;}
 .card-a6l .uc-st .sv{font-size:3.8mm;}
 .card-a6l .uc-body{padding:1.5mm 4mm 1mm;flex-direction:row;gap:3mm;}
-.card-a6l .col-l,.card-a6l .col-r{flex:1;min-width:0;}
+.card-a6l .col-l,.card-a6l .col-r{flex:1;min-width:0;overflow:hidden;}
 .card-a6l .col-div{width:0.2mm;background:rgba(139,26,26,0.1);align-self:stretch;flex-shrink:0;}
+.card-a6l .uc-arcana{font-size:2mm;line-height:1.25;margin-bottom:0.5mm;}
+.card-a6l .uc-arcana strong{font-size:2mm;}
+.card-a6l .uc-pw-zone{border-top:0.3mm solid rgba(139,26,26,0.15);padding:1.5mm 4mm 1mm;display:grid;grid-template-columns:1fr 1fr;gap:0.5mm 3mm;}
+.card-a6l .uc-pw-zone-title{grid-column:1/-1;font-family:'Cinzel',serif;font-size:1.8mm;letter-spacing:0.12em;color:var(--blood);text-transform:uppercase;margin-bottom:0.5mm;}
+.card-a6l .uc-pw-zone .uc-pw{font-size:2mm;margin-bottom:0.3mm;padding-left:2mm;}
+.card-a6l .uc-pw-zone .uc-pw::before{font-size:1.3mm;}
+.card-a6l .uc-pw-zone .uc-pw strong{font-size:2mm;}
+.card-a6l .uc-pw-zone .uc-arcana-item{font-size:2mm;margin-bottom:0.3mm;padding-left:2mm;}
+.card-a6l .uc-pw-zone .uc-arcana-item::before{font-size:1.3mm;}
 .card-a6l .uc-kw{gap:0.6mm;margin-bottom:1mm;}
 .card-a6l .uc-kw .kw{font-size:1.6mm;padding:0.3mm 0.8mm;}
 .card-a6l .uc-sec{font-size:1.6mm;letter-spacing:0.15em;padding-bottom:0.3mm;margin:1mm 0 0.5mm;}
@@ -378,6 +411,11 @@ body{font-family:'Crimson Text',Georgia,serif;background:var(--trench);color:var
 .roster-page>*{position:relative;z-index:1;}
 .rp-header{background:var(--trench);padding:4mm 5mm 3mm;display:flex;justify-content:space-between;align-items:flex-end;margin:-8mm -8mm 0;position:relative;}
 .rp-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:0.7mm;background:linear-gradient(90deg,var(--blood),var(--gold) 25%,var(--gold) 75%,var(--blood));}
+.rp-sr{margin-top:0;margin-bottom:0;}
+.rp-sr-list{display:flex;flex-direction:column;gap:0.6mm;}
+.rp-sr-item{font-family:'IM Fell English',serif;font-size:1.9mm;line-height:1.35;color:var(--ink);padding:0.5mm 0;border-bottom:0.1mm dotted rgba(107,58,42,0.15);}
+.rp-sr-item:last-child{border-bottom:none;}
+.rp-sr-item b{font-family:'IM Fell English SC',serif;color:var(--blood);font-size:1.9mm;}
 .rp-title{font-family:'IM Fell English SC',serif;color:var(--parchment);font-size:7mm;line-height:1;}
 .rp-sub{font-family:'Cinzel',serif;color:var(--gold);font-size:2.8mm;letter-spacing:0.15em;margin-top:0.8mm;}
 .rp-meta{text-align:right;font-family:'Cinzel',serif;}
@@ -715,21 +753,21 @@ body{font-family:'Crimson Text',Georgia,serif;background:var(--trench);color:var
 
 <!-- ═══ SCREEN 1 ═══ -->
 <div id="screen-faction" class="screen active">
-  <div class="title-block">
-    <h1 class="main-title">Warband Forge</h1>
-    <p class="tagline">Build your warband, equip your warriors, forge your destiny</p>
+  <div id="onboarding-banner" style="display:none;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.25);padding:0.5rem 1rem;margin-bottom:0.5rem;max-width:860px;width:100%;position:relative;cursor:pointer;" onclick="document.getElementById('onboarding-banner').style.display='none';localStorage.setItem('wf-onboarded','1');">
+    <span style="font-family:'Crimson Text',serif;font-size:0.8rem;color:var(--parchment);opacity:0.85;">✠ <strong>Welcome to Warband Forge</strong> — an unofficial builder for Trench Crusade. Pick a faction, recruit and equip your warriors, then export a printable roster or save your warband as a file.</span>
+    <span style="position:absolute;top:0.3rem;right:0.6rem;color:var(--gold-dim);font-size:0.8rem;">✕</span>
   </div>
   <div class="side-header faithful">☩ The Faithful ☩</div>
   <div class="faction-grid">
-    <button class="faction-btn" data-side="Faithful" data-key="new_antioch" onclick="pickFaction(this)"><div class="f-icon">⚔</div><div class="f-name">Principality of New Antioch</div></button>
-    <button class="faction-btn" data-side="Faithful" data-key="trench_pilgrims" onclick="pickFaction(this)"><div class="f-icon">✠</div><div class="f-name">Trench Pilgrims</div></button>
-    <button class="faction-btn" data-side="Faithful" data-key="iron_sultanate" onclick="pickFaction(this)"><div class="f-icon">☪</div><div class="f-name">Sultanate of the Iron Wall</div></button>
+    <button class="faction-btn" data-side="Faithful" data-key="new_antioch" onclick="pickFaction(this)"><div class="f-icon">⚔</div><div class="f-name-block"><div class="f-name">Principality of New Antioch</div><div class="f-desc">Versatile and well-equipped. The beginner-friendly choice.</div></div></button>
+    <button class="faction-btn" data-side="Faithful" data-key="trench_pilgrims" onclick="pickFaction(this)"><div class="f-icon">✠</div><div class="f-name-block"><div class="f-name">Trench Pilgrims</div><div class="f-desc">Fanatical martyrs. Cheap, numerous, and expendable.</div></div></button>
+    <button class="faction-btn" data-side="Faithful" data-key="iron_sultanate" onclick="pickFaction(this)"><div class="f-icon">☪</div><div class="f-name-block"><div class="f-name">Sultanate of the Iron Wall</div><div class="f-desc">Disciplined warriors with elite cavalry and alchemical support.</div></div></button>
   </div>
   <div class="side-header fallen">🜏 The Fallen 🜏</div>
   <div class="faction-grid">
-    <button class="faction-btn" data-side="Fallen" data-key="heretic_legion" onclick="pickFaction(this)"><div class="f-icon">🝊</div><div class="f-name">The Heretic Legion</div></button>
-    <button class="faction-btn" data-side="Fallen" data-key="black_grail" onclick="pickFaction(this)"><div class="f-icon">☠</div><div class="f-name">Cult of the Black Grail</div></button>
-    <button class="faction-btn" data-side="Fallen" data-key="court_serpent" onclick="pickFaction(this)"><div class="f-icon">🐍</div><div class="f-name">Court of the Seven-Headed Serpent</div></button>
+    <button class="faction-btn" data-side="Fallen" data-key="heretic_legion" onclick="pickFaction(this)"><div class="f-icon">🝊</div><div class="f-name-block"><div class="f-name">The Heretic Legion</div><div class="f-desc">Demonic infantry with feared elites and unholy relics.</div></div></button>
+    <button class="faction-btn" data-side="Fallen" data-key="black_grail" onclick="pickFaction(this)"><div class="f-icon">☠</div><div class="f-name-block"><div class="f-name">Cult of the Black Grail</div><div class="f-desc">Undead plague knights. Resilient, infectious, and terrifying.</div></div></button>
+    <button class="faction-btn" data-side="Fallen" data-key="court_serpent" onclick="pickFaction(this)"><div class="f-icon">🐍</div><div class="f-name-block"><div class="f-name">Court of the Seven-Headed Serpent</div><div class="f-desc">Goetic sorcerers. Complex, powerful, and deeply customisable.</div></div></button>
   </div>
   <div class="variant-selector" id="variant-selector"><h3>SELECT VARIANT (OPTIONAL)</h3><div class="variant-options" id="variant-options"></div></div>
   <div class="variant-selector" id="sin-selector" style="display:none;"><h3>SELECT A DEADLY SIN</h3><div class="variant-options" id="sin-options"></div></div>
@@ -775,14 +813,22 @@ body{font-family:'Crimson Text',Georgia,serif;background:var(--trench);color:var
       <div class="rs ducats"><div class="v" id="d-remain">700</div><div class="l">Left</div></div>
       <div class="rs glory budget-edit"><input class="budget-input glory-input" id="g-budget" type="number" value="0" min="0" max="99" onchange="updateTopBar()"><div class="l">Glory ☼</div></div>
       <div class="rs glory"><div class="v" id="g-spent">0</div><div class="l">Used</div></div>
+      <div class="rs glory"><div class="v" id="g-remain">0</div><div class="l">Left</div></div>
       <div class="rs models"><div class="v" id="d-models">0</div><div class="l">Models</div></div>
     </div>
     <button class="export-btn" onclick="showPreview()">Preview Cards</button>
-    <button class="export-btn" style="background:#6B5DAE;" onclick="exportWarband()">⬇ Save .json</button>
+    <button class="export-btn" style="background:#6B5DAE;" onclick="exportWarband()" title="Saves your warband as a .json file that can be imported back into Warband Forge">⬇ Save Warband</button>
   </div>
   <div class="builder-body">
     <div class="roster-panel">
-      <div class="roster-head"><h2>Roster</h2><button class="add-btn" onclick="showTypePicker()">+ Add Unit</button></div>
+      <div class="roster-head">
+        <h2>Roster</h2>
+        <div style="display:flex;flex-direction:column;gap:0.2rem;align-items:flex-end;">
+          <button class="add-btn" onclick="showTypePicker()">+ Add Unit</button>
+          <button id="limit-override-btn" onclick="toggleLimitOverride()" title="Bypass unit count limits — for campaign skills or scenarios" style="font-size:0.55rem;font-family:'Cinzel',serif;letter-spacing:0.05em;padding:0.15rem 0.4rem;background:none;border:1px solid rgba(139,26,26,0.2);color:var(--rust);cursor:pointer;border-radius:2px;white-space:nowrap;">🔒 Unit Limits</button>
+          <button id="all-restrictions-btn" onclick="toggleAllRestrictions()" title="Ignore ALL rules — faction restrictions, equipment limits, armoury restrictions. Adds a warning notice to printed cards." style="font-size:0.55rem;font-family:'Cinzel',serif;letter-spacing:0.05em;padding:0.15rem 0.4rem;background:none;border:1px solid rgba(139,26,26,0.2);color:var(--rust);cursor:pointer;border-radius:2px;white-space:nowrap;">☠ Ignore All Rules</button>
+        </div>
+      </div>
       <div class="variant-banner" id="variant-banner" style="display:none;"><div class="vb-name" id="vb-name"></div><div id="vb-rules"></div></div>
       <div class="roster-list" id="roster-list"><div class="roster-empty" id="roster-empty">No warriors recruited yet.</div></div>
     </div>
@@ -801,6 +847,10 @@ body{font-family:'Crimson Text',Georgia,serif;background:var(--trench);color:var
           <div class="eq-cat-title" style="color:var(--glory);border-color:rgba(107,93,174,0.2);margin-top:0.5rem;">☼ Goetic Powers <span style="font-weight:400;font-size:0.5rem;" id="gp-slots"></span></div>
           <div id="goetic-list"></div>
         </div>
+        <div id="arcana-picker" style="display:none;">
+          <div class="eq-cat-title" style="color:#7A3B1E;border-color:rgba(122,59,30,0.2);margin-top:0.5rem;">✦ Arcana Putrescere <span style="font-weight:400;font-size:0.5rem;" id="ap-slots"></span></div>
+          <div id="arcana-list"></div>
+        </div>
         <div class="ue-actions"><button class="btn-confirm" onclick="confirmUnit()">✠ Confirm & Add</button><button class="btn-cancel" onclick="cancelAdd()">Cancel</button></div>
       </div>
     </div>
@@ -815,7 +865,7 @@ body{font-family:'Crimson Text',Georgia,serif;background:var(--trench);color:var
     <button class="export-btn" onclick="showMobileCards()">📱 Mobile Cards</button>
     <button class="export-btn" onclick="showRoster()">📄 Roster Sheet</button>
     <button class="export-btn" onclick="window.print()">🖨 Print / Save PDF</button>
-    <button class="export-btn" style="background:#6B5DAE;" onclick="exportWarband()">⬇ Save .json</button>
+    <button class="export-btn" style="background:#6B5DAE;" onclick="exportWarband()" title="Saves your warband as a .json file that can be imported back into Warband Forge">⬇ Save Warband</button>
   </div>
   <div class="card-grid" id="card-grid"></div>
 </div>
@@ -826,7 +876,7 @@ body{font-family:'Crimson Text',Georgia,serif;background:var(--trench);color:var
     <button class="back-btn" onclick="showScreen('screen-preview')">← Cards</button>
     <h2>📄 Warband Roster</h2>
     <button class="export-btn" onclick="window.print()">🖨 Print / Save PDF</button>
-    <button class="export-btn" style="background:#6B5DAE;" onclick="exportWarband()">⬇ Save .json</button>
+    <button class="export-btn" style="background:#6B5DAE;" onclick="exportWarband()" title="Saves your warband as a .json file that can be imported back into Warband Forge">⬇ Save Warband</button>
   </div>
   <div id="roster-sheet"></div>
 </div>
@@ -837,14 +887,14 @@ body{font-family:'Crimson Text',Georgia,serif;background:var(--trench);color:var
     <button class="back-btn" onclick="showScreen('screen-preview')">← Cards</button>
     <h2>📱 Mobile Cards</h2>
     <button class="export-btn" onclick="window.print()">🖨 Print / Save PDF</button>
-    <button class="export-btn" style="background:#6B5DAE;" onclick="exportWarband()">⬇ Save .json</button>
+    <button class="export-btn" style="background:#6B5DAE;" onclick="exportWarband()" title="Saves your warband as a .json file that can be imported back into Warband Forge">⬇ Save Warband</button>
   </div>
   <div class="mobile-cards" id="mobile-cards"></div>
 </div>
 
 <script>
 // ═══ DATA (loaded from Flask API) ═══
-let FACTIONS={},VARIANTS={},GOETIC_POWERS={},SAINT_AURAS={},MERCENARIES=[];
+let FACTIONS={},VARIANTS={},GOETIC_POWERS={},SAINT_AURAS={},MERCENARIES=[],GEAR={},ARCANA_POWERS=[];
 
 function parseLimit(limitStr){
   if(!limitStr) return {min:0,max:99};
@@ -867,6 +917,14 @@ function transformUnit(u){
     armour:u.armour||'0',
     gp_max:u.goetic_powers_max||0,
     gp_free:u.goetic_powers_free||[],
+    ap_max:u.ap_max||0,
+    conditional_abilities:u.conditional_abilities||{},
+    conditional_keywords:u.conditional_keywords||{},
+    conditional_restrict_items:u.conditional_restrict_items||{},
+    restrict_ranged:u.restrict_ranged||false,
+    restrict_grenades:u.restrict_grenades||false,
+    restrict_shields:u.restrict_shields||false,
+    restrict_equipment_to:u.restrict_equipment_to||null,
   };
 }
 
@@ -936,6 +994,13 @@ async function loadData(){
     };
   });
 
+  // Load gear data
+  if(raw.gear) Object.assign(GEAR, raw.gear);
+
+  // Load Arcana Putrescere powers from Great Hunger variant
+  const gh=raw.variants?.black_grail?.find(v=>v.key==='great_hunger');
+  if(gh&&gh.arcana_putrescere) ARCANA_POWERS=gh.arcana_putrescere;
+
   // Extract Goetic Powers from Court faction data
   const court=raw.factions.court_serpent;
   if(court&&court.goetic_powers){
@@ -958,6 +1023,63 @@ async function loadData(){
 
 // ═══ STATE ═══
 let selectedFaction=null,selectedVariant=null,selectedSin=null,roster=[],editingIndex=-1,currentUnit=null;
+let limitsOverridden=false;
+let allRestrictionsIgnored=false;
+
+function updateConditionalItems(){
+  // Re-evaluate canUseItem for all non-permanent disabled items
+  // This unlocks items whose prerequisites have just been met (e.g. Heavy Ballistic Shield when Machine Armour ticked)
+  document.querySelectorAll('#equip-picker .eq-item').forEach(label=>{
+    const cb=label.querySelector('input');
+    if(!cb||cb.dataset.perm==='1')return; // permanent restriction — skip
+    const note=cb.dataset.note||'';
+    if(!note||!note.toLowerCase().includes('only'))return; // no restriction note — skip
+    const nowAllowed=allRestrictionsIgnored?true:canUseItem(note,currentUnit);
+    const wasRestricted=label.classList.contains('eq-restricted');
+    if(nowAllowed&&wasRestricted){
+      label.classList.remove('eq-restricted');
+      cb.disabled=false;
+      // Remove lock icon
+      label.querySelectorAll('.eq-lock').forEach(l=>l.remove());
+    } else if(!nowAllowed&&!wasRestricted&&!cb.checked){
+      label.classList.add('eq-restricted');
+      cb.disabled=true;
+    }
+  });
+}
+
+function rebuildPickerOnUpgrade(changedCb){
+  // Defer so the checkbox checked state is fully committed before re-evaluating
+  setTimeout(()=>{
+    updateConditionalItems();
+    enforceEquipLimits();
+    updateEditorCost();
+  },0);
+}
+function toggleLimitOverride(){
+  limitsOverridden=!limitsOverridden;
+  const btn=document.getElementById('limit-override-btn');
+  if(btn){
+    btn.textContent=limitsOverridden?'🔓 Unit Limits':'🔒 Unit Limits';
+    btn.style.color=limitsOverridden?'var(--gold)':'var(--rust)';
+    btn.style.borderColor=limitsOverridden?'var(--gold)':'rgba(139,26,26,0.2)';
+  }
+  const tp=document.getElementById('type-picker');
+  if(tp&&tp.style.display!=='none')showTypePicker();
+}
+
+function toggleAllRestrictions(){
+  allRestrictionsIgnored=!allRestrictionsIgnored;
+  const btn=document.getElementById('all-restrictions-btn');
+  if(btn){
+    btn.textContent=allRestrictionsIgnored?'⚠ Rules Ignored':'☠ Ignore All Rules';
+    btn.style.color=allRestrictionsIgnored?'#ff4444':'var(--rust)';
+    btn.style.borderColor=allRestrictionsIgnored?'#ff4444':'rgba(139,26,26,0.2)';
+    btn.style.background=allRestrictionsIgnored?'rgba(255,68,68,0.08)':'none';
+  }
+  const tp=document.getElementById('type-picker');
+  if(tp&&tp.style.display!=='none')showTypePicker();
+}
 
 // ═══ HELPERS ═══
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
@@ -1034,7 +1156,11 @@ function isMutuallyExcluded(type){
 function pickFaction(btn){
   document.querySelectorAll('.faction-btn').forEach(b=>b.classList.remove('selected'));
   btn.classList.add('selected');
-  selectedFaction=btn.dataset.key;selectedVariant='standard';selectedSin=null;
+  selectedFaction=btn.dataset.key;selectedVariant='standard';selectedSin=null;limitsOverridden=false;allRestrictionsIgnored=false;
+  const lb=document.getElementById('limit-override-btn');
+  if(lb){lb.textContent='🔒 Unit Limits';lb.style.color='var(--rust)';lb.style.borderColor='rgba(139,26,26,0.2)';}
+  const ab=document.getElementById('all-restrictions-btn');
+  if(ab){ab.textContent='☠ Ignore All Rules';ab.style.color='var(--rust)';ab.style.borderColor='rgba(139,26,26,0.2)';ab.style.background='none';}
   const vs=VARIANTS[selectedFaction]||[];
   const sel=document.getElementById('variant-selector'),opts=document.getElementById('variant-options');
   opts.innerHTML='';  // Clear all previous variant buttons
@@ -1109,14 +1235,17 @@ function showTypePicker(){
     if(rep){
       displayUnit={...u, type:rep.new_type||u.type, abilities:rep.abilities||u.abilities};
     }
-    const restricted=(typeof allRestrictionsIgnored!=='undefined'&&allRestrictionsIgnored)?false:(isRestricted(u.type)||isMutuallyExcluded(displayUnit.type));
+    // A unit with a replacement is available under its new name — never show as restricted
+    const restricted=allRestrictionsIgnored?false:(rep?false:(isRestricted(u.type)||isMutuallyExcluded(displayUnit.type)));
     const max=getEffectiveMax(u);
     const actualCount=countInRoster(displayUnit.type);
-    const maxed=actualCount>=max;
-    const needsMore=u.min&&u.min>0&&actualCount<u.min;
+    const maxed=!limitsOverridden&&!allRestrictionsIgnored&&actualCount>=max;
+    const needsMore=!allRestrictionsIgnored&&u.min&&u.min>0&&actualCount<u.min;
     let cls=restricted?'restricted':maxed?'maxed':'';
     let countBadge='';
     if(restricted)countBadge=`<span class="tp-count full">Restricted</span>`;
+    else if(allRestrictionsIgnored)countBadge=`<span class="tp-count available" style="color:#ff4444;border-color:#ff4444;">${actualCount} ☠</span>`;
+    else if(limitsOverridden&&max<99)countBadge=`<span class="tp-count available" style="color:var(--gold);border-color:var(--gold);">${actualCount}/${max} 🔓</span>`;
     else if(maxed)countBadge=`<span class="tp-count full">${actualCount}/${max} MAX</span>`;
     else if(needsMore)countBadge=`<span class="tp-count required">${actualCount}/${u.min} NEED</span>`;
     else if(max<99)countBadge=`<span class="tp-count available">${actualCount}/${max}</span>`;
@@ -1138,15 +1267,23 @@ function showTypePicker(){
   if(eliteOv.length){
     f.troops.filter(u=>eliteOv.includes(u.type)).forEach(u=>html+=renderUnit(u,true));
   }
+  // Variant-added ELITE units — skip any type already covered by a unit_replacement
+  // (e.g. Barbed Wire Banshee in Trench Ghosts replaces Chorister — don't show it twice)
+  const replacedTypes=new Set(Object.values(replacements).map(r=>r.new_type).filter(Boolean));
+  if(v.add_units&&v.add_units.length){
+    v.add_units
+      .filter(u=>u.keywords&&u.keywords.some(k=>k.toUpperCase()==='ELITE'))
+      .filter(u=>!replacedTypes.has(u.type))
+      .forEach(u=>html+=renderUnit(u,true));
+  }
   html+='<div class="tp-section">† Troops †</div>';
   f.troops.filter(u=>!eliteOv.includes(u.type)).forEach(u=>html+=renderUnit(u,false));
-
-  // Variant-added units
+  // Variant-added TROOP units — skip replaced types
   if(v.add_units&&v.add_units.length){
-    v.add_units.forEach(u=>{
-      const isE=u.keywords&&u.keywords.some(k=>k.toUpperCase()==='ELITE');
-      html+=renderUnit(u,isE);
-    });
+    v.add_units
+      .filter(u=>!(u.keywords&&u.keywords.some(k=>k.toUpperCase()==='ELITE')))
+      .filter(u=>!replacedTypes.has(u.type))
+      .forEach(u=>html+=renderUnit(u,false));
   }
 
   // Mercenaries (blocked entirely if variant says so)
@@ -1178,7 +1315,11 @@ function pickUnit(idx){
   const entry=_pickerUnits[idx];if(!entry)return;
   const v=getVariant()||{};
   const overrides=(v.unit_stat_overrides||{})[entry.unit.type]||{};
-  currentUnit={...entry.unit, ...overrides, isElite:entry.isElite, isMerc:entry.isMerc};
+  const removeRestrictions=(v.remove_restrictions||{})[entry.unit.type]||[];
+  let unitData={...entry.unit, ...overrides, isElite:entry.isElite, isMerc:entry.isMerc};
+  // Apply variant remove_restrictions (e.g. Saint Methodius removes restrict_armoury from Anchorite)
+  removeRestrictions.forEach(flag=>{unitData[flag]=false;});
+  currentUnit=unitData;
   openEditor();
 }
 
@@ -1203,7 +1344,7 @@ function openEditor(){
   const beq=document.getElementById('ue-base-eq');
   if(baseEq.length){beq.style.display='block';beq.innerHTML='Included: <span>'+baseEq.join(', ')+'</span>';}else beq.style.display='none';
   currentUnit._effectiveBaseEq=baseEq;
-  buildEquipPicker();buildGoeticPicker();updateEditorCost();
+  buildEquipPicker();buildGoeticPicker();buildArcanaPicker();updateEditorCost();
 }
 function buildGoeticPicker(){
   const picker=document.getElementById('goetic-picker');
@@ -1234,6 +1375,11 @@ function buildGoeticPicker(){
   }
   list.innerHTML=html;
 }
+function toggleDual(btn,event){
+  event.preventDefault();event.stopPropagation();
+  btn.classList.toggle('active');
+  enforceEquipLimits();updateEditorCost();
+}
 function updateGoeticSlots(){
   const u=currentUnit;if(!u)return;
   const max=u.gp_max||0;
@@ -1244,14 +1390,49 @@ function updateGoeticSlots(){
   document.querySelectorAll('.gp-check:checked').forEach(cb=>{cb.disabled=false;});
   updateEditorCost();
 }
+function buildArcanaPicker(){
+  const picker=document.getElementById('arcana-picker');
+  const list=document.getElementById('arcana-list');
+  const u=currentUnit;
+  // Only show for Great Hunger units with ap_max
+  const isGH=selectedVariant==='great_hunger'||((getVariant()||{}).key==='great_hunger');
+  if(!isGH||!u.ap_max||u.ap_max===0){picker.style.display='none';return;}
+  picker.style.display='block';
+  const max=u.ap_max||3;
+  document.getElementById('ap-slots').textContent=`(${max} slots available)`;
+  let html='';
+  ARCANA_POWERS.forEach(p=>{
+    const costStr=typeof p.cost==='number'?p.cost+'D':p.cost;
+    const typeStr=p.type?`${p.type}${p.spell_cost?' · '+p.spell_cost+' marker(s)':''}`:'' ;
+    const whoStr=p.who?`<div class="ap-who">${p.who}</div>`:'';
+    html+=`<label class="ap-item"><input type="checkbox" class="ap-check" data-cost="${typeof p.cost==='number'?p.cost:0}" data-name="${p.name}" onchange="updateArcanaSlots()"><div class="ap-info"><div class="ap-name">${p.name}</div><div class="ap-type">${typeStr}</div><div class="ap-desc">${p.description||''}</div>${whoStr}</div><div class="ap-cost">${costStr}</div></label>`;
+  });
+  list.innerHTML=html;
+}
+function updateArcanaSlots(){
+  const u=currentUnit;if(!u)return;
+  const max=u.ap_max||3;
+  const checked=document.querySelectorAll('.ap-check:checked').length;
+  document.getElementById('ap-slots').textContent=`(${checked}/${max} slots used)`;
+  document.querySelectorAll('.ap-check:not(:checked)').forEach(cb=>{cb.disabled=checked>=max;});
+  document.querySelectorAll('.ap-check:checked').forEach(cb=>{cb.disabled=false;});
+  updateEditorCost();
+}
 function canUseItem(note,unit){
   if(!note)return true;
   const n=note.toLowerCase();
   if(!n.includes('only'))return true;
   const uType=(unit.type||'').toLowerCase();
   const uKw=(unit.keywords||[]).map(k=>k.toLowerCase());
+  // Check currently selected equipment AND unit upgrades in the picker
+  const uEquip=[];
+  document.querySelectorAll('#equip-picker input:checked').forEach(cb=>{
+    const nm=cb.dataset.name||cb.closest('.eq-item')?.querySelector('.eq-name')?.textContent||'';
+    if(nm)uEquip.push(nm.toLowerCase());
+  });
+  // Base equipment on THIS unit only (not previous unit's equip from roster)
+  (unit.base_equipment||[]).forEach(e=>uEquip.push(e.toLowerCase()));
   let before=n.split('only')[0].trim();
-  // Strip noise words individually (not greedy)
   ['consumable','headgear','shield combo','bayonet lug'].forEach(w=>{before=before.replace(new RegExp(w,'gi'),'');});
   before=before.replace(/limit:\s*\d+(\s*\([^)]*\))?/gi,'');
   before=before.replace(/^[,\s]+|[,\s]+$/g,'').replace(/,\s*,/g,',').trim();
@@ -1260,100 +1441,72 @@ function canUseItem(note,unit){
   if(!reqs.length)return true;
   return reqs.some(req=>{
     if(uType.includes(req))return true;
-    const singular=req.endsWith('s')?req.slice(0,-1):req;
+    const singular=req.endsWith('ies')?req.slice(0,-3)+'y':req.endsWith('s')?req.slice(0,-1):req;
     const plural=req.endsWith('s')?req:req+'s';
     if(uType.includes(singular)||uType.includes(plural))return true;
     if(uKw.some(k=>k.includes(req)||k.includes(singular)))return true;
+    if(uEquip.some(e=>e.includes(req)||e.includes(singular)))return true;
     return false;
   });
 }
-// Weapon hand types — 1H items listed, everything else defaults to 2H for ranged, 1H for melee
-const HANDS_1H_RANGED=new Set(['Automatic Pistol','Pistol','Silenced Pistol','Flame Cannon','M.U.R.A.D. Bombard']);
-const HANDS_2H_MELEE=new Set(['Anti-Tank Hammer','Bayonet','Beelzebub\'s Axe','Great Hammer/Maul','Great Sword/Axe','Halberd-Gun','Hellblade','Lochaber Axe','Polearm','Tank-Splitter Sword','Tartarus Claws','Bonebreaker Mace','Coin Hammer']);
-const HEAVY_WEAPONS=new Set(['Anti-Materiel Rifle','Grenade Launcher','Heavy Flamethrower','Heavy Shotgun','Machine Gun','Siege Jezzail','M.U.R.A.D. Bombard','Flame Cannon','Great Hammer/Maul','Great Sword/Axe','Titan Zulfiqar','Lochaber Axe']);
-// Weapon stats for picker display: name → "type, range, key keywords"
-const WEAPON_INFO={
-'Anti-Materiel Rifle':'2H, 36", +1 INJ, CRITICAL, IGNORE ARMOUR',
-'Automatic Pistol':'1H, 12"/Melee, ASSAULT, AUTO 2',
-'Automatic Rifle':'2H, 24", ASSAULT, AUTO 2',
-'Automatic Shotgun':'2H, 12", +1d, ASSAULT, SHOTGUN',
-'Blunderbuss':'2H, 10", SHRAPNEL',
-'Bolt-Action Rifle':'2H, 24"',
-'Flamethrower':'2H, 8", FIRE, IGNORE ARMOUR',
-'Grenade Launcher':'2H, 36", BLAST 3", SHRAPNEL',
-'Heavy Flamethrower':'2H, 10", FIRE, AUTO 2, IGNORE ARMOUR',
-'Heavy Shotgun':'2H, 12", +1d, +1 INJ',
-'Machine Gun':'2H, 36", AUTO 3, RELOAD',
-'Musket':'2H, 18", -1 INJ',
-'Pistol':'1H, 12"/Melee',
-'Semi-Automatic Rifle':'2H, 24", ASSAULT',
-'Shotgun':'2H, 12", +1d, SHOTGUN',
-'Silenced Pistol':'1H, 12"/Melee, ASSAULT',
-'Sniper Rifle':'2H, 48", +1d, CRITICAL, RISKY',
-'Submachine Gun':'2H, 16", ASSAULT',
-'Anti-Tank Hammer':'2H, Melee, +1 INJ, CRITICAL, IGNORE ARMOUR, RISKY',
-'Bayonet':'2H, Melee, CUMBERSOME',
-'Flail/Scourge':'1H, Melee, +1d',
-'Great Hammer/Maul':'2H, Melee, +1 INJ MOD',
-'Great Sword/Axe':'2H, Melee, +1 INJ, CRITICAL',
-'Misericordia':'1H, Melee, IGNORE ARMOUR if Down',
-'Polearm':'2H, Melee, BLOCK, CUMBERSOME',
-'Sword/Axe':'1H, Melee, CRITICAL',
-'Trench Club':'1H, Melee',
-'Trench Knife':'1H, Melee, -1d',
-'Frag Grenades':'8", BLAST 2", SHRAPNEL',
-'Gas Grenades':'8", -1 INJ, BLAST 3", GAS, IGNORE ARMOUR',
-'Incendiary Grenades':'8", FIRE',
-'Molotov Cocktail':'8", FIRE, BLAST 1"',
-'Satchel Charge':'3", BLAST 3", +1 INJ, IGNORE ARMOUR',
-'Trench Shield':'Shield, -1 INJ MOD',
-'Standard Armour':'Armour, -1 INJ MOD',
-'Reinforced Armour':'Armour, -2 INJ MOD',
-'Combat Helmet':'Headgear',
-'Gas Mask':'NEGATE GAS',
-'Jezzail':'2H, 18"',
-'Siege Jezzail':'2H, 30", +1 INJ',
-'Alaybozan':'2H, 12", SHRAPNEL',
-'Halberd-Gun':'2H, Melee/24", ASSAULT, BLOCK',
-'Assassin\'s Dagger':'1H, Melee, +1 INJ MOD, CRITICAL',
-'Flame Cannon':'1H, 12", FIRE, IGNORE ARMOUR',
-'M.U.R.A.D. Bombard':'1H, 36", BLAST 3", SCATTER',
-'Titan Zulfiqar':'1H, Melee, +2 INJ MOD, CRITICAL',
-'Hellblade':'2H, Melee, +1 INJ, FIRE',
-'Blasphemous Staff':'1H, Melee, CRITICAL, FIRE',
-'Sacrificial Blade':'1H, Melee, +2 INJ MOD, RISKY',
-'Tartarus Claws':'2H, Melee, CLEAVE 2, CRITICAL, CUMBERSOME',
-'Coin Hammer':'2H, Melee, +1 INJ, HEAVY',
-'Infernal Bombs':'1H, 36", BLAST 3", RELOAD, SCATTER, SHRAPNEL',
-'Sarcophagus Mine':'Armour, -3 INJ MOD, BLAST 3"',
-'Tank Palanquin':'Armour, -3 INJ MOD, STRONG',
-'Tarnished Armour':'Armour, -2 INJ MOD, NEGATE GAS',
-'Gas Bombs':'1H, 36", -1 INJ, BLAST 3", GAS, IGNORE ARMOUR',
-'Chainsaw Mouth':'Special, Melee, +1d, +1 INJ, IGNORE ARMOUR, RISKY',
-'Shredding Claws':'Special, Melee, +1 INJ, CUMBERSOME, RISKY',
-'Ophidian Rifle':'2H, 24", +1d',
-'Headtaker':'1H, Melee, +2 INJ MOD vs unactivated',
-'Viscera Cannon':'2H, 18", BLAST 2"',
-'Infested Rifle':'2H, 18", INFECTION',
-'Putrid Shotgun':'2H, 12", +1d, INFECTION',
-'Corruption Belcher':'2H, 8", FIRE, INFECTION',
-'Plague Blade':'1H, Melee, INFECTION',
-'Beelzebub\'s Axe':'2H, Melee, +1 INJ, CRITICAL',
-'Malebranche Sword':'1H, Melee, CRITICAL',
-'Serpent Assault Gun':'2H, 16", ASSAULT',
-'Arquebus':'2H, 18", CUMBERSOME',
-'Torture Instrument':'1H, Melee',
-'Punt Gun':'2H, 18", +1 INJ, SHOTGUN',
-'Lochaber Axe':'2H, Melee, +2 INJ, BLOCK, CRITICAL',
-'Tank-Splitter Sword':'2H, Melee, CRITICAL, IGNORE ARMOUR',
-'Coin Hammer':'2H, Melee, +1 INJ MOD',
-'Shotel':'1H, Melee, CRITICAL',
-};
+// ═══ GEAR LOOKUP — reads from GEAR object loaded via /api/data ═══════════════
+// Returns the gear entry for an item name, or null if not found
+function gearGet(name){
+  return GEAR[name]||null;
+}
+// Returns hands string ('1H','2H','special','') from gear data
 function getHands(name,cat){
-  if(cat==='Ranged Weapons') return HANDS_1H_RANGED.has(name)?'1H':'2H';
-  if(cat==='Melee Weapons') return HANDS_2H_MELEE.has(name)?'2H':'1H';
+  const g=gearGet(name);
+  if(g&&g.hands)return g.hands;
+  // Fallback defaults if somehow not in gear
+  if(cat==='Ranged Weapons')return '2H';
+  if(cat==='Melee Weapons')return '1H';
   return '';
 }
+// Returns true if item has the HEAVY keyword
+function gearIsHeavy(name){
+  const g=gearGet(name);
+  return g?!!g.heavy:false;
+}
+// Parse a gear entry into the structured object previously returned by parseWI()
+// Returns null if item not in gear or not a displayable weapon/shield/armour
+function gearParse(name){
+  const g=gearGet(name);
+  if(!g)return null;
+  const cat=g.cat; // 'ranged'|'melee'|'grenade'|'shield'|'armour'|'equipment'
+  const isWeapon=(cat==='ranged'||cat==='melee'||cat==='grenade');
+  const isArmour=(cat==='armour');
+  const isShield=(cat==='shield');
+  const isEquip=(cat==='equipment');
+  const isRanged=(cat==='ranged');
+  const isMelee=(cat==='melee');
+  const isGrenade=(cat==='grenade');
+  const isDual=g.range&&(g.range.includes('/Melee')||g.range.includes('Melee/'));
+  // Build display keywords string — inj_mod and inj_dice go into keywords for display
+  const kws=[...(g.keywords||[])];
+  if(g.note)kws.push(g.note);
+  const injModStr=g.inj_mod&&g.inj_mod!==0?`${g.inj_mod>0?'+':''}${g.inj_mod} INJ MOD`:'';
+  const injDiceStr=g.inj_dice&&g.inj_dice!==0?`${g.inj_dice>0?'+':''}${g.inj_dice} INJ`:'';
+  // injMod goes at the front for armour/shield display
+  if(injModStr&&(isArmour||isShield))kws.unshift(injModStr);
+  else if(injModStr)kws.push(injModStr);
+  return{
+    cat:isWeapon?'weapon':isArmour?'armour':isShield?'shield':'equipment',
+    hands:g.hands||'',
+    range:g.range||'',
+    diceMod:g.dice_mod||0,
+    injDice:g.inj_dice||0,
+    injMod:g.inj_mod||0,
+    injModStr,
+    injDiceStr,
+    keywords:kws.join(', '),
+    isRanged:isRanged||isDual,
+    isMelee:isMelee||isDual,
+    isGrenade,
+    isDual,
+  };
+}
+
 function enforceEquipLimits(){
   const checks=document.querySelectorAll('#equip-picker input[type="checkbox"]');
   // Count checked items by category
@@ -1371,8 +1524,14 @@ function enforceEquipLimits(){
     const note=cb.dataset.note||'';
     if(name==='Sarcophagus Mine')hasSarcophagus=true;
     if(name==='Tank Palanquin')hasTankPalanquin=true;
-    if(cat==='Ranged Weapons'){if(hands==='1H')sel.ranged1H++;else sel.ranged2H++;}
-    if(cat==='Melee Weapons'){if(hands==='2H')sel.melee2H++;else sel.melee1H++;}
+    if(cat==='Ranged Weapons'){
+      const isDual=cb.closest('.eq-item')?.querySelector('.eq-dual-btn.active');
+      if(hands==='1H')sel.ranged1H+=isDual?2:1;else sel.ranged2H++;
+    }
+    if(cat==='Melee Weapons'){
+      const isDual=cb.closest('.eq-item')?.querySelector('.eq-dual-btn.active');
+      if(hands==='2H')sel.melee2H++;else sel.melee1H+=isDual?2:1;
+    }
     if(cat==='Grenades')sel.grenades++;
     if(cat==='Armour')sel.armour++;
     if(cat==='Shields'){sel.shields++;hasShield=true;}
@@ -1419,6 +1578,22 @@ function enforceEquipLimits(){
     }
     // Grenades: 1 type
     if(!blocked&&cat==='Grenades'&&sel.grenades>=1){blocked=true;reason='Max 1 grenade type';}
+    // Unit-level ranged restriction (e.g. Artillery Witch)
+    if(!blocked&&cat==='Ranged Weapons'&&currentUnit.restrict_ranged){blocked=true;reason='This unit cannot have Ranged Weapons';}
+    // Unit-level grenade restriction (e.g. Artillery Witch)
+    if(!blocked&&cat==='Grenades'&&currentUnit.restrict_grenades){blocked=true;reason='This unit cannot have Grenades';}
+    // Conditional item restrictions (e.g. Machine Armour blocks Trench Shield)
+    if(!blocked&&currentUnit.conditional_restrict_items){
+      const checkedEquip=new Set();
+      document.querySelectorAll('#equip-picker input:checked').forEach(cb2=>{
+        checkedEquip.add(cb2.dataset.name||cb2.closest('.eq-item')?.querySelector('.eq-name')?.textContent||'');
+      });
+      for(const[triggerItem,blockedItems]of Object.entries(currentUnit.conditional_restrict_items)){
+        if(checkedEquip.has(triggerItem)&&blockedItems.includes(name)){
+          blocked=true;reason=`${triggerItem} restricts this item`;
+        }
+      }
+    }
     // Armour: 1
     if(!blocked&&cat==='Armour'&&sel.armour>=1){blocked=true;reason='Max 1 armour';}
     // Shields: 1
@@ -1456,7 +1631,7 @@ function buildEquipPicker(){
       let wbBlocked=false,wbLock='';
       if(wbLimit!==null){const used=wbCounts2[name]||0;if(used>=wbLimit){wbBlocked=true;wbLock=` <span class="eq-lock">🔒 Limit ${wbLimit}</span>`;}}
       const cls=wbBlocked?'eq-limit-blocked':'';
-      html+=`<label class="eq-item ${cls}"><input type="checkbox" data-cost="${costVal}" data-cat="Unit Upgrades" data-name="${esc(name)}" data-note="${esc(note)}" ${wbBlocked?'disabled data-perm="1"':''} onchange="updateEditorCost()"><span class="eq-name">${esc(name)}</span><span class="eq-cost">${costStr}</span>${note?`<span class="eq-note">${esc(note)}</span>`:''}${wbLock}</label>`;
+      html+=`<label class="eq-item ${cls}"><input type="checkbox" data-cost="${costVal}" data-cat="Unit Upgrades" data-name="${esc(name)}" data-note="${esc(note)}" ${wbBlocked?'disabled data-perm="1"':''} onchange="rebuildPickerOnUpgrade(this)"><span class="eq-name">${esc(name)}</span><span class="eq-cost">${costStr}</span>${note?`<span class="eq-note">${esc(note)}</span>`:''}${wbLock}</label>`;
     });
     html+='</div></div>';
     p.innerHTML=html;
@@ -1479,6 +1654,12 @@ function buildEquipPicker(){
   let html='';
   for(const[cat,items]of Object.entries(merged)){
     if(!items.length)continue;
+    // For units with armour included in base cost, skip the Armour category entirely
+    // Their armour options are handled via unit_upgrades instead
+    if(!allRestrictionsIgnored&&currentUnit.restrict_armour_purchase&&cat==='Armour')continue;
+    if(!allRestrictionsIgnored&&currentUnit.restrict_shields&&cat==='Shields')continue;
+    // For units restricted to specific equipment only (e.g. Lion of Jabir: Wind Amulet only)
+    // Items are filtered per-item below
     html+=`<div class="equip-section"><div class="eq-cat-title" onclick="this.nextElementSibling.classList.toggle('collapsed');this.querySelector('.toggle').textContent=this.nextElementSibling.classList.contains('collapsed')?'▸':'▾';">
       ${cat} <span class="toggle">▾</span></div><div class="eq-items">`;
     items.forEach(item=>{
@@ -1486,22 +1667,42 @@ function buildEquipPicker(){
       let cost=item[1],note=item[2]||'';
       let modified=false;
       if(overrides[name]!==undefined){cost=overrides[name];modified=true;}
+      // Skip equipment items not in the allowed list (e.g. Lion of Jabir: Wind Amulet only)
+      if(!allRestrictionsIgnored&&currentUnit.restrict_equipment_to&&cat==='Equipment'){
+        if(!currentUnit.restrict_equipment_to.includes(name))return;
+      }
       const costStr=typeof cost==='number'?cost+'D':cost;
       const costVal=typeof cost==='number'?cost:0;
-      const allowed=canUseItem(note,currentUnit);
+      const allowed=allRestrictionsIgnored?true:canUseItem(note,currentUnit);
       // Weapon keyword restriction (e.g. Brazen Bull = HEAVY only)
       const wkOnly=currentUnit.weapon_keyword_only;
       let wkBlocked=false;
-      if(wkOnly&&(cat==='Ranged Weapons'||cat==='Melee Weapons')){
-        if(!HEAVY_WEAPONS.has(name)){wkBlocked=true;}
+      if(!allRestrictionsIgnored&&wkOnly&&(cat==='Ranged Weapons'||cat==='Melee Weapons')){
+        if(!gearIsHeavy(name)){wkBlocked=true;}
       }
       const cls=(!allowed||wkBlocked)?'eq-restricted':'';
       const lockIcon=(!allowed&&note)?` <span class="eq-lock">🔒 ${note}</span>`:(wkBlocked?` <span class="eq-lock">🔒 ${wkOnly} only</span>`:'');
       const modCls=modified?'modified':'';
       const hands=getHands(name,cat);
       const itemDisabled=!allowed||wkBlocked;
-      const wInfo=WEAPON_INFO[name]||'';
-      html+=`<label class="eq-item ${cls}"><input type="checkbox" data-cost="${costVal}" data-cat="${cat}" data-hands="${hands}" data-name="${esc(name)}" data-note="${esc(note)}" ${itemDisabled?'disabled data-perm="1"':''} onchange="enforceEquipLimits();updateEditorCost()"><span class="eq-name">${name}</span>${wInfo?`<span class="eq-info">${wInfo}</span>`:''}<span class="eq-cost ${modCls}">${costStr}</span>${note&&!itemDisabled?`<span class="eq-note">${note}</span>`:''}${lockIcon}</label>`;
+      // Build compact info string from gear data for picker display
+      const gp=gearParse(name);
+      let wInfo='';
+      if(gp&&gp.cat==='weapon'){
+        const parts=[];
+        if(gp.range)parts.push(gp.range);
+        if(gp.diceMod!==0)parts.push((gp.diceMod>0?'+':'')+gp.diceMod+'d');
+        if(gp.injDiceStr)parts.push(gp.injDiceStr);
+        if(gp.injModStr)parts.push(gp.injModStr);
+        if(gp.keywords)parts.push(gp.keywords);
+        wInfo=parts.join(', ');
+      } else if(gp&&(gp.cat==='armour'||gp.cat==='shield')){
+        wInfo=gp.keywords||'';
+      }
+      // For 1H weapons: show a ×2 toggle so users can take two identical weapons
+      const is1H=(cat==='Ranged Weapons'||cat==='Melee Weapons')&&hands==='1H';
+      const dualBtn=is1H&&!itemDisabled?` <button class="eq-dual-btn" data-cost="${costVal}" data-name="${esc(name)}" data-cat="${cat}" data-hands="${hands}" onclick="toggleDual(this,event)" title="Take two of this weapon">×2</button>`:'';
+      html+=`<label class="eq-item ${cls}"><input type="checkbox" data-cost="${costVal}" data-cat="${cat}" data-hands="${hands}" data-name="${esc(name)}" data-note="${esc(note)}" ${wkBlocked?'disabled data-perm="1"':itemDisabled?'disabled':''} onchange="enforceEquipLimits();updateConditionalItems();updateEditorCost()"><span class="eq-name">${name}</span>${wInfo?`<span class="eq-info">${wInfo}</span>`:''}<span class="eq-cost ${modCls}">${costStr}</span>${note&&!itemDisabled?`<span class="eq-note">${note}</span>`:''}${lockIcon}${dualBtn}</label>`;
     });
     html+='</div></div>';
   }
@@ -1510,8 +1711,8 @@ function buildEquipPicker(){
   // Variant can add upgrades for specific units (e.g. Éire Rangers Fianna for Shock Troopers)
   const variantAdd=(v.variant_unit_upgrades||{})[currentUnit.type]||[];
   upgrades=upgrades.concat(variantAdd);
-  // Diagnostic: log what we found (visible in DevTools Console)
-  console.log('[WarbandForge] Unit upgrades check:',{unitType:currentUnit.type,variantKey:v.key,baseUpgrades:currentUnit.unit_upgrades,variantUpgrades:variantAdd,totalAfterMerge:upgrades.length});
+
+ 
   // Variant can restrict certain upgrades (e.g. Saint Methodius blocks Martyrdom Device)
   const variantRestrict=(v.restrict_unit_upgrades||{})[currentUnit.type]||[];
   if(variantRestrict.length)upgrades=upgrades.filter(u=>!variantRestrict.includes(u[0]));
@@ -1534,17 +1735,72 @@ function buildEquipPicker(){
         if(used>=wbLimit){wbBlocked=true;wbLock=` <span class="eq-lock">🔒 Limit ${wbLimit} (${used} in warband)</span>`;}
       }
       const cls=wbBlocked?'eq-limit-blocked':'';
-      html+=`<label class="eq-item ${cls}"><input type="checkbox" data-cost="${costVal}" data-cat="Unit Upgrades" data-name="${esc(name)}" data-note="${esc(note)}" ${wbBlocked?'disabled data-perm="1"':''} onchange="enforceEquipLimits();updateEditorCost()"><span class="eq-name">${esc(name)}</span><span class="eq-cost">${costStr}</span>${note?`<span class="eq-note">${esc(note)}</span>`:''}${wbLock}</label>`;
+      html+=`<label class="eq-item ${cls}"><input type="checkbox" data-cost="${costVal}" data-cat="Unit Upgrades" data-name="${esc(name)}" data-note="${esc(note)}" ${wbBlocked?'disabled data-perm="1"':''} onchange="rebuildPickerOnUpgrade(this)"><span class="eq-name">${esc(name)}</span><span class="eq-cost">${costStr}</span>${note?`<span class="eq-note">${esc(note)}</span>`:''}${wbLock}</label>`;
     });
     html+='</div></div>';
+  }
+  // Cross-faction armoury sections (e.g. House of Wisdom)
+  const xfa=(v.cross_faction_armoury||[]);
+  if(xfa.length){
+    // Count cross-faction items already used across warband
+    const xfaCounts={};
+    roster.forEach((ru,ri)=>{
+      if(ri===editingIndex)return;
+      (ru.equip||[]).forEach(e=>{xfaCounts[e]=(xfaCounts[e]||0)+1;});
+    });
+    xfa.forEach(xf=>{
+      const xfFaction=FACTIONS[xf.faction];
+      if(!xfFaction)return;
+      const xfLimit=xf.limit||1;
+      // Count items from this faction's armoury already selected in this unit + warband
+      const allXfItems=new Set();
+      Object.values(xfFaction.armoury||{}).forEach(items=>items.forEach(i=>allXfItems.add(i[0])));
+      const xfUsed=Object.entries(xfaCounts).filter(([n])=>allXfItems.has(n)).reduce((s,[,c])=>s+c,0);
+      const xfSectionFull=xfUsed>=xfLimit;
+      html+=`<div class="equip-section"><div class="eq-cat-title" onclick="this.nextElementSibling.classList.toggle('collapsed');this.querySelector('.toggle').textContent=this.nextElementSibling.classList.contains('collapsed')?'▸':'▾';">
+        ${xf.label} <span style="font-weight:400;font-size:0.5rem;">(${xfUsed}/${xfLimit} used)</span> <span class="toggle">▸</span></div><div class="eq-items collapsed">`;
+      Object.entries(xfFaction.armoury||{}).forEach(([cat,items])=>{
+        items.forEach(item=>{
+          const name=item[0],cost=item[1],note=item[2]||'';
+          const costStr=typeof cost==='number'?cost+'D':cost;
+          const costVal=typeof cost==='number'?cost:0;
+          const gp=gearParse(name);
+          let wInfo='';
+          if(gp&&gp.cat==='weapon'){
+            const parts=[];
+            if(gp.range)parts.push(gp.range);
+            if(gp.diceMod!==0)parts.push((gp.diceMod>0?'+':'')+gp.diceMod+'d');
+            if(gp.injDiceStr)parts.push(gp.injDiceStr);
+            if(gp.keywords)parts.push(gp.keywords);
+            wInfo=parts.join(', ');
+          } else if(gp&&(gp.cat==='armour'||gp.cat==='shield')){
+            wInfo=gp.keywords||'';
+          }
+          const hands=getHands(name,cat);
+          const blocked=xfSectionFull;
+          const cls=blocked?'eq-restricted':'';
+          const lockIcon=blocked?` <span class="eq-lock">🔒 Limit ${xfLimit}</span>`:'';
+          html+=`<label class="eq-item ${cls}"><input type="checkbox" data-cost="${costVal}" data-cat="${cat}" data-hands="${hands}" data-name="${esc(name)}" data-note="${esc(note)}" data-xfa="${xf.faction}" ${blocked?'disabled data-perm="1"':''} onchange="enforceEquipLimits();updateEditorCost()"><span class="eq-name">${name}</span>${wInfo?`<span class="eq-info">${wInfo}</span>`:''}<span class="eq-cost">${costStr}</span>${note?`<span class="eq-note">${note}</span>`:''}${lockIcon}</label>`;
+        });
+      });
+      html+='</div></div>';
+    });
   }
   p.innerHTML=html;
 }
 function updateEditorCost(){
   if(!currentUnit)return;
-  let eq=0;document.querySelectorAll('#equip-picker input:checked').forEach(cb=>eq+=parseInt(cb.dataset.cost||0));
+  let eq=0;
+  document.querySelectorAll('#equip-picker input:checked').forEach(cb=>{
+    const cost=parseInt(cb.dataset.cost||0);
+    eq+=cost;
+    // Add cost again if ×2 is active for this item
+    const dualBtn=cb.closest('.eq-item')?.querySelector('.eq-dual-btn');
+    if(dualBtn&&dualBtn.classList.contains('active'))eq+=cost;
+  });
   let gp=0;document.querySelectorAll('.gp-check:checked').forEach(cb=>gp+=parseInt(cb.dataset.cost||0));
-  const t=(currentUnit.base_cost||0)+eq+gp;
+  let ap=0;document.querySelectorAll('.ap-check:checked').forEach(cb=>ap+=parseInt(cb.dataset.cost||0));
+  const t=(currentUnit.base_cost||0)+eq+gp+ap;
   document.getElementById('ue-total-cost').textContent=currentUnit.isMerc?'':t;
   const gl=document.getElementById('ue-glory-cost');
   if(currentUnit.isMerc){gl.style.display='inline';gl.textContent=currentUnit.cost+'☼';document.querySelector('.cost-label').textContent=' Glory';}
@@ -1554,8 +1810,26 @@ function updateEditorCost(){
 // ═══ CONFIRM + ROSTER ═══
 function confirmUnit(){
   const name=document.getElementById('ue-name-input').value||'',u=currentUnit;
-  let equip=[],eqCost=0;
-  document.querySelectorAll('#equip-picker input:checked').forEach(cb=>{equip.push(cb.closest('.eq-item').querySelector('.eq-name').textContent);eqCost+=parseInt(cb.dataset.cost||0);});
+  const v=getVariant()||{};
+  const variantUpgradeNames=new Set(((v.variant_unit_upgrades||{})[u.type]||[]).map(x=>x[0]));
+
+  // Split equip into regular gear vs variant upgrades
+  let equip=[],variant_upgrades=[],eqCost=0;
+  document.querySelectorAll('#equip-picker input:checked').forEach(cb=>{
+    const itemName=cb.closest('.eq-item').querySelector('.eq-name').textContent;
+    const cost=parseInt(cb.dataset.cost||0);
+    const dualBtn=cb.closest('.eq-item')?.querySelector('.eq-dual-btn');
+    const isDual=dualBtn&&dualBtn.classList.contains('active');
+    eqCost+=cost;
+    if(isDual)eqCost+=cost;
+    if(cb.dataset.cat==='Unit Upgrades'&&variantUpgradeNames.has(itemName)){
+      variant_upgrades.push({name:itemName,note:cb.dataset.note||''});
+    } else {
+      equip.push(itemName);
+      if(isDual)equip.push(itemName); // push twice for ×2
+    }
+  });
+
   // Goetic Powers
   let powers=[...(u.gp_free||[])];
   let gpCost=0;
@@ -1563,12 +1837,9 @@ function confirmUnit(){
     powers.push(cb.dataset.name);
     gpCost+=parseInt(cb.dataset.cost||0);
   });
-  // Get power descriptions for card
   let powerDescs=[];
   powers.forEach(pName=>{
-    // Check free/built-in (just name)
     const freeP=(u.gp_free||[]).includes(pName);
-    // Find full description
     let found=null;
     for(const[sin,arr]of Object.entries(GOETIC_POWERS)){
       const p=arr.find(x=>x.name===pName);
@@ -1577,10 +1848,21 @@ function confirmUnit(){
     if(found) powerDescs.push({name:pName,desc:found.desc,free:freeP});
     else powerDescs.push({name:pName,desc:'',free:freeP});
   });
+
+  // Arcana Putrescere
+  let arcana=[];
+  let apCost=0;
+  document.querySelectorAll('.ap-check:checked').forEach(cb=>{
+    const p=ARCANA_POWERS.find(x=>x.name===cb.dataset.name);
+    apCost+=parseInt(cb.dataset.cost||0);
+    if(p) arcana.push({name:p.name,desc:p.description||'',type:p.type||'',cost:p.cost});
+  });
+
   // Saint aura
   let sinAura='';
   if(u.type==='Desecrated Saint'&&selectedSin){sinAura=SAINT_AURAS[selectedSin]||'';}
-  const unit={name,type:u.type,base_cost:u.base_cost||0,equip_cost:eqCost+gpCost,total_cost:(u.base_cost||0)+eqCost+gpCost,equip,isElite:u.isElite,isMerc:u.isMerc||false,glory_cost:u.isMerc?u.cost:0,movement:u.movement,ranged:u.ranged,melee:u.melee,armour:u.armour,keywords:u.keywords||[],abilities:u.abilities||[],base_equipment:u._effectiveBaseEq||u.base_equipment||[],powers:powerDescs,sinAura:sinAura};
+
+  const unit={name,type:u.type,base_cost:u.base_cost||0,equip_cost:eqCost+gpCost+apCost,total_cost:(u.base_cost||0)+eqCost+gpCost+apCost,equip,variant_upgrades,isElite:u.isElite,isMerc:u.isMerc||false,glory_cost:u.isMerc?u.cost:0,movement:u.movement,ranged:u.ranged,melee:u.melee,armour:u.armour,keywords:u.keywords||[],abilities:u.abilities||[],conditional_abilities:u.conditional_abilities||{},conditional_keywords:u.conditional_keywords||{},base_equipment:u._effectiveBaseEq||u.base_equipment||[],powers:powerDescs,arcana,sinAura,restrict_armour_purchase:u.restrict_armour_purchase||false};
   if(editingIndex>=0)roster[editingIndex]=unit;else roster.push(unit);
   renderRoster();showEmpty();
 }
@@ -1606,19 +1888,29 @@ function makeRI(u,idx){
 }
 function editExisting(idx){
   editingIndex=idx;const u=roster[idx];
-  // Find original unit def to get gp_max/gp_free
+  // Find original unit def to get gp_max/gp_free/ap_max
   const f=FACTIONS[selectedFaction];
-  const allUnits=[...(f?.elites||[]),...(f?.troops||[])];
+  const allUnits=[...(f?.elites||[]),...(f?.troops||[]),...((getVariant()||{}).add_units||[])];
   const origDef=allUnits.find(d=>d.type===u.type)||{};
-  currentUnit={type:u.type,base_cost:u.base_cost,movement:u.movement,ranged:u.ranged,melee:u.melee,armour:u.armour,keywords:u.keywords,abilities:u.abilities,base_equipment:u.base_equipment,isElite:u.isElite,isMerc:u.isMerc,cost:u.glory_cost,min:0,max:99,gp_max:origDef.gp_max||0,gp_free:origDef.gp_free||[],restrict_armoury:origDef.restrict_armoury||false,unit_upgrades:origDef.unit_upgrades||[]};
+  currentUnit={type:u.type,base_cost:u.base_cost,movement:u.movement,ranged:u.ranged,melee:u.melee,armour:u.armour,keywords:u.keywords,abilities:u.abilities,conditional_abilities:origDef.conditional_abilities||{},conditional_keywords:origDef.conditional_keywords||{},conditional_restrict_items:origDef.conditional_restrict_items||{},base_equipment:u.base_equipment,base_size:origDef.base_size||u.base_size||'32mm',isElite:u.isElite,isMerc:u.isMerc,cost:u.glory_cost,min:0,max:99,gp_max:origDef.gp_max||0,gp_free:origDef.gp_free||[],ap_max:origDef.ap_max||0,restrict_armoury:origDef.restrict_armoury||false,unit_upgrades:origDef.unit_upgrades||[],restrict_armour_purchase:origDef.restrict_armour_purchase||false,restrict_ranged:origDef.restrict_ranged||false,restrict_grenades:origDef.restrict_grenades||false,restrict_shields:origDef.restrict_shields||false,restrict_equipment_to:origDef.restrict_equipment_to||null};
   openEditor();document.getElementById('ue-name-input').value=u.name;
   if(!u.isMerc){
-    document.querySelectorAll('#equip-picker input').forEach(cb=>{cb.checked=u.equip.includes(cb.closest('.eq-item').querySelector('.eq-name').textContent);});
+    // Restore equip — includes both gear and variant upgrades stored in equip
+    const allEquipNames=[...u.equip,...(u.variant_upgrades||[]).map(x=>x.name)];
+    document.querySelectorAll('#equip-picker input').forEach(cb=>{
+      cb.checked=allEquipNames.includes(cb.closest('.eq-item').querySelector('.eq-name').textContent);
+    });
+    // Re-evaluate conditional items with restored selections (e.g. Machine Armour unlocks Heavy Ballistic Shield)
+    updateConditionalItems();
     enforceEquipLimits();
     // Re-check Goetic Powers
     const savedPowers=(u.powers||[]).map(p=>p.name);
     document.querySelectorAll('.gp-check').forEach(cb=>{cb.checked=savedPowers.includes(cb.dataset.name);});
     updateGoeticSlots();
+    // Re-check Arcana Powers
+    const savedArcana=(u.arcana||[]).map(p=>p.name);
+    document.querySelectorAll('.ap-check').forEach(cb=>{cb.checked=savedArcana.includes(cb.dataset.name);});
+    updateArcanaSlots();
     updateEditorCost();
   }
   document.querySelectorAll('.r-unit').forEach(r=>r.classList.remove('selected'));
@@ -1629,10 +1921,15 @@ function updateTopBar(){
   const gBudget=parseInt(document.getElementById('g-budget').value)||0;
   const ducats=roster.filter(u=>!u.isMerc).reduce((s,u)=>s+u.total_cost,0);
   const glory=roster.filter(u=>u.isMerc).reduce((s,u)=>s+u.glory_cost,0);
-  document.getElementById('d-spent').textContent=ducats;document.getElementById('d-remain').textContent=budget-ducats;
-  document.getElementById('g-spent').textContent=glory;document.getElementById('d-models').textContent=roster.length;
+  document.getElementById('d-spent').textContent=ducats;
+  document.getElementById('d-remain').textContent=budget-ducats;
+  document.getElementById('g-spent').textContent=glory;
+  document.getElementById('g-remain').textContent=gBudget>0?gBudget-glory:'—';
+  document.getElementById('d-models').textContent=roster.length;
   document.getElementById('d-remain').parentElement.classList.toggle('warn',ducats>budget);
-  document.getElementById('g-spent').parentElement.classList.toggle('warn',glory>gBudget&&gBudget>0);
+  const gloryOver=gBudget>0&&glory>gBudget;
+  document.getElementById('g-spent').parentElement.classList.toggle('warn',gloryOver);
+  document.getElementById('g-remain').parentElement.classList.toggle('warn',gloryOver);
 }
 
 // ═══ CARD PREVIEW ═══
@@ -1644,9 +1941,24 @@ function fmtDice(v){
 }
 function fmtEquipCard(name,escaped){
   const raw=escaped?name.replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&#39;/g,"'").replace(/&quot;/g,'"'):name;
-  const info=WEAPON_INFO[raw]||'';
-  if(info)return`<div class="uc-gear"><b>${escaped?name:name}</b> <i>${info}</i></div>`;
-  return`<div class="uc-gear"><b>${escaped?name:name}</b></div>`;
+  const gp=gearParse(raw);
+  if(gp){
+    let info='';
+    if(gp.cat==='weapon'){
+      const parts=[];
+      if(gp.range)parts.push(gp.range);
+      if(gp.diceMod!==0)parts.push((gp.diceMod>0?'+':'')+gp.diceMod+'d');
+      if(gp.injDiceStr)parts.push(gp.injDiceStr);
+      if(gp.injModStr)parts.push(gp.injModStr);
+      if(gp.keywords)parts.push(gp.keywords);
+      info=parts.join(', ');
+    } else {
+      // Armour/shield/equipment: keywords already includes injModStr — use directly
+      info=gp.keywords||'';
+    }
+    if(info)return`<div class="uc-gear"><b>${raw}</b> <i>${info}</i></div>`;
+  }
+  return`<div class="uc-gear"><b>${raw}</b></div>`;
 }
 // Parse a dice string like "+2 DICE", "+1d", "-1 DICE", "0" → number
 function parseDiceVal(v){
@@ -1654,58 +1966,43 @@ function parseDiceVal(v){
   const s=String(v).replace(/\s*DICE/i,'').replace(/d$/i,'');
   const n=parseInt(s);return isNaN(n)?0:n;
 }
-// Parse WEAPON_INFO string → structured data
-function parseWI(infoStr){
-  if(!infoStr)return null;
-  const parts=infoStr.split(', ');
-  let hands='',range='',diceMod=0,injMod='',kws=[];
-  let isArmour=false,isShield=false,isEquip=false;
-  for(const p of parts){
-    if(p==='1H'||p==='2H'||p==='1H×2')hands=p;
-    else if(p.match(/^\d+"/)||p==='Melee'||p.match(/^Melee\//)||p.match(/\/Melee$/))range=p;
-    else if(p.match(/^[+-]\d+d$/))diceMod=parseInt(p);
-    else if(p.match(/^[+-]\d+ INJ MOD$/))injMod=p;
-    else if(p.match(/^[+-]\d+ INJ$/))kws.push(p);
-    else if(p==='Armour')isArmour=true;
-    else if(p==='Shield')isShield=true;
-    else if(p==='Headgear'||p==='Equipment')isEquip=true;
-    else kws.push(p);
-  }
-  const cat=isArmour?'armour':isShield?'shield':(range?'weapon':'equipment');
-  // For weapons: put INJ MOD back into keywords so it shows on the card
-  if(cat==='weapon'&&injMod)kws.unshift(injMod);
-  const isDual=range.includes('/Melee')||range.includes('Melee/');
-  const isRanged=range&&range!=='Melee'&&!isDual;
-  const isMelee=range==='Melee';
-  return{hands,range,diceMod,injMod,keywords:kws.join(', '),cat,isRanged,isMelee,isDual};
-}
-// Calculate effective stats for stat boxes
+// Calculate effective stats for stat boxes — reads from gear data
 function calcEffStats(unit){
   const allEquip=[...(unit.base_equipment||[]),...(unit.equip||[])];
   const baseR=parseDiceVal(unit.ranged),baseM=parseDiceVal(unit.melee);
   let bestRangedMod=null,bestMeleeMod=null,armourMod=0;
   allEquip.forEach(name=>{
     const raw=name.replace(/&amp;/g,'&').replace(/&#39;/g,"'");
-    const info=WEAPON_INFO[raw];
-    if(!info)return;
-    const w=parseWI(info);
+    const w=gearParse(raw);
     if(!w)return;
     if(w.cat==='weapon'){
-      if(w.isRanged||w.isDual){
-        if(bestRangedMod===null||w.diceMod>bestRangedMod)bestRangedMod=w.diceMod;
-      }
-      if(w.isMelee||w.isDual){
-        if(bestMeleeMod===null||w.diceMod>bestMeleeMod)bestMeleeMod=w.diceMod;
+      // Only count weapons with actual dice modifiers (not pure INJ dice weapons like Grand Cannon)
+      if(w.diceMod!==0){
+        if(w.isRanged||w.isDual){
+          if(bestRangedMod===null||w.diceMod>bestRangedMod)bestRangedMod=w.diceMod;
+        }
+        if(w.isMelee||w.isDual){
+          if(bestMeleeMod===null||w.diceMod>bestMeleeMod)bestMeleeMod=w.diceMod;
+        }
       }
     }
     if(w.cat==='armour'||w.cat==='shield'){
-      const m=w.injMod.match(/([+-]\d+)/);
-      if(m)armourMod+=parseInt(m[1]);
+      armourMod+=w.injMod||0;
     }
   });
   const effR=bestRangedMod!==null?baseR+bestRangedMod:null;
   const effM=bestMeleeMod!==null?baseM+bestMeleeMod:null;
-  return{effR,effM,armourMod};
+  // Conditional base size — check if any conditional_keywords item changes base
+  let effBase=unit.base_size||'32mm';
+  const condKws=unit.conditional_keywords||{};
+  Object.entries(condKws).forEach(([item,kws])=>{
+    if(allEquip.includes(item)&&kws.includes('BULKY')){
+      // Machine Armour: base becomes 40mm unless already larger
+      const cur=parseInt(effBase)||32;
+      if(cur<40)effBase='40mm';
+    }
+  });
+  return{effR,effM,armourMod,effBase};
 }
 // Format stat box value — always show effective in parens when a weapon is equipped
 function fmtStatBox(label,baseVal,effVal){
@@ -1720,25 +2017,30 @@ function fmtArmourBox(baseVal,armourMod){
   const eff=(parseInt(base)||0)+armourMod;
   return`<div class="uc-st"><div class="sl">Armour</div><div class="sv">${base} <span class="se">(${eff})</span></div></div>`;
 }
-// Build equipment section: weapon table + gear list
+// Build equipment section: weapon table + gear list — reads from gear data
 function buildEquipSection(allEquip,unit,doEsc){
   const e=doEsc?esc:v=>v;
-  const baseR=parseDiceVal(unit.ranged),baseM=parseDiceVal(unit.melee);
   const weapons=[],gear=[];
   allEquip.forEach(name=>{
     const raw=name.replace(/&amp;/g,'&').replace(/&#39;/g,"'");
-    const info=WEAPON_INFO[raw];
-    if(!info){gear.push(name);return;}
-    const w=parseWI(info);
+    const w=gearParse(raw);
     if(!w){gear.push(name);return;}
     if(w.cat==='weapon'){
-      // Dice column shows the WEAPON'S own modifier, not the effective total
-      // (unit base dice is shown in the stat box with effective in parentheses)
+      // Dice column: show dice modifier if non-zero, else show INJ dice if present, else —
       const wd=w.diceMod;
-      const wdStr=(wd>=0?'+':'')+wd+'d';
-      weapons.push({name:e(name),hands:w.hands,range:w.range,effDice:wdStr,keywords:w.keywords});
+      let wdStr,kwDisplay=w.keywords;
+      if(wd!==0){
+        wdStr=(wd>=0?'+':'')+wd+'d';
+      } else if(w.injDice!==0){
+        // Injury dice shown in dice column as +Nd format
+        wdStr=(w.injDice>0?'+':'')+w.injDice+'d';
+        // Remove injDiceStr from keywords to avoid showing twice
+        kwDisplay=(w.keywords||'').replace(w.injDiceStr,'').replace(/^,\s*|,\s*$|,\s*,/g,',').replace(/^,|,$/,'').trim();
+      } else {
+        wdStr='—';
+      }
+      weapons.push({name:e(raw),hands:w.hands,range:w.range,effDice:wdStr,keywords:kwDisplay});
     } else {
-      // Armour/shield/equipment — show with info
       gear.push(name);
     }
   });
@@ -1746,15 +2048,13 @@ function buildEquipSection(allEquip,unit,doEsc){
   if(weapons.length){
     html+=`<table class="uc-wtbl"><tr><th>Weapon</th><th>Range</th><th>Dice</th><th>Keywords</th></tr>`;
     weapons.forEach(w=>{
-      html+=`<tr><td>${w.name}</td><td>${w.range}</td><td class="wd">${w.effDice}</td><td class="wk">${w.keywords||'—'}</td></tr>`;
+      html+=`<tr><td>${w.name}</td><td>${w.range||'—'}</td><td class="wd">${w.effDice}</td><td class="wk">${w.keywords||'—'}</td></tr>`;
     });
     html+=`</table>`;
   }
   if(gear.length){
     gear.forEach(name=>{
-      const raw=name.replace(/&amp;/g,'&').replace(/&#39;/g,"'");
-      const info=WEAPON_INFO[raw]||'';
-      html+=`<div class="uc-gear"><b>${e(name)}</b>${info?' <i>'+info+'</i>':''}</div>`;
+      html+=fmtEquipCard(name,doEsc);
     });
   }
   if(!weapons.length&&!gear.length)html='<div class="uc-gear"><i>None</i></div>';
@@ -1774,19 +2074,26 @@ function showPreview(){
     const badge=isMerc?'☼ MERC':isElite?'‡ ELITE':'† TROOP';
     const badgeCls=isElite||isMerc?'':'troop';
 
-    // Keywords
-    const kwHtml=u.keywords.map(k=>`<span class="kw">${k}</span>`).join('');
+    // Keywords — base + conditional (e.g. BULKY when Machine Armour equipped)
+    const allEquip=[...u.base_equipment,...u.equip];
+    const condKws=u.conditional_keywords||{};
+    const extraKws=[];
+    Object.entries(condKws).forEach(([item,kws])=>{if(allEquip.includes(item))extraKws.push(...kws);});
+    const kwHtml=[...u.keywords,...extraKws].map(k=>`<span class="kw">${k}</span>`).join('');
 
     // Stats with effective modifiers
     const eff=calcEffStats(u);
-    const statsHtml=fmtStatBox('Move',u.movement,null)+fmtStatBox('Ranged',u.ranged,eff.effR)+fmtStatBox('Melee',u.melee,eff.effM)+fmtArmourBox(u.armour,eff.armourMod);
+    const baseChanged=eff.effBase&&eff.effBase!==(u.base_size||'32mm');
+    const statsHtml=fmtStatBox('Move',u.movement,null)+fmtStatBox('Ranged',u.ranged,eff.effR)+fmtStatBox('Melee',u.melee,eff.effM)+fmtArmourBox(u.armour,eff.armourMod)+fmtStatBox('Base',u.base_size||'32mm',baseChanged?eff.effBase:null);
 
     // Equipment: weapon table + gear list
-    const allEquip=[...u.base_equipment,...u.equip];
     const equipHtml=buildEquipSection(allEquip,u,false);
 
-    // Abilities
-    const abHtml=u.abilities.map(a=>{
+    // Abilities — base only + conditional (e.g. Machine Armour ability only when equipped)
+    const condAbs=u.conditional_abilities||{};
+    const activeAbs=[...u.abilities];
+    Object.entries(condAbs).forEach(([item,abs])=>{if(allEquip.includes(item))activeAbs.push(...abs);});
+    const abHtml=activeAbs.map(a=>{
       const parts=a.match(/^([^:]+:)\s*(.*)/);
       if(parts)return`<div class="uc-ab"><strong>${parts[1]}</strong> ${parts[2]}</div>`;
       return`<div class="uc-ab">${a}</div>`;
@@ -1797,11 +2104,28 @@ function showPreview(){
       `<div class="uc-pw"><strong>${p.name}</strong>${p.free?' <span class="ct">(free)</span>':` <span class="ct">(${typeof p.cost==='number'?p.cost+'D':p.cost})</span>`}${p.desc?' — '+p.desc:''}</div>`
     ).join(''):'';
 
+    // Arcana Putrescere
+    const apHtml=(u.arcana&&u.arcana.length)?u.arcana.map(p=>
+      `<div class="uc-arcana uc-arcana-item"><strong>${p.name}</strong>${p.type?` <span class="ct">(${p.type})</span>`:''}${p.desc?' — '+p.desc:''}</div>`
+    ).join(''):'';
+
+    // Variant upgrades
+    const vuHtml=(u.variant_upgrades&&u.variant_upgrades.length)?u.variant_upgrades.map(vu=>
+      `<div class="uc-ab"><strong>${vu.name}</strong>${vu.note?' — '+vu.note:''}</div>`
+    ).join(''):'';
+
     // Aura
     const auraHtml=u.sinAura?`<div class="uc-aura">✦ ${u.sinAura}</div>`:'';
 
     // ═══ A6L: two-column elite card ═══
     if(cardClass==='card-a6l'){
+      // Powers footer — full width, two columns, only shown when powers/arcana present
+      const hasPowers=pwHtml||apHtml||auraHtml;
+      const pwZoneHtml=hasPowers?`<div class="uc-pw-zone">
+        ${pwHtml?`<div class="uc-pw-zone-title">Goetic Powers</div>${pwHtml}`:''}
+        ${apHtml?`<div class="uc-pw-zone-title" style="color:#7A3B1E;">Arcana Putrescere</div>${apHtml}`:''}
+        ${auraHtml?`<div class="uc-pw-zone-title">Aura</div><div class="uc-pw">${auraHtml}</div>`:''}
+      </div>`:'';
       return`<div class="unit-card card-a6l">
         <div class="uc-header"><div class="uc-name">${u.name?`<span class="uc-custom-name">${u.name}</span>`:''}${u.type}</div><div class="uc-hright"><div class="uc-badge ${badgeCls}">${badge}</div><div class="uc-cost-val">${isMerc?u.glory_cost+'☼':u.total_cost+'D'}</div></div></div>
         <div class="uc-wbar"><span>${fName}</span><span>${wbName}</span></div>
@@ -1816,10 +2140,11 @@ function showPreview(){
           <div class="col-r">
             <div class="uc-sec">Abilities</div>
             ${abHtml}
-            ${pwHtml?`<div class="uc-sec pwr">Goetic Powers</div>${pwHtml}`:''}
-            ${auraHtml}
+            ${vuHtml?`<div class="uc-sec">Variant Upgrades</div>${vuHtml}`:''}
           </div>
         </div>
+        ${pwZoneHtml}
+        ${allRestrictionsIgnored?`<div style="font-family:'Cinzel',serif;font-size:1.5mm;color:#ff4444;text-align:center;padding:1mm;border-top:0.3mm solid #ff4444;letter-spacing:0.05em;">☠ Rules ignored — not tournament legal</div>`:''}
         <div class="uc-foot">
           <div class="uc-xp"><span class="uc-xpl">Experience</span><div class="uc-xpb">${xpRow}</div></div>
           <div class="uc-fr"><span class="uc-fl">Injuries</span><div class="uc-fline"></div><div class="uc-scars"><div class="uc-sc"></div><div class="uc-sc"></div><div class="uc-sc"></div></div></div>
@@ -1839,9 +2164,12 @@ function showPreview(){
         ${equipHtml}
         <div class="uc-sec">Abilities</div>
         ${abHtml}
+        ${vuHtml?`<div class="uc-sec">Variant Upgrades</div>${vuHtml}`:''}
         ${pwHtml?`<div class="uc-sec pwr">Goetic Powers</div>${pwHtml}`:''}
+        ${apHtml?`<div class="uc-sec" style="color:#7A3B1E;border-color:rgba(122,59,30,0.2);">Arcana Putrescere</div>${apHtml}`:''}
         ${auraHtml}
       </div>
+      ${allRestrictionsIgnored?`<div style="font-family:'Cinzel',serif;font-size:1.5mm;color:#ff4444;text-align:center;padding:1mm;border-top:0.3mm solid #ff4444;letter-spacing:0.05em;">☠ Rules ignored — not tournament legal</div>`:''}
       <div class="uc-foot">
         <div class="uc-fr"><span class="uc-fl">Kills</span><div class="uc-fline"></div></div>
         <div class="uc-fr"><span class="uc-fl">Injuries</span><div class="uc-fline"></div></div>
@@ -1864,22 +2192,37 @@ function showMobileCards(){
     const isMerc=u.isMerc;
     const badge=isMerc?'☼ MERC':isElite?'‡ ELITE':'† TROOP';
 
-    const kwHtml=u.keywords.map(k=>`<span class="kw">${esc(k)}</span>`).join('');
-    const eff=calcEffStats(u);
-    const statsHtml=fmtStatBox('Move',u.movement,null)+fmtStatBox('Ranged',u.ranged,eff.effR)+fmtStatBox('Melee',u.melee,eff.effM)+fmtArmourBox(u.armour,eff.armourMod);
     const allEquip=[...u.base_equipment,...u.equip];
+    const condKws=u.conditional_keywords||{};
+    const extraKws=[];
+    Object.entries(condKws).forEach(([item,kws])=>{if(allEquip.includes(item))extraKws.push(...kws);});
+    const kwHtml=[...u.keywords,...extraKws].map(k=>`<span class="kw">${esc(k)}</span>`).join('');
+
+    const eff=calcEffStats(u);
+    const baseChanged=eff.effBase&&eff.effBase!==(u.base_size||'32mm');
+    const statsHtml=fmtStatBox('Move',u.movement,null)+fmtStatBox('Ranged',u.ranged,eff.effR)+fmtStatBox('Melee',u.melee,eff.effM)+fmtArmourBox(u.armour,eff.armourMod)+fmtStatBox('Base',u.base_size||'32mm',baseChanged?eff.effBase:null);
     const equipHtml=buildEquipSection(allEquip,u,true);
-    const abHtml=u.abilities.map(a=>{
+
+    const condAbs=u.conditional_abilities||{};
+    const activeAbs=[...u.abilities];
+    Object.entries(condAbs).forEach(([item,abs])=>{if(allEquip.includes(item))activeAbs.push(...abs);});
+    const abHtml=activeAbs.map(a=>{
       const parts=a.match(/^([^:]+:)\s*(.*)/);
       if(parts)return`<div class="uc-ab"><strong>${esc(parts[1])}</strong> ${esc(parts[2])}</div>`;
       return`<div class="uc-ab">${esc(a)}</div>`;
     }).join('');
+
     const pwHtml=(u.powers&&u.powers.length)?u.powers.map(p=>
       `<div class="uc-pw"><strong>${esc(p.name)}</strong>${p.free?' <span class="ct">(free)</span>':` <span class="ct">(${typeof p.cost==='number'?p.cost+'D':esc(String(p.cost))})</span>`}${p.desc?' — '+esc(p.desc):''}</div>`
     ).join(''):'';
+    const apHtml=(u.arcana&&u.arcana.length)?u.arcana.map(p=>
+      `<div class="uc-arcana uc-arcana-item"><strong>${esc(p.name)}</strong>${p.type?` <span class="ct">(${esc(p.type)})</span>`:''}${p.desc?' — '+esc(p.desc):''}</div>`
+    ).join(''):'';
+    const vuHtml=(u.variant_upgrades&&u.variant_upgrades.length)?u.variant_upgrades.map(vu=>
+      `<div class="uc-ab"><strong>${esc(vu.name)}</strong>${vu.note?' — '+esc(vu.note):''}</div>`
+    ).join(''):'';
     const auraHtml=u.sinAura?`<div class="uc-aura">✦ ${esc(u.sinAura)}</div>`:'';
 
-    // All mobile cards are single-column portrait
     const footer=isElite?
       `<div class="uc-foot"><div class="uc-xp"><span class="uc-xpl">Experience</span><div class="uc-xpb">${xpRow}</div></div><div class="uc-fr"><span class="uc-fl">Injuries</span><div class="uc-fline"></div><div class="uc-scars"><div class="uc-sc"></div><div class="uc-sc"></div><div class="uc-sc"></div></div></div><div class="uc-nl"></div><div class="uc-nl"></div></div>`:
       `<div class="uc-foot"><div class="uc-fr"><span class="uc-fl">Kills</span><div class="uc-fline"></div></div><div class="uc-fr"><span class="uc-fl">Injuries</span><div class="uc-fline"></div></div><div class="uc-nl"></div><div class="uc-nl"></div><div class="uc-nl"></div></div>`;
@@ -1894,7 +2237,9 @@ function showMobileCards(){
         ${equipHtml}
         <div class="uc-sec">Abilities</div>
         ${abHtml}
+        ${vuHtml?`<div class="uc-sec">Variant Upgrades</div>${vuHtml}`:''}
         ${pwHtml?`<div class="uc-sec pwr">Goetic Powers</div>${pwHtml}`:''}
+        ${apHtml?`<div class="uc-sec" style="color:#7A3B1E;border-color:rgba(122,59,30,0.2);">Arcana Putrescere</div>${apHtml}`:''}
         ${auraHtml}
       </div>
       ${footer}
@@ -1929,36 +2274,71 @@ function showRoster(){
   const ublock=(u)=>{
     const isE=u.isElite&&!u.isMerc;
     const allEq=[...u.base_equipment,...u.equip];
-    const abHtml=u.abilities.map(a=>{const p=a.match(/^([^:]+:)\s*(.*)/);return p?`<div class="rp-ab"><strong>${esc(p[1])}</strong> ${esc(p[2])}</div>`:`<div class="rp-ab">${esc(a)}</div>`;}).join('');
+
+    // Conditional keywords
+    const condKws=u.conditional_keywords||{};
+    const extraKws=[];
+    Object.entries(condKws).forEach(([item,kws])=>{if(allEq.includes(item))extraKws.push(...kws);});
+    const allKws=[...u.keywords,...extraKws];
+
+    // Conditional abilities
+    const condAbs=u.conditional_abilities||{};
+    const activeAbs=[...u.abilities];
+    Object.entries(condAbs).forEach(([item,abs])=>{if(allEq.includes(item))activeAbs.push(...abs);});
+
+    const abHtml=activeAbs.map(a=>{const p=a.match(/^([^:]+:)\s*(.*)/);return p?`<div class="rp-ab"><strong>${esc(p[1])}</strong> ${esc(p[2])}</div>`:`<div class="rp-ab">${esc(a)}</div>`;}).join('');
     const pwHtml=(u.powers||[]).map(p=>`<div class="rp-pw"><strong>${esc(p.name)}</strong>${p.free?' <span class="ct">(free)</span>':` <span class="ct">(${typeof p.cost==='number'?p.cost+'D':esc(String(p.cost))})</span>`}${p.desc?' — '+esc(p.desc):''}</div>`).join('');
+    const apHtml=(u.arcana||[]).map(p=>`<div class="rp-arcana"><strong>${esc(p.name)}</strong>${p.type?` <span class="ct">(${esc(p.type)})</span>`:''}${p.desc?' — '+esc(p.desc):''}</div>`).join('');
+    const vuHtml=(u.variant_upgrades||[]).map(vu=>`<div class="rp-ab"><strong>${esc(vu.name)}</strong>${vu.note?' — '+esc(vu.note):''}</div>`).join('');
     const auraHtml=u.sinAura?`<div class="rp-aura">✦ ${esc(u.sinAura)}</div>`:'';
     const campHtml=isE?`<div class="rp-camp"><span class="rp-cl">Exp</span><div class="rp-xpb">${xpAll}</div><span class="rp-cl">Kills</span><div class="rp-cvl"></div><span class="rp-cl">Injuries</span><div class="rp-cvl"></div><span class="rp-cl">Scars</span><div class="rp-cvl"></div></div>`
       :`<div class="rp-camp"><span class="rp-cl">Kills</span><div class="rp-cvl"></div><span class="rp-cl">Injuries</span><div class="rp-cvl"></div></div>`;
     return`<div class="rp-ub"><div class="rp-ubh"><div>${u.name?`<span class="uc">${esc(u.name)}</span>`:''}` +
       `<span class="un">${esc(u.type)}</span></div><span class="ub${isE?'':' tr'}">${u.isMerc?'☼ MERC':isE?'‡ ELITE':'† TROOP'} · ${u.isMerc?u.glory_cost+'☼':u.total_cost+'D'}</span></div>` +
       `<div class="rp-ubb"><div class="full rp-ust">${['Move','Ranged','Melee','Armour'].map((l,i)=>`<div class="rp-us"><div class="sl">${l}</div><div class="sv">${[u.movement,fmtDice(u.ranged),fmtDice(u.melee),u.armour][i]}</div></div>`).join('')}</div>` +
-      `<div class="full rp-kw">${u.keywords.map(k=>`<span>${esc(k)}</span>`).join('')}</div>` +
+      `<div class="full rp-kw">${allKws.map(k=>`<span>${esc(k)}</span>`).join('')}</div>` +
       `<div><div class="rp-lbl">Equipment</div>${buildEquipSection(allEq,u,true)}</div>` +
-      `<div><div class="rp-lbl">Abilities</div>${abHtml}${pwHtml?`<div class="rp-lbl pw">Goetic Powers</div>${pwHtml}`:''}${auraHtml}</div>` +
+      `<div><div class="rp-lbl">Abilities</div>${abHtml}${vuHtml?`<div class="rp-lbl">Variant Upgrades</div>${vuHtml}`:''}${pwHtml?`<div class="rp-lbl pw">Goetic Powers</div>${pwHtml}`:''}${apHtml?`<div class="rp-lbl" style="color:#7A3B1E;">Arcana Putrescere</div>${apHtml}`:''}${auraHtml}</div>` +
       `${campHtml}</div></div>`;
   };
 
+  // Collect faction + variant special rules for the roster
+  const factionRules=FACTIONS[selectedFaction]?.special_rules||[];
+  const variantRules=(getVariant()||{}).add_rules||[];
+  const allSpecialRules=[...factionRules,...variantRules];
+
   // Page 1: Overview
   let page1=`<div class="roster-page"><div class="rp-header"><div><div class="rp-title">${esc(wbName)}</div><div class="rp-sub">Warband Roster</div></div><div class="rp-meta"><div class="rm-f">${esc(fName)}</div>${varText?`<div class="rm-v">${esc(varText)}</div>`:''}</div></div>` +
-    `<div class="rp-summary"><div class="rp-sc"><div class="sl">Spent</div><div class="sv" style="color:var(--gold)">${ducats}</div></div><div class="rp-sc"><div class="sl">Budget</div><div class="sv">${budget}</div></div><div class="rp-sc"><div class="sl">Remaining</div><div class="sv">${budget-ducats}</div></div><div class="rp-sc"><div class="sl">Glory</div><div class="sv" style="color:var(--glory)">${glory}</div></div><div class="rp-sc"><div class="sl">Models</div><div class="sv">${roster.length}</div></div><div class="rp-sc"><div class="sl">Games</div><div class="sv">—</div></div></div>` +
-    `<div class="rp-sec">Warband Roster</div><table class="rp-tbl"><tr><th style="width:20%">Name</th><th style="width:16%">Type</th><th class="c" style="width:7%">Move</th><th class="c" style="width:7%">Rng</th><th class="c" style="width:7%">Mel</th><th class="c" style="width:7%">Arm</th><th style="width:26%">Equipment</th><th class="r" style="width:10%">Cost</th></tr>`;
+    `<div class="rp-summary"><div class="rp-sc"><div class="sl">Spent</div><div class="sv" style="color:var(--gold)">${ducats}</div></div><div class="rp-sc"><div class="sl">Budget</div><div class="sv">${budget}</div></div><div class="rp-sc"><div class="sl">Remaining</div><div class="sv">${budget-ducats}</div></div><div class="rp-sc"><div class="sl">Glory</div><div class="sv" style="color:var(--glory)">${glory}</div></div><div class="rp-sc"><div class="sl">Models</div><div class="sv">${roster.length}</div></div><div class="rp-sc"><div class="sl">Games</div><div class="sv">—</div></div></div>`;
+  if(allSpecialRules.length){
+    // Format each rule: bold the part before the first colon
+    const ruleItems=allSpecialRules.map(r=>{
+      const colonIdx=r.indexOf(':');
+      if(colonIdx>0&&colonIdx<60){
+        const title=r.slice(0,colonIdx);
+        const body=r.slice(colonIdx+1).trim();
+        return`<div class="rp-sr-item"><b>${esc(title)}:</b> ${esc(body)}</div>`;
+      }
+      return`<div class="rp-sr-item">${esc(r)}</div>`;
+    }).join('');
+    page1+=`<div class="rp-sec rp-sr">Special Rules</div><div class="rp-sr-list">${ruleItems}</div>`;
+  }
+  if(allRestrictionsIgnored){
+    page1+=`<div style="font-family:'Cinzel',serif;font-size:2.5mm;color:#ff4444;text-align:center;padding:2mm;border:0.5mm solid #ff4444;margin:2mm 0;letter-spacing:0.08em;">☠ ALL RULES IGNORED — THIS WARBAND IS NOT TOURNAMENT LEGAL</div>`;
+  }
+  page1+=`<div class="rp-sec">Warband Roster</div><table class="rp-tbl"><tr><th style="width:20%">Name</th><th style="width:16%">Type</th><th class="c" style="width:7%">Move</th><th class="c" style="width:7%">Rng</th><th class="c" style="width:7%">Mel</th><th class="c" style="width:7%">Arm</th><th style="width:26%">Equipment</th><th class="r" style="width:10%">Cost</th></tr>`;
   if(elites.length){page1+=`<tr><td colspan="8" class="rp-tsec">‡ Elites</td></tr>`;elites.forEach(u=>page1+=trow(u,'er'));}
   if(troops.length){page1+=`<tr><td colspan="8" class="rp-tsec">† Troops</td></tr>`;troops.forEach(u=>page1+=trow(u,''));}
   if(mercs.length){page1+=`<tr><td colspan="8" class="rp-tsec gl">☼ Mercenaries</td></tr>`;mercs.forEach(u=>page1+=trow(u,'mr'));}
   page1+=`</table>`;
   page1+=`<div class="rp-sec">Campaign Battle Log</div><table class="rp-ctbl"><tr><th>#</th><th>Threshold</th><th>Strength</th><th>Opponent</th><th>Scenario</th><th>Result</th><th>Notes</th></tr>${emptyRows}</table>`;
   page1+=`<div style="margin-top:3mm;"><div class="rp-sec">Warband Notes</div><div class="rp-nline"></div><div class="rp-nline"></div><div class="rp-nline"></div><div class="rp-nline"></div></div>`;
-  page1+=`<div class="rp-foot"><span>Warband Forge · warband-forge-v1</span><span>Trench Crusade © Factory Fortress</span></div></div>`;
+  page1+=`<div class="rp-foot"><span>Warband Forge · v3.14</span><span>Trench Crusade © Factory Fortress</span></div></div>`;
 
   // Page 2+: Unit Details
   let page2=`<div class="roster-page"><div style="font-family:'IM Fell English SC',serif;font-size:4.5mm;color:var(--blood);border-bottom:0.5mm solid var(--blood);padding-bottom:1mm;margin-bottom:3mm;display:flex;justify-content:space-between;align-items:flex-end;"><span>Unit Details</span><span style="font-family:'Cinzel',serif;font-size:2.5mm;color:var(--gold);letter-spacing:0.1em;">${esc(wbName)} — ${esc(fName)}</span></div>`;
   roster.forEach(u=>page2+=ublock(u));
-  page2+=`<div class="rp-foot"><span>Warband Forge · warband-forge-v1</span><span>Trench Crusade © Factory Fortress</span></div></div>`;
+  page2+=`<div class="rp-foot"><span>Warband Forge · v3.14</span><span>Trench Crusade © Factory Fortress</span></div></div>`;
 
   document.getElementById('roster-sheet').innerHTML=page1+page2;
   showScreen('screen-roster');
@@ -1980,15 +2360,37 @@ async function downloadPDF(){
     const url=URL.createObjectURL(blob);
     const a=document.createElement('a');a.href=url;a.download=wbName.replace(/\s+/g,'_')+'_roster.pdf';
     document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+    if(typeof umami!=='undefined'){
+      umami.track('PDF Exported', {faction: FACTIONS[selectedFaction]?.name||''});
+    }
   }catch(e){console.error(e);alert('PDF generation failed: '+e.message);}
 }
 
 // ═══ IMPORT / EXPORT WARBAND JSON ═══
+// Bump this when the save schema changes — add a migration block in migrateSave()
+const CURRENT_FORMAT_VERSION = 2;
+
+function migrateSave(data){
+  const v = parseInt((data._format_version)||1);
+  // v1 → v2: added variant_upgrades, arcana, conditional fields
+  if(v < 2){
+    (data.units||[]).forEach(u=>{
+      if(!u.variant_upgrades) u.variant_upgrades=[];
+      if(!u.arcana) u.arcana=[];
+    });
+  }
+  // Future migrations go here as:
+  // if(v < 3){ ... }
+  data._format_version = CURRENT_FORMAT_VERSION;
+  return data;
+}
+
 function exportWarband(){
   const wbName=document.getElementById('wb-name-input').value||'Unnamed Warband';
   const fName=FACTIONS[selectedFaction]?.name||'';
   const save={
     _format:'warband-forge-v1',
+    _format_version: CURRENT_FORMAT_VERSION,
     _created:new Date().toISOString(),
     _modified:new Date().toISOString(),
     warband:{
@@ -2010,6 +2412,8 @@ function exportWarband(){
       base_cost:u.base_cost,
       glory_cost:u.glory_cost||0,
       equipment:u.equip.map(e=>({name:e,cost:0})),
+      variant_upgrades:u.variant_upgrades||[],
+      arcana:u.arcana||[],
       goetic_powers:(u.powers||[]).filter(p=>!p.free).map(p=>({name:p.name,cost:typeof p.cost==='number'?p.cost:0})),
       sin_aura:u.sinAura||'',
       total_cost:u.total_cost,
@@ -2021,6 +2425,10 @@ function exportWarband(){
   const a=document.createElement('a');
   a.href=url;a.download=wbName.replace(/\s+/g,'_').replace(/[^a-zA-Z0-9_-]/g,'')+'.json';
   document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+  // Track save event
+  if(typeof umami!=='undefined'){
+    umami.track('Warband Saved', {faction: fName, variant: selectedVariant||'standard'});
+  }
 }
 
 function importWarband(event){
@@ -2033,7 +2441,7 @@ function importWarband(event){
     try{
       const raw=JSON.parse(e.target.result);
       // Sanitize all imported data
-      const data=sanitizeImport(raw);
+      const data=migrateSave(sanitizeImport(raw));
       if(!FACTIONS[data.warband.faction]){
         alert('Unknown faction: '+esc(data.warband.faction));return;
       }
@@ -2064,6 +2472,8 @@ function importWarband(event){
           abilities:def.abilities||[],
           base_equipment:def.base_equipment||[],
           powers:(u.goetic_powers||[]).map(p=>({name:p.name,cost:p.cost,desc:'',free:false})),
+          variant_upgrades:u.variant_upgrades||[],
+          arcana:u.arcana||[],
           sinAura:u.sin_aura||'',
         };
       });
@@ -2108,9 +2518,39 @@ function updateShareLinks(){
 
 // ═══ INIT — load data from Flask API ═══
 updateShareLinks();
-loadData().then(()=>{console.log('Data loaded, ready.')}).catch(e=>{
+loadData().then(()=>{
+  if(!localStorage.getItem('wf-onboarded')){
+    document.getElementById('onboarding-banner').style.display='block';
+  }
+}).catch(e=>{
   console.warn('API not available, using empty data. Run app.py for full data.',e);
 });
+</script>
+
+<!-- PWA offline banner -->
+<div id="pwa-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#2A2318;border-top:1px solid #C9A84C;padding:10px 16px;display:none;align-items:center;justify-content:space-between;z-index:9999;font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.05em;color:#C9A84C;">
+  <span>✠ App ready for offline use. Add to Home Screen for the best experience.</span>
+  <button onclick="this.parentElement.style.display='none';localStorage.setItem('pwa-banner-dismissed','1')" style="background:none;border:1px solid #C9A84C;color:#C9A84C;font-family:'Cinzel',serif;font-size:0.65rem;padding:4px 10px;cursor:pointer;letter-spacing:0.05em;">Dismiss</button>
+</div>
+
+<script>
+// Register service worker and show offline banner on first install
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('/service_worker.js').then(reg=>{
+    reg.addEventListener('updatefound',()=>{
+      const sw=reg.installing;
+      sw.addEventListener('statechange',()=>{
+        if(sw.state==='activated'&&!navigator.serviceWorker.controller){
+          // First install — show banner if not previously dismissed
+          if(!localStorage.getItem('pwa-banner-dismissed')){
+            const banner=document.getElementById('pwa-banner');
+            if(banner)banner.style.display='flex';
+          }
+        }
+      });
+    });
+  }).catch(err=>console.warn('Service worker registration failed:',err));
+}
 </script>
 </body>
 </html>
