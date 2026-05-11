@@ -46,7 +46,7 @@
       "battlekit_notes": "Ranged limited to Silenced Pistols and Tartarus Claws. Grenades limited to Gas Grenades only.",
       "restrict_ranged_to": ["Silenced Pistol"],
       "restrict_grenades_to": ["Gas Grenades"]
-    }
+    },
     {
       "type": "Chorister",
       "limit": "0-1",
