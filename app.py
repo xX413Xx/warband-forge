@@ -24,7 +24,7 @@ import tempfile
 # Import our existing modules
 from card_pdf import generate_warband_pdf
 
-VERSION = "3.18"
+VERSION = "3.19"
 
 # ═══════════════════════════════════════════════════════════════
 # Create the Flask application
