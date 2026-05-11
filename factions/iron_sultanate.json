@@ -124,7 +124,6 @@
       "melee": "+2 DICE",
       "armour": "-1",
       "base_size": "50mm",
-      "restrict_equipment_to": ["Wind Amulet"],
       "keywords": [
         "SULTANATE",
         "ARTIFICIAL",
@@ -140,18 +139,7 @@
         "Shredding Claws (+1 INJ, CUMBERSOME, RISKY)"
       ],
       "battlekit_notes": "Can only have Armour and/or Wind Amulet. No Shields, no other Battlekit.",
-      "restrict_armoury": false,
-      "restrict_ranged": true,
-      "restrict_melee": true,
-      "restrict_grenades": true,
-      "restrict_shields": true,
-      "unit_upgrades": [
-        [
-          "FEAR keyword",
-          5,
-          "Any number of Lions of Jabir can have FEAR"
-        ]
-      ]
+      "restrict_armoury": true
     },
     {
       "type": "Janissary",
@@ -180,7 +168,7 @@
       "ranged": "+0 DICE",
       "melee": "+2 DICE",
       "armour": "0",
-      "base_size": "50mm",
+      "base_size": "60mm",
       "keywords": [
         "SULTANATE",
         "ARTIFICIAL",

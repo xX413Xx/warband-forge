@@ -4,8 +4,7 @@
   "description": "Undead Heretic troopers trapped between planes. Semi-corporeal, slow, terrifying. Hate all life.",
   "restrict_units": [
     "War Wolf Assault Beast",
-    "Artillery Witch",
-    "Chorister"
+    "Artillery Witch"
   ],
   "restrict_keywords": [
     "ARTIFICIAL"
@@ -26,19 +25,7 @@
     "NEGATE DIFFICULT TERRAIN",
     "NEGATE GAS"
   ],
-  "unit_replacements": {
-    "Chorister": {
-      "new_type": "Barbed Wire Banshee",
-      "same_profile": true,
-      "same_cost": true,
-      "abilities": [
-        "Barbed Wail: +1 INJURY DICE to Injury Rolls for enemy models within 8\"."
-      ],
-      "replaces_abilities": [
-        "Unholy Hymns"
-      ]
-    }
-  },
+  "unit_replacements": {},
   "base_equip_remove": {
     "Anointed Heavy Infantry": [
       "Infernal Brand"
@@ -89,5 +76,11 @@
       "unit_upgrades": [],
       "is_elite": true
     }
+  ],
+  "mutually_exclusive": [
+    [
+      "Chorister",
+      "Barbed Wire Banshee"
+    ]
   ]
 }
