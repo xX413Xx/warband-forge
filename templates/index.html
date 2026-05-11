@@ -925,6 +925,8 @@ function transformUnit(u){
     restrict_grenades:u.restrict_grenades||false,
     restrict_shields:u.restrict_shields||false,
     restrict_equipment_to:u.restrict_equipment_to||null,
+    restrict_ranged_to:u.restrict_ranged_to||null,
+    restrict_grenades_to:u.restrict_grenades_to||null,
   };
 }
 
@@ -1671,6 +1673,13 @@ function buildEquipPicker(){
       if(!allRestrictionsIgnored&&currentUnit.restrict_equipment_to&&cat==='Equipment'){
         if(!currentUnit.restrict_equipment_to.includes(name))return;
       }
+      // Allowlist restrictions (e.g. Death Commando: Silenced Pistol only, Gas Grenades only)
+      if(!allRestrictionsIgnored&&currentUnit.restrict_ranged_to&&cat==='Ranged Weapons'){
+        if(!currentUnit.restrict_ranged_to.includes(name))return;
+      }
+      if(!allRestrictionsIgnored&&currentUnit.restrict_grenades_to&&cat==='Grenades'){
+        if(!currentUnit.restrict_grenades_to.includes(name))return;
+      }
       const costStr=typeof cost==='number'?cost+'D':cost;
       const costVal=typeof cost==='number'?cost:0;
       const allowed=allRestrictionsIgnored?true:canUseItem(note,currentUnit);
@@ -1892,7 +1901,7 @@ function editExisting(idx){
   const f=FACTIONS[selectedFaction];
   const allUnits=[...(f?.elites||[]),...(f?.troops||[]),...((getVariant()||{}).add_units||[])];
   const origDef=allUnits.find(d=>d.type===u.type)||{};
-  currentUnit={type:u.type,base_cost:u.base_cost,movement:u.movement,ranged:u.ranged,melee:u.melee,armour:u.armour,keywords:u.keywords,abilities:u.abilities,conditional_abilities:origDef.conditional_abilities||{},conditional_keywords:origDef.conditional_keywords||{},conditional_restrict_items:origDef.conditional_restrict_items||{},base_equipment:u.base_equipment,base_size:origDef.base_size||u.base_size||'32mm',isElite:u.isElite,isMerc:u.isMerc,cost:u.glory_cost,min:0,max:99,gp_max:origDef.gp_max||0,gp_free:origDef.gp_free||[],ap_max:origDef.ap_max||0,restrict_armoury:origDef.restrict_armoury||false,unit_upgrades:origDef.unit_upgrades||[],restrict_armour_purchase:origDef.restrict_armour_purchase||false,restrict_ranged:origDef.restrict_ranged||false,restrict_grenades:origDef.restrict_grenades||false,restrict_shields:origDef.restrict_shields||false,restrict_equipment_to:origDef.restrict_equipment_to||null};
+  currentUnit={type:u.type,base_cost:u.base_cost,movement:u.movement,ranged:u.ranged,melee:u.melee,armour:u.armour,keywords:u.keywords,abilities:u.abilities,conditional_abilities:origDef.conditional_abilities||{},conditional_keywords:origDef.conditional_keywords||{},conditional_restrict_items:origDef.conditional_restrict_items||{},base_equipment:u.base_equipment,base_size:origDef.base_size||u.base_size||'32mm',isElite:u.isElite,isMerc:u.isMerc,cost:u.glory_cost,min:0,max:99,gp_max:origDef.gp_max||0,gp_free:origDef.gp_free||[],ap_max:origDef.ap_max||0,restrict_armoury:origDef.restrict_armoury||false,unit_upgrades:origDef.unit_upgrades||[],restrict_armour_purchase:origDef.restrict_armour_purchase||false,restrict_ranged:origDef.restrict_ranged||false,restrict_grenades:origDef.restrict_grenades||false,restrict_shields:origDef.restrict_shields||false,restrict_equipment_to:origDef.restrict_equipment_to||null,restrict_ranged_to:origDef.restrict_ranged_to||null,restrict_grenades_to:origDef.restrict_grenades_to||null};
   openEditor();document.getElementById('ue-name-input').value=u.name;
   if(!u.isMerc){
     // Restore equip — includes both gear and variant upgrades stored in equip

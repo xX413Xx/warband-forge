@@ -43,7 +43,9 @@
         "Hide ACTION: Risky +1 DICE. On success, cannot be targeted by Ranged/Charge until moves, attacks, or enemy within 1.5\"."
       ],
       "base_equipment": [],
-      "battlekit_notes": "Ranged limited to Silenced Pistols and Tormentor Chains. Grenades limited to Gas Grenades only."
+      "battlekit_notes": "Ranged limited to Silenced Pistols and Tartarus Claws. Grenades limited to Gas Grenades only."
+      "restrict_ranged_to": ["Silenced Pistol"],
+      "restrict_grenades_to": ["Gas Grenades"]
     },
     {
       "type": "Chorister",
