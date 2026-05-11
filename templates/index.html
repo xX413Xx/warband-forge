@@ -1862,7 +1862,7 @@ function confirmUnit(){
   let sinAura='';
   if(u.type==='Desecrated Saint'&&selectedSin){sinAura=SAINT_AURAS[selectedSin]||'';}
 
-  const unit={name,type:u.type,base_cost:u.base_cost||0,equip_cost:eqCost+gpCost+apCost,total_cost:(u.base_cost||0)+eqCost+gpCost+apCost,equip,variant_upgrades,isElite:u.isElite,isMerc:u.isMerc||false,glory_cost:u.isMerc?u.cost:0,movement:u.movement,ranged:u.ranged,melee:u.melee,armour:u.armour,keywords:u.keywords||[],abilities:u.abilities||[],conditional_abilities:u.conditional_abilities||{},conditional_keywords:u.conditional_keywords||{},base_equipment:u._effectiveBaseEq||u.base_equipment||[],powers:powerDescs,arcana,sinAura,restrict_armour_purchase:u.restrict_armour_purchase||false};
+  const unit={name,type:u.type,base_cost:u.base_cost||0,equip_cost:eqCost+gpCost+apCost,total_cost:(u.base_cost||0)+eqCost+gpCost+apCost,equip,variant_upgrades,isElite:u.isElite,isMerc:u.isMerc||false,glory_cost:u.isMerc?u.cost:0,movement:u.movement,ranged:u.ranged,melee:u.melee,armour:u.armour,keywords:u.keywords||[],abilities:u.abilities||[],conditional_abilities:u.conditional_abilities||{},conditional_keywords:u.conditional_keywords||{},base_equipment:u._effectiveBaseEq||u.base_equipment||[],base_size:u.base_size||'32mm',powers:powerDescs,arcana,sinAura,restrict_armour_purchase:u.restrict_armour_purchase||false};
   if(editingIndex>=0)roster[editingIndex]=unit;else roster.push(unit);
   renderRoster();showEmpty();
 }
