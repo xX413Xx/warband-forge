@@ -1109,7 +1109,7 @@ function showTypePicker(){
     if(rep){
       displayUnit={...u, type:rep.new_type||u.type, abilities:rep.abilities||u.abilities};
     }
-    const restricted=allRestrictionsIgnored?false:(isRestricted(u.type)||isMutuallyExcluded(displayUnit.type));
+    const restricted=(typeof allRestrictionsIgnored!=='undefined'&&allRestrictionsIgnored)?false:(isRestricted(u.type)||isMutuallyExcluded(displayUnit.type));
     const max=getEffectiveMax(u);
     const actualCount=countInRoster(displayUnit.type);
     const maxed=actualCount>=max;
