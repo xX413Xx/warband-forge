@@ -15,8 +15,8 @@ body{font-family:'Crimson Text',Georgia,serif;background:var(--trench);color:var
 #screen-faction{align-items:center;justify-content:center;padding:1.5rem;
   background:radial-gradient(ellipse at 30% 20%,rgba(139,26,26,0.07) 0%,transparent 60%),
   radial-gradient(ellipse at 70% 80%,rgba(59,47,27,0.12) 0%,transparent 60%),var(--trench);}
-.title-block{text-align:center;margin-bottom:1.5rem;}
-.main-title{font-family:'IM Fell English SC',serif;font-size:clamp(1.5rem,5vw,2.8rem);color:var(--gold);letter-spacing:0.1em;text-shadow:0 2px 8px rgba(0,0,0,0.5);}
+.title-block{text-align:center;margin-bottom:1.2rem;}
+.main-logo{max-width:420px;width:85%;height:auto;display:block;margin:0 auto;}
 .sub-title{font-family:'Cinzel',serif;font-size:clamp(0.7rem,2vw,1rem);color:var(--parch-dark);letter-spacing:0.2em;text-transform:uppercase;margin-top:0.2rem;}
 .tagline{color:#706050;font-style:italic;margin-top:0.5rem;font-size:0.85rem;}
 .side-header{font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;margin:1rem 0 0.4rem;text-align:center;}

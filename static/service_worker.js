@@ -1,6 +1,6 @@
 // Warband Forge Service Worker
 // Bump CACHE_VERSION with every deployment to force cache refresh
-const CACHE_VERSION = 'wf-v3.20';
+const CACHE_VERSION = 'wf-v4.0';
 const CACHE_NAME = `warband-forge-${CACHE_VERSION}`;
 
 const PRECACHE_URLS = [
