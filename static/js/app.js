@@ -774,6 +774,7 @@ function buildEquipPicker(){
       let cost=item[1],note=item[2]||'';
       let modified=false;
       if(overrides[name]!==undefined){cost=overrides[name];modified=true;}
+      if(currentUnit.cost_overrides&&currentUnit.cost_overrides[name]!==undefined){cost=currentUnit.cost_overrides[name];modified=true;}
       // Skip equipment items not in the allowed list (e.g. Lion of Jabir: Wind Amulet only)
       if(!allRestrictionsIgnored&&currentUnit.restrict_equipment_to&&cat==='Equipment'){
         if(!currentUnit.restrict_equipment_to.includes(name))return;

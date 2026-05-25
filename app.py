@@ -24,7 +24,7 @@ import tempfile
 # Import our existing modules
 from card_pdf import generate_warband_pdf
 
-VERSION = "4.1"
+VERSION = "4.2"
 
 # ═══════════════════════════════════════════════════════════════
 # Create the Flask application
@@ -241,6 +241,18 @@ def generate_pdf():
         # Clean up temp file after sending
         # (send_file reads it first, then we delete)
         pass
+
+@app.route('/reference/quick')
+def ref_quick():
+    return render_template('ref_quick.html')
+
+@app.route('/reference/keywords')
+def ref_keywords():
+    return render_template('ref_keywords.html')
+
+@app.route('/reference/equipment')
+def ref_equipment():
+    return render_template('ref_equipment.html')
 
 
 # ═══════════════════════════════════════════════════════════════

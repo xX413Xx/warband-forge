@@ -85,6 +85,7 @@
         "Trench Moles: Up to 2 gain INFILTRATOR for +10d each (3rd at 1000d+ warband)."
       ],
       "base_equipment": [],
+      "cost_overrides": {"Bolt-Action Rifle": 5},
       "unit_upgrades": [
         [
           "Trench Mole (INFILTRATOR)",
