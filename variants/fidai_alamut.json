@@ -55,7 +55,13 @@
         "Uses Sultanate Assassin profile with LEADER and TOUGH.",
         "Art of Assassination: Can buy 1 unique ability."
       ],
-      "base_equipment": []
+      "base_equipment": [],
+      "unit_upgrades": [
+      ["Hallucinogen Disguise (deploy ignoring INFILTRATOR restrictions)", 20, "Art of Assassination", null, "assassination"],
+      ["Mirage of Time (-1 DICE to attacks targeting this model)", 15, "Art of Assassination", null, "assassination"],
+      ["Secret Paths (delayed deploy after Turn 1)", 10, "Art of Assassination", null, "assassination"],
+      ["Thunderbolt (+2\" Movement)", 20, "Art of Assassination", null, "assassination"]
+      ]
     },
     {
       "type": "Dervish",
@@ -76,6 +82,14 @@
       "base_equipment": []
     }
   ],
+  "variant_unit_upgrades": {
+    "Sultanate Assassin": [
+      ["Hallucinogen Disguise (deploy ignoring INFILTRATOR restrictions)", 20, "Art of Assassination", 1, "assassination"],
+      ["Mirage of Time (-1 DICE to attacks targeting)", 15, "Art of Assassination", 1, "assassination"],
+      ["Secret Paths (delayed deploy after Turn 1)", 10, "Art of Assassination", 1, "assassination"],
+      ["Thunderbolt (+2\" Movement)", 20, "Art of Assassination", 1, "assassination"]
+    ]
+  },
   "cost_overrides": {},
   "stat_overrides": {},
   "ability_replacements": {},

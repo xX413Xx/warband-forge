@@ -156,7 +156,11 @@ function updateConditionalItems(){
 }
 
 function rebuildPickerOnUpgrade(changedCb){
-  // Defer so the checkbox checked state is fully committed before re-evaluating
+  if(changedCb.checked && changedCb.dataset.group){
+    document.querySelectorAll(`input[data-group="${changedCb.dataset.group}"]`).forEach(other=>{
+      if(other !== changedCb) other.checked = false;
+    });
+  }
   setTimeout(()=>{
     updateConditionalItems();
     enforceEquipLimits();
@@ -738,7 +742,7 @@ function buildEquipPicker(){
       let wbBlocked=false,wbLock='';
       if(wbLimit!==null){const used=wbCounts2[name]||0;if(used>=wbLimit){wbBlocked=true;wbLock=` <span class="eq-lock">🔒 Limit ${wbLimit}</span>`;}}
       const cls=wbBlocked?'eq-limit-blocked':'';
-      html+=`<label class="eq-item ${cls}"><input type="checkbox" data-cost="${costVal}" data-cat="Unit Upgrades" data-name="${esc(name)}" data-note="${esc(note)}" ${wbBlocked?'disabled data-perm="1"':''} onchange="rebuildPickerOnUpgrade(this)"><span class="eq-name">${esc(name)}</span><span class="eq-cost">${costStr}</span>${note?`<span class="eq-note">${esc(note)}</span>`:''}${wbLock}</label>`;
+      html+=`<label class="eq-item ${cls}"><input type="checkbox" data-cost="${costVal}" data-cat="Unit Upgrades" data-name="${esc(name)}" data-note="${esc(note)}" ${wbBlocked?'disabled data-perm="1"':''} data-group="${item[4]||''}" onchange="rebuildPickerOnUpgrade(this)"><span class="eq-name">${esc(name)}</span><span class="eq-cost">${costStr}</span>${note?`<span class="eq-note">${esc(note)}</span>`:''}${wbLock}</label>`;
     });
     html+='</div></div>';
     p.innerHTML=html;
@@ -850,7 +854,7 @@ function buildEquipPicker(){
         if(used>=wbLimit){wbBlocked=true;wbLock=` <span class="eq-lock">🔒 Limit ${wbLimit} (${used} in warband)</span>`;}
       }
       const cls=wbBlocked?'eq-limit-blocked':'';
-      html+=`<label class="eq-item ${cls}"><input type="checkbox" data-cost="${costVal}" data-cat="Unit Upgrades" data-name="${esc(name)}" data-note="${esc(note)}" ${wbBlocked?'disabled data-perm="1"':''} onchange="rebuildPickerOnUpgrade(this)"><span class="eq-name">${esc(name)}</span><span class="eq-cost">${costStr}</span>${note?`<span class="eq-note">${esc(note)}</span>`:''}${wbLock}</label>`;
+      html+=`<label class="eq-item ${cls}"><input type="checkbox" data-cost="${costVal}" data-cat="Unit Upgrades" data-name="${esc(name)}" data-note="${esc(note)}" ${wbBlocked?'disabled data-perm="1"':''} data-group="${item[4]||''}" onchange="rebuildPickerOnUpgrade(this)"><span class="eq-name">${esc(name)}</span><span class="eq-cost">${costStr}</span>${note?`<span class="eq-note">${esc(note)}</span>`:''}${wbLock}</label>`;
     });
     html+='</div></div>';
   }
@@ -990,10 +994,11 @@ function renderRoster(){
   add('‡ Elites ‡',roster.filter(u=>u.isElite&&!u.isMerc));
   add('† Troops †',roster.filter(u=>!u.isElite&&!u.isMerc));
   add('☼ Mercenaries ☼',roster.filter(u=>u.isMerc),'glory-section');
+  const hint=document.createElement('div');hint.className='roster-hint';hint.textContent='☩ Tap a unit above to edit';list.appendChild(hint);
   updateTopBar();
 }
 function makeRI(u,idx){
-  const d=document.createElement('div');d.className='r-unit';
+  const d=document.createElement('div');d.className='r-unit';d.dataset.idx=idx;
   d.innerHTML=`<div class="r-mark ${u.isMerc?'glory-mark':''}">${u.isMerc?'☼':u.isElite?'‡':'†'}</div>
     <div class="r-body"><div class="r-name">${u.name||'(Unnamed)'}</div><div class="r-type">${u.type}</div>
     <div class="r-equip">${u.equip.length?u.equip.join(', '):(u.base_equipment.join(', ')||'—')}</div></div>
@@ -1029,7 +1034,7 @@ function editExisting(idx){
     updateEditorCost();
   }
   document.querySelectorAll('.r-unit').forEach(r=>r.classList.remove('selected'));
-  document.querySelectorAll('.r-unit')[idx]?.classList.add('selected');
+  document.querySelector(`.r-unit[data-idx="${idx}"]`)?.classList.add('selected');
 }
 function updateTopBar(){
   const budget=parseInt(document.getElementById('d-budget').value)||700;

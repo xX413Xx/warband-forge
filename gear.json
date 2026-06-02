@@ -80,7 +80,7 @@
     "dice_mod": 0,
     "inj_dice": 0,
     "inj_mod": 0,
-    "heavy": false,
+    "heavy": true,
     "keywords": [
       "FIRE",
       "IGNORE ARMOUR"
@@ -269,7 +269,7 @@
     "dice_mod": 0,
     "inj_dice": 0,
     "inj_mod": 0,
-    "heavy": false,
+    "heavy": true,
     "keywords": [
       "FIRE",
       "IGNORE ARMOUR"
@@ -282,7 +282,7 @@
     "dice_mod": 0,
     "inj_dice": 0,
     "inj_mod": 0,
-    "heavy": false,
+    "heavy": true,
     "keywords": [
       "BLAST 3\"",
       "SCATTER"

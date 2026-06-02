@@ -32,7 +32,10 @@
       "abilities": [
         "Can gain +1 DICE Melee for +5d."
       ],
-      "base_equipment": []
+      "base_equipment": [],
+      "unit_upgrades": [
+      ["+1 DICE Melee", 5, ""]
+      ]
     },
     {
       "type": "Fāris",
@@ -66,10 +69,19 @@
         "SULTANATE",
         "ARTIFICIAL"
       ],
-      "abilities": [
-        "Custom creation. Purchase formula abilities at recruitment."
-      ],
-      "base_equipment": []
+      "abilities": [],
+      "base_equipment": [],
+      "unit_upgrades": [
+      ["Hypnotic Eyes (-1 DICE to melee targeting this model)", 15, "Cannot have with Hawk Eyes unless Two Heads"],
+      ["Inhuman Strength (STRONG, +1 DICE Melee, 32mm base)", 15, ""],
+      ["Massive Size (TOUGH, 50mm base)", 30, "Cannot have with Wings"],
+      ["Regenerative Tissue (REGENERATE 1)", 25, ""],
+      ["Seal of Solomon (can use Iron Sultanate armoury)", 10, ""],
+      ["Startling Speed (+1 DICE to Risky Dash)", 10, ""],
+      ["Terrifying Appearance (FEAR)", 10, ""],
+      ["Two Heads (can have both Hawk Eyes and Hypnotic Eyes)", 5, ""],
+      ["Wings (8\"/Flying, FLYING)", 30, "Cannot have with Massive Size"]
+    ]
     }
   ],
   "add_armoury": {
