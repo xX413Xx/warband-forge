@@ -732,7 +732,7 @@ function buildEquipPicker(){
       p.innerHTML='<div style="font-size:0.7rem;color:#908070;font-style:italic;padding:0.4rem 0;">This unit cannot take additional equipment.</div>';
       return;
     }
-    let html='<div class="equip-section"><div class="eq-cat-title">Unit Upgrades <span class="toggle">▾</span></div><div class="eq-items">';
+    let html='<div class="equip-section"><div class="eq-cat-title">Unit Upgrades <span class="toggle">▸</span></div><div class="eq-items collapsed">';
     const wbCounts2={};
     roster.forEach((ru,ri)=>{if(ri===editingIndex)return;(ru.equip||[]).forEach(e=>{wbCounts2[e]=(wbCounts2[e]||0)+1;});});
     upgrades.forEach(item=>{
@@ -772,7 +772,7 @@ function buildEquipPicker(){
     // For units restricted to specific equipment only (e.g. Lion of Jabir: Wind Amulet only)
     // Items are filtered per-item below
     html+=`<div class="equip-section"><div class="eq-cat-title" onclick="this.nextElementSibling.classList.toggle('collapsed');this.querySelector('.toggle').textContent=this.nextElementSibling.classList.contains('collapsed')?'▸':'▾';">
-      ${cat} <span class="toggle">▾</span></div><div class="eq-items">`;
+      ${cat} <span class="toggle">▸</span></div><div class="eq-items collapsed">`;
     items.forEach(item=>{
       const name=item[0];
       let cost=item[1],note=item[2]||'';
@@ -842,7 +842,7 @@ function buildEquipPicker(){
       if(ri===editingIndex)return;
       (ru.equip||[]).forEach(e=>{wbUpgradeCounts[e]=(wbUpgradeCounts[e]||0)+1;});
     });
-    html+='<div class="equip-section"><div class="eq-cat-title" onclick="this.nextElementSibling.classList.toggle(\'collapsed\');this.querySelector(\'.toggle\').textContent=this.nextElementSibling.classList.contains(\'collapsed\')?\'▸\':\'▾\';">Unit Upgrades <span class="toggle">▾</span></div><div class="eq-items">';
+    html+='<div class="equip-section"><div class="eq-cat-title" onclick="this.nextElementSibling.classList.toggle(\'collapsed\');this.querySelector(\'.toggle\').textContent=this.nextElementSibling.classList.contains(\'collapsed\')?\'▸\':\'▾\';">Unit Upgrades ▸</span></div><div class="eq-items collapsed">';
     upgrades.forEach(item=>{
       const name=item[0],cost=item[1],note=item[2]||'',wbLimit=item.length>=4?item[3]:null;
       const costStr=typeof cost==='number'?cost+'D':cost;
