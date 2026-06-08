@@ -2,70 +2,53 @@
   "name": "Dirge of the Great Hegemon",
   "parent_faction": "black_grail",
   "description": "Fallen Hegemon's shattered legions. Bereaved thralls controlled by Plague Knights.",
-  "restrict_units": [
-    "Lord of Tumours"
-  ],
+  "restrict_units": ["Lord of Tumours", "Amalgam"],
   "restrict_mercenaries": true,
-  "required_units_override": {
-    "remove_required": "Lord of Tumours",
-    "add_required": "Executor"
-  },
+  "required_units_override": {"remove_required": "Lord of Tumours", "add_required": "Executor"},
   "limit_overrides": {
-    "Corpse Guard": "0-2"
+    "Hound of the Black Grail": "0-2",
+    "Herald of Beelzebub": "0-2"
   },
   "add_rules": [
-    "The Executor: Must include 1 Executor (Plague Knight profile with LEADER, TOUGH). +10d for Broken Crown.",
-    "The Fallen: Cannot include Lord of Tumours.",
-    "The Lost: Max 0-2 Corpse Guards.",
-    "The Bereaved: Grail/Fly Thralls become 'Bereaved' — cannot activate normally. Controlled by Hegemon's Will.",
-    "Hegemon's Will: Plague Knights can issue commands (Charge/Fight/Move/Shoot) to Bereaved within 8\".",
-    "Dishonoured: Cannot have Mercenaries or any items costing Glory.",
-    "Hegemon's Last Blessing: Putrid Shotguns Limit: 3. Heavy Weapons lose Limit restrictions.",
-    "Locus of Despair: Executor's activation — all models within 8\" (friend and foe) take Risky Success Roll."
+    "The Executor: Must include 1 Executor (Plague Knight profile with Ranged +1 DICE, LEADER, TOUGH, cost 80d). Can still include 0-2 Plague Knights.",
+    "The Fallen: Cannot include Lord of Tumours or Amalgam.",
+    "The Lost: Max 0-2 Hounds of the Black Grail, max 0-2 Heralds of Beelzebub.",
+    "The Bereaved: Grail/Fly Thralls are 'Bereaved' — Ranged +0 DICE, cost 30d. Can have Ranged Weapons, Grenades, Musical Instrument, or Troop Flag.",
+    "Hegemon's Will: Executor or Plague Knight can take Command Bereaved ACTION. Remove any number of INFECTION MARKERS from enemy models; for each removed, issue one Command (Charge/Fight/Move/Shoot) to a Bereaved within 18\". Max 1 Command per Bereaved per Turn.",
+    "Dishonoured: Cannot have Beelzebub's Axe or Black Grail Shield. Cannot have Mercenaries.",
+    "Hegemon's Last Blessing: Putrid Shotguns Limit: 3. Viscera Cannon Limit: 3 and no ELITE only restriction."
   ],
   "add_units": [
     {
       "type": "Executor",
       "limit": "1 (required)",
-      "base_cost": 70,
+      "base_cost": 80,
       "movement": "6\"",
-      "ranged": "+0 DICE",
+      "ranged": "+1 DICE",
       "melee": "+2 DICE",
       "armour": "0",
       "base_size": "32mm",
-      "keywords": [
-        "BLACK GRAIL",
-        "ELITE",
-        "FEAR",
-        "LEADER",
-        "NEGATE GAS",
-        "STRONG",
-        "TOUGH"
-      ],
+      "keywords": ["BLACK GRAIL", "ELITE", "FEAR", "LEADER", "NEGATE GAS", "STRONG", "TOUGH"],
       "abilities": [
-        "Plague Knight with LEADER and TOUGH.",
-        "Broken Crown: +10d. Locus of Despair aura.",
-        "Undead Fortitude: -1 INJURY DICE."
+        "Uses Plague Knight profile with LEADER and TOUGH.",
+        "Undead Fortitude: Add -1 INJURY DICE to Injury Rolls for this model unless the attack has the FIRE keyword."
       ],
-      "base_equipment": []
+      "base_equipment": [],
+      "battlekit_notes": "Must have a suit of Armour."
     }
   ],
   "add_armoury": {
     "Equipment": [
-      [
-        "Broken Crown",
-        10,
-        "Executor only"
-      ],
-      [
-        "Urn of the Bitter Ashes",
-        40,
-        "Executor only"
-      ]
+      ["Broken Crown", 25, "ELITE only, Limit: 1"],
+      ["Urn of the Bitter Ashes", 40, "ELITE only, Limit: 1"]
     ]
   },
+  "remove_armoury": ["Beelzebub's Axe", "Black Grail Shield"],
   "cost_overrides": {},
-  "stat_overrides": {},
+  "stat_overrides": {
+    "Grail Thrall": {"ranged": "+0 DICE", "base_cost": 30}
+  },
   "ability_replacements": {},
-  "remove_armoury": []
+  "budget_overrides": {},
+  "elite_overrides": []
 }

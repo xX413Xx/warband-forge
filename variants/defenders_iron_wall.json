@@ -52,8 +52,8 @@
     },
     {
       "type": "Sipahi",
-      "limit": "0-2",
-      "base_cost": 55,
+      "limit": "0-1",
+      "base_cost": 110,
       "movement": "6\"",
       "ranged": "+1 DICE",
       "melee": "+1 DICE",

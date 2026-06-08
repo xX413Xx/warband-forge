@@ -10,7 +10,7 @@
   "add_rules": [
     "Spawn of Gluttony: Must include 1 Matagot Hag. Cannot include Lord of Tumours, Corpse Guards, Grail Thralls, Heralds of Beelzebub, or Amalgam.",
     "Eternal Appetence: At the start of each Turn, choose one effect for your warband (lasts until end of Turn): Agonised Churning (activate friendly within 8\" of Hag with 2+ INFECTION MARKERS → remove 2 and place on enemy within 1\" without ARTIFICIAL/DEMONIC), Ruinous Masticating (place 1 INFECTION MARKER on each friendly within 8\" of Hag; opponent cannot spend friendly INFECTION MARKERS for -DICE on melee if model has 2+), Spasmodic Wretching (place 1 INFECTION MARKER on each friendly within 8\" of Hag; -1 DICE to Ranged Attacks targeting friendlies with 2+ INFECTION MARKERS), or Vile Craving (activate friendly within 8\" of Hag with 2+ INFECTION MARKERS → remove 2 and move up to half Movement, max 4\", towards nearest enemy).",
-    "Butcher Knights: Plague Knights gain Ravenous Infection ACTION free (see Ravenous). Must be on 32mm or 40mm bases. Ranks replaced with: Butcher King (10d, earn 1 Glory if not OoA and took enemy OoA in melee), Knight Companion of the Feast (5d, +1 DICE to Ravenous Infection Risky rolls for friendly within 3\"), Knight of Twin Cleavers (5d, IGNORE OFF-HAND + melee gains SHRAPNEL).",
+    "Butcher Knights: Plague Knights gain Ravenous Infection ACTION free. Must be on 32mm or 40mm bases. Ranks replaced with: Butcher King (10d, earn 1 Glory if not OoA and took enemy OoA in melee), Knight Companion of the Feast (5d, +1 DICE to Ravenous Infection Risky rolls for friendly within 3\"), Knight of Twin Cleavers (5d, IGNORE OFF-HAND + melee gains SHRAPNEL).",
     "Cradle of Filth: 0-3 Cradle Thralls. Use Ravenous entry but INFILTRATOR, cost 2 Glory (no ducats), do not count towards Maximum Field Strength.",
     "Desiccated Husks: 0-2 Desiccated Husks. Use Corpse Guard entry but melee gains CRITICAL, Bodyguard replaced by More Worm Than Man (opponent cannot spend this model's INFECTION MARKERS unless converting to Bloodbath).",
     "The Great Maw: If warband total cost is 1000d+, can recruit 0-1 Great Maws. Uses Lord of Tumours entry without LEADER keyword.",
@@ -38,7 +38,14 @@
       ],
       "base_equipment": [],
       "battlekit_notes": "Can only have Cup of Filth, Grail Devotees, and/or Foetid Palanquin. No other Battlekit.",
-      "is_elite": true
+      "is_elite": true,
+      "unit_upgrades": [
+        ["Devouring Jaws (Devour ACTION: melee with CRITICAL, +1 Blood Marker on self if not OoA)", "2 Glory", "ELITE only, Limit: 1"],
+        ["Grasping Maw (Grasp ACTION: pick enemy within 12\" LoS, move them 3\" towards this model)", 15, ""],
+        ["Lockjaw Bite (place 1 Infection Marker on enemy Retreating within 1\")", 15, ""],
+        ["Rotten Cutters (melee attacks gain CLEAVE 2)", 10, "Matagot Hag and Ravenous only"],
+        ["Unending Starvation (+1\" Movement)", 10, "Matagot Hag, Great Maw, Desiccated Husks, Ravenous only"]
+      ]
     },
     {
       "type": "Ravenous",
@@ -59,13 +66,13 @@
       "battlekit_notes": "Cannot have any Battlekit. Can have up to 3 Hunger Strains.",
       "is_elite": false,
       "unit_upgrades": [
-        ["Hellfly Host (6\"/Flying, lose Undead Fortitude)", 0, "Ravenous only"],
-        ["Lockjaw Bite (Infection Marker on enemy Retreat)", 15, ""],
+        ["Hellfly Host (6\"/Flying, gains FLYING, loses Undead Fortitude)", 0, "Ravenous only"],
+        ["Lockjaw Bite (place 1 Infection Marker on enemy Retreating within 1\")", 15, ""],
         ["Papillal Hide (no LoS needed for Charge)", 5, "Ravenous and Hounds only"],
-        ["Rotten Cutters (CLEAVE 2 on melee)", 10, "Matagot Hag and Ravenous only"],
-        ["Grasping Maw (Grasp ACTION: pull enemy 3\")", 15, ""],
+        ["Rotten Cutters (melee attacks gain CLEAVE 2)", 10, "Matagot Hag and Ravenous only"],
+        ["Grasping Maw (Grasp ACTION: pick enemy within 12\" LoS, move them 3\" towards this model)", 15, ""],
         ["Unending Starvation (+1\" Movement)", 10, "Matagot Hag, Great Maw, Desiccated Husks, Ravenous only"],
-        ["Devouring Jaws (Devour ACTION: melee with CRITICAL)", "2 Glory", "ELITE only, Limit: 1"]
+        ["Devouring Jaws (Devour ACTION: melee with CRITICAL, +1 Blood Marker on self if not OoA)", "2 Glory", "ELITE only, Limit: 1"]
       ]
     },
     {
@@ -90,13 +97,13 @@
       "is_elite": false,
       "isMerc": true,
       "unit_upgrades": [
-        ["Hellfly Host (6\"/Flying, lose Undead Fortitude)", 0, "Ravenous only"],
-        ["Lockjaw Bite (Infection Marker on enemy Retreat)", 15, ""],
+        ["Hellfly Host (6\"/Flying, gains FLYING, loses Undead Fortitude)", 0, "Ravenous only"],
+        ["Lockjaw Bite (place 1 Infection Marker on enemy Retreating within 1\")", 15, ""],
         ["Papillal Hide (no LoS needed for Charge)", 5, "Ravenous and Hounds only"],
-        ["Rotten Cutters (CLEAVE 2 on melee)", 10, "Matagot Hag and Ravenous only"],
-        ["Grasping Maw (Grasp ACTION: pull enemy 3\")", 15, ""],
+        ["Rotten Cutters (melee attacks gain CLEAVE 2)", 10, "Matagot Hag and Ravenous only"],
+        ["Grasping Maw (Grasp ACTION: pick enemy within 12\" LoS, move them 3\" towards this model)", 15, ""],
         ["Unending Starvation (+1\" Movement)", 10, "Matagot Hag, Great Maw, Desiccated Husks, Ravenous only"],
-        ["Devouring Jaws (Devour ACTION: melee with CRITICAL)", "2 Glory", "ELITE only, Limit: 1"]
+        ["Devouring Jaws (Devour ACTION: melee with CRITICAL, +1 Blood Marker on self if not OoA)", "2 Glory", "ELITE only, Limit: 1"]
       ]
     },
     {
@@ -112,14 +119,13 @@
       "abilities": [
         "Dormant Hunger: Once per Turn, when taken Out of Action, go dormant instead. Replace with 60mm Impassable terrain marker. Friendly Ravenous finishing move within 1\" is consumed to revive (set up Down). Counts as OoA for Morale/Trauma.",
         "Gnashing and Tearing: Melee Attack without weapon with +1 INJURY DICE, INFECTION MARKERS, CLEAVE 2. If charged this activation, replace CLEAVE 2 with CLEAVE 3.",
-        "Plague-Ridden Flesh: -2 INJURY DICE unless FIRE.",
-        "Unholy Gut: Can purchase Vomitus weapon for 40d (cannot be lost in campaign)."
+        "Plague-Ridden Flesh: -2 INJURY DICE unless FIRE."
       ],
       "base_equipment": [],
       "battlekit_notes": "Cannot have any Battlekit.",
       "is_elite": true,
       "unit_upgrades": [
-        ["Vomitus (8\" line attack, +1 INJ MOD, ASSAULT, INFECTION MARKERS)", 40, "Gregori Gula only"]
+        ["Vomitus (8\" line attack, +1 INJ MOD, ASSAULT, INFECTION MARKERS, no Success Roll)", 40, "Gregori Gula only"]
       ]
     },
     {
@@ -141,10 +147,10 @@
       "base_equipment": [],
       "is_elite": true,
       "unit_upgrades": [
-        ["Lockjaw Bite (Infection Marker on enemy Retreat)", 15, ""],
-        ["Grasping Maw (Grasp ACTION: pull enemy 3\")", 15, ""],
+        ["Lockjaw Bite (place 1 Infection Marker on enemy Retreating within 1\")", 15, ""],
+        ["Grasping Maw (Grasp ACTION: pick enemy within 12\" LoS, move them 3\" towards this model)", 15, ""],
         ["Unending Starvation (+1\" Movement)", 10, "Matagot Hag, Great Maw, Desiccated Husks, Ravenous only"],
-        ["Devouring Jaws (Devour ACTION: melee with CRITICAL)", "2 Glory", "ELITE only, Limit: 1"]
+        ["Devouring Jaws (Devour ACTION: melee with CRITICAL, +1 Blood Marker on self if not OoA)", "2 Glory", "ELITE only, Limit: 1"]
       ]
     },
     {
@@ -167,17 +173,28 @@
       "base_equipment": [],
       "is_elite": true,
       "unit_upgrades": [
-        ["Lockjaw Bite (Infection Marker on enemy Retreat)", 15, ""],
-        ["Grasping Maw (Grasp ACTION: pull enemy 3\")", 15, ""],
+        ["Lockjaw Bite (place 1 Infection Marker on enemy Retreating within 1\")", 15, ""],
+        ["Grasping Maw (Grasp ACTION: pick enemy within 12\" LoS, move them 3\" towards this model)", 15, ""],
         ["Unending Starvation (+1\" Movement)", 10, "Matagot Hag, Great Maw, Desiccated Husks, Ravenous only"],
-        ["Devouring Jaws (Devour ACTION: melee with CRITICAL)", "2 Glory", "ELITE only, Limit: 1"]
+        ["Devouring Jaws (Devour ACTION: melee with CRITICAL, +1 Blood Marker on self if not OoA)", "2 Glory", "ELITE only, Limit: 1"]
       ]
     }
   ],
+  "variant_unit_upgrades": {
+    "Plague Knight": [
+      ["Devouring Jaws (Devour ACTION: melee with CRITICAL, +1 Blood Marker on self if not OoA)", "2 Glory", "ELITE only, Limit: 1"],
+      ["Grasping Maw (Grasp ACTION: pick enemy within 12\" LoS, move them 3\" towards this model)", 15, ""],
+      ["Lockjaw Bite (place 1 Infection Marker on enemy Retreating within 1\")", 15, ""]
+    ],
+    "Hound of the Black Grail": [
+      ["Grasping Maw (Grasp ACTION: pick enemy within 12\" LoS, move them 3\" towards this model)", 15, ""],
+      ["Lockjaw Bite (place 1 Infection Marker on enemy Retreating within 1\")", 15, ""],
+      ["Papillal Hide (no LoS needed for Charge)", 5, "Ravenous and Hounds only"]
+    ]
+  },
   "add_armoury": {
     "Ranged Weapons": [
-      ["Black Spot Rifle", 25, "Bayonet Lug, Shield Combo, Limit: 2"],
-      ["Putrid Shotgun", 20, "Bayonet Lug, Shield Combo, Limit: 2"]
+      ["Black Spot Rifle", 25, "Bayonet Lug, Shield Combo, Limit: 2"]
     ],
     "Melee Weapons": [
       ["Butcher Bayonet", 15, "Shield Combo, Limit: 2"],

@@ -36,7 +36,14 @@
   },
   "cost_overrides": {},
   "stat_overrides": {},
-  "ability_replacements": {},
+  "ability_replacements": {
+    "Yeoman": {
+      "remove": ["Trench Moles: Up to 2 gain INFILTRATOR for +10d each (3rd at 1000d+ warband)."]
+    }
+  },
+  "restrict_unit_upgrades": {
+    "Yeoman": ["Trench Mole (INFILTRATOR)"]
+  },
   "remove_armoury": [],
   "budget_override": {
     "ducats": 500,

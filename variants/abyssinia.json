@@ -25,7 +25,8 @@
         "Shotel",
         5,
         "Chewa/ELITE only"
-      ]
+      ],
+      ["Misericordia", 15, "Combat Medic only, Limit: 2"]
     ],
     "Equipment": [
       [
@@ -45,16 +46,28 @@
       ]
     ]
   },
-  "remove_armoury": [],
+  "remove_armoury": ["Machine Armour", "Misericordia"],
   "cost_overrides": {},
   "stat_overrides": {},
-  "ability_replacements": {},
+  "ability_replacements": {
+    "Lieutenant": {
+        "add": ["Short-Range Marksmanship: +1 DICE to Ranged Attacks at Short Range (not Grenades, not HEAVY weapons)."]
+    },
+    "Yeoman": {
+        "add": ["Short-Range Marksmanship: +1 DICE to Ranged Attacks at Short Range (not Grenades, not HEAVY weapons)."],
+        "remove": ["Trench Moles: Up to 2 gain INFILTRATOR for +10d each (3rd at 1000d+ warband)."]
+    },
+    "Mechanized Heavy Infantry": {
+        "remove": ["Armour included in base cost: Reinforced Armour (-2) at 85D, or upgrade to Machine Armour (-3) for +10D."],
+        "add": ["Armour included in base cost: Reinforced Armour (-2) at 85D. Machine Armour not available in Abyssinia."]
+}
+  },
   "variant_unit_upgrades": {
     "Yeoman": [
       [
         "Flanking",
         5,
-        "Up to 4 Yeomen. Deploy from any edge, 8\" from enemies."
+        "Deploy from any edge, 8\" from enemies."
       ]
     ],
     "Shock Trooper": [
@@ -78,6 +91,10 @@
         "+1 DICE Melee per friendly adjacent target (max +2)"
       ]
     ]
+  },
+  "restrict_unit_upgrades": {
+    "Yeoman": ["Trench Mole (INFILTRATOR)"],
+    "Mechanized Heavy Infantry": ["Upgrade to Machine Armour"]
   },
   "add_units": [
     {

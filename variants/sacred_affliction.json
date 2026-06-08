@@ -14,7 +14,6 @@
     "Zealot Strength: Up to 3 Trench Pilgrims/Martyr Penitents can have Zealot Strength (instead of 1)."
   ],
   "cost_overrides": {
-    "Anti-Tank Hammer": 10,
     "Holy Icon Shield": 20
   },
   "stat_overrides": {},
@@ -32,6 +31,7 @@
     "Iron Capirote"
   ],
   "remove_restrictions": {
+    "Anti-Tank Hammer": "ELITE only",
     "Holy Icon Shield": "ELITE only"
   }
 }

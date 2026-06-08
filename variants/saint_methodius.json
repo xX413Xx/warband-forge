@@ -106,12 +106,12 @@
       [
         "Machine Gun",
         50,
-        "Limit: 1"
+        "Limit: 2"
       ],
       [
         "Submachine Gun",
         30,
-        ""
+        "Bayonet Lug, Shield Combo, Limit: 1"
       ]
     ]
   },

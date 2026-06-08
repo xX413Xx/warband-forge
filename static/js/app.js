@@ -77,6 +77,7 @@ async function loadData(){
         variant_unit_upgrades:v.variant_unit_upgrades||{},
         unit_stat_overrides:v.unit_stat_overrides||{},
         restrict_unit_upgrades:v.restrict_unit_upgrades||{},
+        ability_replacements:v.ability_replacements||{},
         glory_cost_overrides:v.glory_cost_overrides||{},
         remove_restrictions:v.remove_restrictions||{},
         add_rules:v.add_rules||[],
@@ -330,6 +331,7 @@ function showVariantBanner(v){
   if(v.remove_armoury&&v.remove_armoury.length)r.innerHTML+=`<div class="vb-rule">Removed from armoury: ${v.remove_armoury.join(', ')}</div>`;
   if(v.add_keywords_all&&v.add_keywords_all.length)r.innerHTML+=`<div class="vb-rule">All models gain: ${v.add_keywords_all.join(', ')}</div>`;
   if(v.unit_replacements)Object.entries(v.unit_replacements).forEach(([orig,rep])=>r.innerHTML+=`<div class="vb-rule">${orig} → ${rep.new_type}</div>`);
+  if(v.add_rules&&v.add_rules.length)v.add_rules.forEach(rule=>r.innerHTML+=`<div class="vb-rule">${rule}</div>`);
 }
 
 // ═══ TYPE PICKER (with limits + counts + variant rules) ═══
@@ -447,7 +449,7 @@ function openEditor(){
   document.getElementById('ue-keywords').innerHTML=
     (u.keywords||[]).map(k=>`<span class="kw-tag">${k}</span>`).join('')+
     addedKw.map(k=>`<span class="kw-tag added">+${k}</span>`).join('');
-  document.getElementById('ue-abilities').innerHTML='<h4>Abilities</h4>'+(u.abilities||[]).map(a=>`<div class="abil-item">${a}</div>`).join('');
+  const _ar=((getVariant()||{}).ability_replacements||{})[u.type]||{};const _abs=u.abilities||[];const _fabs=_ar.remove?_abs.filter(a=>!_ar.remove.includes(a)):_abs;const _allAbs=_ar.add?[..._fabs,..._ar.add]:_fabs;document.getElementById('ue-abilities').innerHTML='<h4>Abilities</h4>'+_allAbs.map(a=>`<div class="abil-item">${a}</div>`).join('');
   // Base equipment — remove items if variant says so
   let baseEq=(u.base_equipment||[]).slice();
   const eqRemove=(v.base_equip_remove&&v.base_equip_remove[u.type])||[];
@@ -981,7 +983,7 @@ function confirmUnit(){
   let sinAura='';
   if(u.type==='Desecrated Saint'&&selectedSin){sinAura=SAINT_AURAS[selectedSin]||'';}
 
-  const unit={name,type:u.type,base_cost:u.base_cost||0,equip_cost:eqCost+gpCost+apCost,total_cost:(u.base_cost||0)+eqCost+gpCost+apCost,equip,variant_upgrades,isElite:u.isElite,isMerc:u.isMerc||false,glory_cost:u.isMerc?u.cost:0,movement:u.movement,ranged:u.ranged,melee:u.melee,armour:u.armour,keywords:u.keywords||[],abilities:u.abilities||[],conditional_abilities:u.conditional_abilities||{},conditional_keywords:u.conditional_keywords||{},base_equipment:u._effectiveBaseEq||u.base_equipment||[],base_size:u.base_size||'32mm',powers:powerDescs,arcana,sinAura,restrict_armour_purchase:u.restrict_armour_purchase||false};
+  const unit={name,type:u.type,base_cost:u.base_cost||0,equip_cost:eqCost+gpCost+apCost,total_cost:(u.base_cost||0)+eqCost+gpCost+apCost,equip,variant_upgrades,isElite:u.isElite,isMerc:u.isMerc||false,glory_cost:u.isMerc?u.cost:0,movement:u.movement,ranged:u.ranged,melee:u.melee,armour:u.armour,keywords:u.keywords||[],abilities:(()=>{const a=u.abilities||[];const r=((getVariant()||{}).ability_replacements||{})[u.type]||{};const f=r.remove?a.filter(x=>!r.remove.includes(x)):a;return r.add?[...f,...r.add]:f;})(),conditional_abilities:u.conditional_abilities||{},conditional_keywords:u.conditional_keywords||{},base_equipment:u._effectiveBaseEq||u.base_equipment||[],base_size:u.base_size||'32mm',powers:powerDescs,arcana,sinAura,restrict_armour_purchase:u.restrict_armour_purchase||false};
   if(editingIndex>=0)roster[editingIndex]=unit;else roster.push(unit);
   renderRoster();showEmpty();
 }
@@ -1012,7 +1014,7 @@ function editExisting(idx){
   const f=FACTIONS[selectedFaction];
   const allUnits=[...(f?.elites||[]),...(f?.troops||[]),...((getVariant()||{}).add_units||[])];
   const origDef=allUnits.find(d=>d.type===u.type)||{};
-  currentUnit={type:u.type,base_cost:u.base_cost,movement:u.movement,ranged:u.ranged,melee:u.melee,armour:u.armour,keywords:u.keywords,abilities:u.abilities,conditional_abilities:origDef.conditional_abilities||{},conditional_keywords:origDef.conditional_keywords||{},conditional_restrict_items:origDef.conditional_restrict_items||{},base_equipment:u.base_equipment,base_size:origDef.base_size||u.base_size||'32mm',isElite:u.isElite,isMerc:u.isMerc,cost:u.glory_cost,min:0,max:99,gp_max:origDef.gp_max||0,gp_free:origDef.gp_free||[],ap_max:origDef.ap_max||0,restrict_armoury:origDef.restrict_armoury||false,unit_upgrades:origDef.unit_upgrades||[],restrict_armour_purchase:origDef.restrict_armour_purchase||false,restrict_ranged:origDef.restrict_ranged||false,restrict_grenades:origDef.restrict_grenades||false,restrict_shields:origDef.restrict_shields||false,restrict_equipment_to:origDef.restrict_equipment_to||null,restrict_ranged_to:origDef.restrict_ranged_to||null,restrict_grenades_to:origDef.restrict_grenades_to||null};
+  currentUnit={type:u.type,base_cost:u.base_cost,movement:u.movement,ranged:u.ranged,melee:u.melee,armour:u.armour,keywords:u.keywords,abilities:(()=>{const a=u.abilities||[];const r=((getVariant()||{}).ability_replacements||{})[u.type]||{};const f=r.remove?a.filter(x=>!r.remove.includes(x)):a;return r.add?[...f,...r.add]:f;})(),conditional_abilities:origDef.conditional_abilities||{},conditional_keywords:origDef.conditional_keywords||{},conditional_restrict_items:origDef.conditional_restrict_items||{},base_equipment:u.base_equipment,base_size:origDef.base_size||u.base_size||'32mm',isElite:u.isElite,isMerc:u.isMerc,cost:u.glory_cost,min:0,max:99,gp_max:origDef.gp_max||0,gp_free:origDef.gp_free||[],ap_max:origDef.ap_max||0,restrict_armoury:origDef.restrict_armoury||false,unit_upgrades:origDef.unit_upgrades||[],restrict_armour_purchase:origDef.restrict_armour_purchase||false,restrict_ranged:origDef.restrict_ranged||false,restrict_grenades:origDef.restrict_grenades||false,restrict_shields:origDef.restrict_shields||false,restrict_equipment_to:origDef.restrict_equipment_to||null,restrict_ranged_to:origDef.restrict_ranged_to||null,restrict_grenades_to:origDef.restrict_grenades_to||null};
   openEditor();document.getElementById('ue-name-input').value=u.name;
   if(!u.isMerc){
     // Restore equip — includes both gear and variant upgrades stored in equip
@@ -1182,7 +1184,7 @@ function buildEquipSection(allEquip,unit,doEsc){
 }
 function showPreview(){
   if(!roster.length){alert('Add units first!');return;}
-  const fName=FACTIONS[selectedFaction]?.name||'';
+  const v=getVariant();const fName=v?v.name:(FACTIONS[selectedFaction]?.name||'');
   const wbName=document.getElementById('wb-name-input').value||'Unnamed';
   const xpBoxes='<div class="xb"></div>'.repeat(3)+'<div class="xb s"></div>';
   const xpRow=xpBoxes.repeat(4);
@@ -1302,7 +1304,7 @@ function showPreview(){
 
 function showMobileCards(){
   if(!roster.length){alert('Add units first!');return;}
-  const fName=FACTIONS[selectedFaction]?.name||'';
+  const v=getVariant();const fName=v?v.name:(FACTIONS[selectedFaction]?.name||'');
   const wbName=document.getElementById('wb-name-input').value||'Unnamed';
   const xpBoxes='<div class="xb"></div>'.repeat(3)+'<div class="xb s"></div>';
   const xpRow=xpBoxes.repeat(4);
@@ -1370,7 +1372,7 @@ function showMobileCards(){
 
 function showRoster(){
   if(!roster.length){alert('Add units first!');return;}
-  const fName=FACTIONS[selectedFaction]?.name||'';
+  const v=getVariant();const fName=v?v.name:(FACTIONS[selectedFaction]?.name||'');
   const wbName=document.getElementById('wb-name-input').value||'Unnamed';
   const budget=parseInt(document.getElementById('d-budget').value)||700;
   const gBudget=parseInt(document.getElementById('g-budget').value)||0;
@@ -1466,7 +1468,7 @@ function showRoster(){
 
 async function downloadPDF(){
   const wbName=document.getElementById('wb-name-input').value||'Unnamed Warband';
-  const fName=FACTIONS[selectedFaction]?.name||'Unknown';
+  const v=getVariant();const fName=v?v.name:(FACTIONS[selectedFaction]?.name||'Unknown');
   const body=JSON.stringify({warband_name:wbName,faction_name:fName,units:roster.map(u=>({
     type:u.type,name:u.name,base_cost:u.base_cost,movement:u.movement,ranged:u.ranged,
     melee:u.melee,armour:u.armour,keywords:u.keywords,abilities:u.abilities,
@@ -1507,7 +1509,7 @@ function migrateSave(data){
 
 function exportWarband(){
   const wbName=document.getElementById('wb-name-input').value||'Unnamed Warband';
-  const fName=FACTIONS[selectedFaction]?.name||'';
+  const v=getVariant();const fName=v?v.name:(FACTIONS[selectedFaction]?.name||'');
   const save={
     _format:'warband-forge-v1',
     _format_version: CURRENT_FORMAT_VERSION,

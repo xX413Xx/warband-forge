@@ -99,7 +99,7 @@
         [
           "Zealot Strength (STRONG)",
           5,
-          "Up to 1 Trench Pilgrim or Martyr Penitent. Base size 32mm."
+          "Base size becomes 32mm.", 1
         ]
       ]
     },
@@ -121,7 +121,7 @@
         "Blessed Stigmata: Each Blood Marker removed by REGENERATE places 1 Blessing Marker."
       ],
       "base_equipment": [],
-      "battlekit_notes": "Ranged limited to Auto Pistols, Pistols, and Warcrosses only."
+      "battlekit_notes": "Ranged: only Automatic Pistols and Pistols. Grenades: only Warcrosses."
     },
     {
       "type": "Ecclesiastic Prisoner",
@@ -150,7 +150,8 @@
         [
           "Martyrdom Device",
           35,
-          "Limit: 4 across warband"
+          "Limit: 4 across warband",
+          4
         ]
       ]
     },

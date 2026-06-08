@@ -31,14 +31,12 @@
   },
   "ability_replacements": {
     "Shock Trooper": {
-      "rename": "Fianna",
-      "add_keywords": [
-        "INFILTRATOR"
-      ]
+        "rename": "Fianna",
+        "add_keywords": ["INFILTRATOR"]
     },
     "Lieutenant": {
-      "remove": "Hold Your Fire! ACTION",
-      "add": "Loose Formation: Friendly within 6\" gain +1 DICE to Risky for Dash."
+        "remove": ["Hold Your Fire! ACTION: Pick 1 enemy in LoS; opponent must Activate that model next."],
+        "add": ["Loose Formation: This model has the SKIRMISHER keyword."]
     }
   },
   "cost_overrides": {},
@@ -54,7 +52,7 @@
       [
         "Berserker",
         15,
-        "Warband limit: 1. NEGATE FEAR. Ignore Blood Markers. Cannot wear Armour.",
+        "Warband limit: 1. NEGATE FEAR. Never gains Blood Markers. Cannot wear Armour.",
         1
       ]
     ],
@@ -62,7 +60,7 @@
       [
         "Berserker",
         15,
-        "Warband limit: 1. NEGATE FEAR. Ignore Blood Markers. Cannot wear Armour.",
+        "Warband limit: 1. NEGATE FEAR. Never gains Blood Markers. Cannot wear Armour.",
         1
       ]
     ]

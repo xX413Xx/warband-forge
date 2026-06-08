@@ -88,13 +88,18 @@
         [
           "Legionnaire (+1 Ranged)",
           10,
-          "Max equal to Troopers. Gain +1 DICE Ranged."
+          "Max equal to Troopers.",
+          null,
+          "legionnaire"
         ],
         [
           "Legionnaire (+1 Melee)",
           10,
-          "Max equal to Troopers. Gain +1 DICE Melee."
+          "Max equal to Troopers.",
+          null,
+          "legionnaire"
         ]
+
       ]
     },
     {

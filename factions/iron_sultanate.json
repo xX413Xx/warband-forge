@@ -123,22 +123,25 @@
       "base_cost": 60,
       "movement": "8\"",
       "ranged": "-",
-      "melee": "+2 DICE",
+      "melee": "+1 DICE",
       "armour": "-1",
       "base_size": "50mm",
       "keywords": [
         "SULTANATE",
-        "ARTIFICIAL",
-        "NEGATE DIFFICULT TERRAIN"
+        "ARTIFICIAL"
       ],
       "abilities": [
-        "Takwin Beast: A Lion of Jabir is armed with two Melee Weapons. Can attack once with either, or twice first with Claws & Fangs then Shredding Claws (off-hand modifier applies). RISKY means Activation ends on Failure.",
-        "Artificial Life: Add -1 INJURY DICE to Injury Rolls for a Lion of Jabir.",
-        "Loping Charge: Add +1 DICE to the Risky Success Roll for a Lion of Jabir taking a Dash ACTION."
+        "Agile: +1 DICE to Risky for Climb, Jump, Diving Charge, Dash.",
+        "Artificial Life: -1 INJURY DICE to Injury Rolls.",
+        "Teeth and Claws: Can make Melee Attack without a weapon.",
+        "Pin: Down enemies on 40mm base or less cannot stand up if Lion within 1\"."
       ],
       "base_equipment": [
         "Claws & Fangs (+1 DICE, +1 INJ, IGNORE ARMOUR, RISKY)",
         "Shredding Claws (+1 INJ, CUMBERSOME, RISKY)"
+      ],
+      "unit_upgrades": [
+        ["FEAR keyword", 5, "Any number of Lions"]
       ],
       "battlekit_notes": "Can only have Armour and/or Wind Amulet. No Shields, no other Battlekit.",
       "restrict_armoury": true
@@ -341,12 +344,12 @@
       ],
       [
         "Binoculars",
-        "10 Glory",
+        10,
         "ELITE only"
       ],
       [
         "Cloak of Alamut",
-        "25 Glory",
+        25,
         "ELITE only, Limit: 1"
       ],
       [

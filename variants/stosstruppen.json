@@ -39,8 +39,14 @@
   "stat_overrides": {},
   "ability_replacements": {
     "Shock Trooper": {
-      "remove": "Assault Drill"
-    }
+      "remove": ["Assault Drill: After taking a Shoot ACTION, can immediately Fight if within 1\"."]
+    },
+    "Yeoman": {
+        "remove": ["Trench Moles: Up to 2 gain INFILTRATOR for +10d each (3rd at 1000d+ warband)."]
+    },
+  "restrict_unit_upgrades": {
+    "Yeoman": ["Trench Mole (INFILTRATOR)"]
+  }
   },
   "variant_unit_upgrades": {
     "Shock Trooper": [

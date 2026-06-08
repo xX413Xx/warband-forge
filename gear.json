@@ -431,14 +431,24 @@
   "Black Spot Rifle": {
     "cat": "ranged",
     "hands": "2H",
-    "range": "24\"",
+    "range": "18\"",
     "dice_mod": 1,
-    "inj_dice": 0,
+    "inj_dice": -1,
     "inj_mod": 0,
     "heavy": false,
     "keywords": [
-      "INFECTION MARKERS"
+      "ASSAULT", "INFECTION MARKERS"
     ]
+  },
+  "Vomitus": {
+    "cat": "ranged",
+    "hands": "special",
+    "range": "8\"",
+    "dice_mod": 0,
+    "inj_dice": 0,
+    "inj_mod": 1,
+    "heavy": false,
+    "keywords": ["ASSAULT", "INFECTION MARKERS"]
   },
   "Anti-Tank Hammer": {
     "cat": "melee",
