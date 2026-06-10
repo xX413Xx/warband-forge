@@ -20,6 +20,7 @@ function transformUnit(u){
     ranged:u.ranged?u.ranged.replace(' DICE',''):'-',
     melee:u.melee?u.melee.replace(' DICE',''):'-',
     armour:u.armour||'0',
+    base_size:u.base_size||'25mm',
     gp_max:u.goetic_powers_max||0,
     gp_free:u.goetic_powers_free||[],
     ap_max:u.ap_max||0,
@@ -367,7 +368,7 @@ function showTypePicker(){
     _pickerUnits.push({unit:displayUnit,isElite,isMerc:false});
     return`<div class="tp-unit ${cls}" ${clickable?`onclick="pickUnit(${idx})"`:''}">
       <span class="tp-name">${displayUnit.type}</span>
-      <span class="tp-stats">${displayUnit.movement} R:${displayUnit.ranged} M:${displayUnit.melee} A:${displayUnit.armour}</span>
+      <span class="tp-stats">${displayUnit.movement} R:${displayUnit.ranged} M:${displayUnit.melee} A:${displayUnit.armour} B:${displayUnit.base_size||'?'}</span>
       <span class="tp-cost">${displayUnit.base_cost}D</span>
       ${countBadge}
     </div>`;
@@ -410,7 +411,7 @@ function showTypePicker(){
         const idx=_pickerUnits.length;
         _pickerUnits.push({unit:m,isElite:true,isMerc:true});
         html+=`<div class="tp-unit ${maxed?'maxed':''}" ${maxed?'':`onclick="pickUnit(${idx})"`}>
-          <span class="tp-name">${m.type}</span><span class="tp-stats">${m.movement} R:${m.ranged} M:${m.melee} A:${m.armour}</span>
+          <span class="tp-name">${m.type}</span><span class="tp-stats">${m.movement} R:${m.ranged} M:${m.melee} A:${m.armour} B:${m.base_size||'?'}</span>
           <span class="tp-cost glory-cost">${m.cost}☼</span>${badge}</div>`;
       });
     }
@@ -441,8 +442,8 @@ function openEditor(){
   document.getElementById('empty-detail').style.display='none';document.getElementById('type-picker').style.display='none';document.getElementById('unit-editor').style.display='block';detailActive(true);
   document.getElementById('ue-type-name').textContent=u.type;
   document.getElementById('ue-name-input').value='';
-  document.getElementById('ue-stats').innerHTML=['Movement','Ranged','Melee','Armour','Base Cost'].map((l,i)=>{
-    const vals=[u.movement,u.ranged,u.melee,u.armour,u.isMerc?u.cost+'☼':u.base_cost+'D'];
+  document.getElementById('ue-stats').innerHTML=['Movement','Ranged','Melee','Armour','Base Size','Base Cost'].map((l,i)=>{
+    const vals=[u.movement,u.ranged,u.melee,u.armour,u.base_size||'25mm',u.base_cost+'D'] ;
     return`<div class="ue-stat"><div class="s-label">${l}</div><div class="s-val">${vals[i]}</div></div>`;}).join('');
   const v=getVariant()||{};
   const addedKw=v.add_keywords_all||[];
@@ -596,7 +597,7 @@ function gearParse(name){
   const isGrenade=(cat==='grenade');
   const isDual=g.range&&(g.range.includes('/Melee')||g.range.includes('Melee/'));
   // Build display keywords string — inj_mod and inj_dice go into keywords for display
-  const kws=[...(g.keywords||[])];
+  const kws=[...(g.keywords||[])];if(g.heavy)kws.push('HEAVY');
   if(g.note)kws.push(g.note);
   const injModStr=g.inj_mod&&g.inj_mod!==0?`${g.inj_mod>0?'+':''}${g.inj_mod} INJ MOD`:'';
   const injDiceStr=g.inj_dice&&g.inj_dice!==0?`${g.inj_dice>0?'+':''}${g.inj_dice} INJ`:'';
@@ -1389,8 +1390,11 @@ function showRoster(){
   // Table row helper
   const trow=(u,cls)=>{
     const allEq=[...u.base_equipment,...u.equip];
-    return`<tr class="${cls}"><td class="nm">${esc(u.name)||'(Unnamed)'}</td><td class="tp">${esc(u.type)}</td><td class="c">${u.movement}</td><td class="c">${fmtDice(u.ranged)}</td><td class="c">${fmtDice(u.melee)}</td><td class="c">${u.armour}</td><td>${allEq.map(e=>esc(e)).join(', ')||'—'}</td><td class="ct${u.isMerc?' gl':''}">${u.isMerc?u.glory_cost+'☼':u.total_cost+'D'}</td></tr>`;
-  };
+    const eff=calcEffStats(u);
+    const rDisp=eff.effR!==null?`${fmtDice(u.ranged)} (${eff.effR>=0?'+':''}${eff.effR}d)`:fmtDice(u.ranged);
+    const mDisp=eff.effM!==null?`${fmtDice(u.melee)} (${eff.effM>=0?'+':''}${eff.effM}d)`:fmtDice(u.melee);
+    const aDisp=eff.armourMod?`${u.armour} (${(parseInt(u.armour)||0)+eff.armourMod})`:u.armour;
+    return`<tr class="${cls}"><td class="nm">${esc(u.name)||'(Unnamed)'}</td><td class="tp">${esc(u.type)}</td><td class="c">${u.movement}</td><td class="c">${rDisp}</td><td class="c">${mDisp}</td><td class="c">${aDisp}</td><td class="c">${u.base_size||'25mm'}</td><td>${allEq.map(e=>esc(e)).join(', ')||'—'}</td><td class="ct${u.isMerc?' gl':''}">${u.isMerc?u.glory_cost+'☼':u.total_cost+'D'}</td></tr>`;};
 
   // Unit detail block helper
   const ublock=(u)=>{
@@ -1448,19 +1452,19 @@ function showRoster(){
   if(allRestrictionsIgnored){
     page1+=`<div style="font-family:'Cinzel',serif;font-size:2.5mm;color:#ff4444;text-align:center;padding:2mm;border:0.5mm solid #ff4444;margin:2mm 0;letter-spacing:0.08em;">☠ ALL RULES IGNORED — THIS WARBAND IS NOT TOURNAMENT LEGAL</div>`;
   }
-  page1+=`<div class="rp-sec">Warband Roster</div><table class="rp-tbl"><tr><th style="width:20%">Name</th><th style="width:16%">Type</th><th class="c" style="width:7%">Move</th><th class="c" style="width:7%">Rng</th><th class="c" style="width:7%">Mel</th><th class="c" style="width:7%">Arm</th><th style="width:26%">Equipment</th><th class="r" style="width:10%">Cost</th></tr>`;
-  if(elites.length){page1+=`<tr><td colspan="8" class="rp-tsec">‡ Elites</td></tr>`;elites.forEach(u=>page1+=trow(u,'er'));}
-  if(troops.length){page1+=`<tr><td colspan="8" class="rp-tsec">† Troops</td></tr>`;troops.forEach(u=>page1+=trow(u,''));}
-  if(mercs.length){page1+=`<tr><td colspan="8" class="rp-tsec gl">☼ Mercenaries</td></tr>`;mercs.forEach(u=>page1+=trow(u,'mr'));}
+  page1+=`<div class="rp-sec">Warband Roster</div><table class="rp-tbl"><tr><th style="width:20%">Name</th><th style="width:16%">Type</th><th class="c" style="width:7%">Move</th><th class="c" style="width:7%">Rng</th><th class="c" style="width:7%">Mel</th><th class="c" style="width:7%">Arm</th><th class="c" style="width:6%">Base</th><th style="width:20%">Equipment</th><th class="r" style="width:10%">Cost</th></tr>`;
+  if(elites.length){page1+=`<tr><td colspan="9" class="rp-tsec">‡ Elites</td></tr>`;elites.forEach(u=>page1+=trow(u,'er'));}
+  if(troops.length){page1+=`<tr><td colspan="9" class="rp-tsec">† Troops</td></tr>`;troops.forEach(u=>page1+=trow(u,''));}
+  if(mercs.length){page1+=`<tr><td colspan="9" class="rp-tsec gl">☼ Mercenaries</td></tr>`;mercs.forEach(u=>page1+=trow(u,'mr'));}
   page1+=`</table>`;
   page1+=`<div class="rp-sec">Campaign Battle Log</div><table class="rp-ctbl"><tr><th>#</th><th>Threshold</th><th>Strength</th><th>Opponent</th><th>Scenario</th><th>Result</th><th>Notes</th></tr>${emptyRows}</table>`;
   page1+=`<div style="margin-top:3mm;"><div class="rp-sec">Warband Notes</div><div class="rp-nline"></div><div class="rp-nline"></div><div class="rp-nline"></div><div class="rp-nline"></div></div>`;
-  page1+=`<div class="rp-foot"><span>Warband Forge · v3.14</span><span>Trench Crusade © Factory Fortress</span></div></div>`;
+  page1+=`<div class="rp-foot"><span>Warband Forge · ${window.WF_VERSION||''}</span><span>Trench Crusade © Factory Fortress</span></div></div>`;
 
   // Page 2+: Unit Details
   let page2=`<div class="roster-page"><div style="font-family:'IM Fell English SC',serif;font-size:4.5mm;color:var(--blood);border-bottom:0.5mm solid var(--blood);padding-bottom:1mm;margin-bottom:3mm;display:flex;justify-content:space-between;align-items:flex-end;"><span>Unit Details</span><span style="font-family:'Cinzel',serif;font-size:2.5mm;color:var(--gold);letter-spacing:0.1em;">${esc(wbName)} — ${esc(fName)}</span></div>`;
   roster.forEach(u=>page2+=ublock(u));
-  page2+=`<div class="rp-foot"><span>Warband Forge · v3.14</span><span>Trench Crusade © Factory Fortress</span></div></div>`;
+  page2+=`<div class="rp-foot"><span>Warband Forge · ${window.WF_VERSION||''}</span><span>Trench Crusade © Factory Fortress</span></div></div>`;
 
   document.getElementById('roster-sheet').innerHTML=page1+page2;
   showScreen('screen-roster');

@@ -126,7 +126,8 @@
         "Chainsaw Mouth (+1 DICE, +1 INJ, IGNORE ARMOUR, RISKY)",
         "Shredding Claws (+1 INJ, CUMBERSOME, RISKY)"
       ],
-      "battlekit_notes": "Cannot have any other Battlekit."
+      "battlekit_notes": "Cannot have any other Battlekit.",
+      "restrict_armoury": true
     },
     {
       "type": "Wretched",
@@ -169,7 +170,8 @@
         "Reinforced Armour",
         "Infernal Brand"
       ],
-      "battlekit_notes": "Armour included, cannot be changed."
+      "battlekit_notes": "Armour included, cannot be changed.",
+      "restrict_armour_purchase": true
     },
     {
       "type": "Artillery Witch",

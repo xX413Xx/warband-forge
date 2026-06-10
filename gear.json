@@ -1381,7 +1381,7 @@
     "inj_mod": -2,
     "heavy": false,
     "keywords": [
-      "NEGATE GAS"
+      "NEGATE GAS", "IMPERVIOUS"
     ]
   },
   "Restraining Muzzle": {
@@ -1408,14 +1408,14 @@
   },
   "Bow of Lethe": {
     "cat": "ranged",
-    "hands": "2H",
+    "hands": "1H",
     "range": "24\"",
     "dice_mod": 0,
     "inj_dice": 0,
     "inj_mod": 0,
     "heavy": false,
     "keywords": [
-      "CRITICAL"
+      "ASSAULT"
     ]
   },
   "Takwin Anqā Bird": {

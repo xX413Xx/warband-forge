@@ -182,7 +182,8 @@
         "Shovel",
         "Engineer Body Armour (-2, NEGATE SHRAPNEL)"
       ],
-      "battlekit_notes": "Cannot have other Armour."
+      "battlekit_notes": "Cannot have other Armour.",
+      "restrict_armour_purchase": true
     },
     {
       "type": "Combat Medic",
@@ -207,7 +208,8 @@
         "Medi-kit",
         "Misericordia"
       ],
-      "battlekit_notes": "Cannot have other Armour."
+      "battlekit_notes": "Cannot have other Armour.",
+      "restrict_armour_purchase": true
     }
   ],
   "armoury": {

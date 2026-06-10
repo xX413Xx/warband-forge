@@ -8,7 +8,8 @@
     "Goetic Powers: ELITE models can have Goetic Powers (number per Warband Entry). Powers are Abilities (passive) or Spells (cast by spending Blood Markers from any non-BLACK GRAIL/DEMONIC model on battlefield).",
     "Cast Spell ACTION: Can use multiple times per activation, but cannot cast same spell twice. Cost paid in Blood Markers.",
     "Leader: Must include either a Praetor or a Sorcerer (can have both).",
-    "Wretched Limit: Number of Wretched must be less than models with DEMONIC keyword."
+    "Wretched Limit: Number of Wretched must be less than models with DEMONIC keyword.",
+    "Goetic Powers can be purchased when recruited or during the Quartermaster Step (costs 1 Glory per model in Quartermaster Step)."
   ],
 
   "sin_selection": {
@@ -84,12 +85,15 @@
       "base_size": "40mm",
       "keywords": ["THE COURT", "DEMONIC", "ELITE", "STRONG"],
       "abilities": [
-        "Blood Magic: Free built-in spell (Cost 1). Before Injury Rolls, add +1 INJURY DICE to all rolls for the attack."
+        "Blood Magic: Free built-in spell (Cost 1). Before Injury Rolls, add +1 INJURY DICE to all rolls for the attack.", 
+        "Corpse Candles: A Hell Knight can have an Unholy Relic at a modified cost of 5d each."
       ],
       "goetic_powers_max": 2,
       "goetic_powers_free": ["Blood Magic"],
       "base_equipment": ["Infernal Iron Armour (-2, IMPERVIOUS)"],
-      "battlekit_notes": "Cannot have other Armour."
+      "battlekit_notes": "Cannot have other Armour.",
+      "restrict_armour_purchase": true,
+      "cost_overrides": {"Unholy Relic": 5}
     }
   ],
 
@@ -105,7 +109,8 @@
       "base_size": "25mm",
       "keywords": ["THE COURT"],
       "abilities": [
-        "Law of Hell: If kills enemy ELITE, Wretched is freed and removed from game/roster."
+        "Law of Hell: If kills enemy ELITE, Wretched is freed and removed from game/roster.", 
+        "Goaded Forth: +1 DICE to Risky Success Rolls for Dash if a friendly Yoke Fiend is within 8\" and in Line of Sight."
       ],
       "base_equipment": [],
       "battlekit_notes": "Can only have Battlekit costing up to 10d. Must have at least 1 Weapon. Count must be less than DEMONIC models."
@@ -153,10 +158,11 @@
       "melee": "+3 DICE",
       "armour": "-3",
       "base_size": "60mm",
-      "keywords": ["THE COURT", "DEMONIC", "FEAR", "IGNORE OFF-HAND", "STRONG", "TOUGH"],
+      "keywords": ["THE COURT", "DEMONIC", "FEAR", "IGNORE OFF-HAND", "NEGATE DIFFICULT TERRAIN", "STRONG", "TOUGH"],
       "abilities": [
         "Annihilator: Can take 1 Fight ACTION per activation. Each Fight ACTION attacks with CLEAVE 3.",
-        "Demonic Aura: Has one aura based on warband's Sin (see sin_auras below)."
+        "Demonic Aura: Has one aura based on warband's Sin (see sin_auras below).", 
+        "Relentless: Do not halve Movement when standing up at the start of an Activation."
       ],
       "base_equipment": [],
       "battlekit_notes": "Can have up to 3 Weapons (all count as 1-Handed). Cannot have any other Battlekit."
@@ -223,7 +229,7 @@
       ["Heavy Flamethrower", 55, "Limit: 1"],
       ["Ophidian Rifle", 25, "ELITE only, Limit: 3"],
       ["Pistol", 6, ""],
-      ["Serpent Assault Gun", 50, "Limit: 2"],
+      ["Serpent Assault Gun", 45, "Limit: 2"],
       ["Shotgun", 10, "Shield Combo"]
     ],
     "Melee Weapons": [
@@ -231,10 +237,10 @@
       ["Great Sword/Axe", 12, ""],
       ["Headtaker", 15, "Limit: 2"],
       ["Hellblade", 15, "Limit: 3"],
-      ["Malebranche Sword", 50, "Limit: 1"],
+      ["Malebranche Sword", 35, "Limit: 1"],
       ["Polearm", 7, "Shield Combo"],
       ["Sword/Axe", 4, ""],
-      ["Torture Instrument", 8, ""],
+      ["Torture Instrument", 8, "Down, Whelp: vs friendly model, Success = Down (no Injury Roll)"],
       ["Trench Club", 3, ""],
       ["Trench Knife", 1, ""]
     ],

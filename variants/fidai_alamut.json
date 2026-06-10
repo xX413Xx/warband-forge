@@ -53,14 +53,16 @@
       ],
       "abilities": [
         "Uses Sultanate Assassin profile with LEADER and TOUGH.",
+        "Temporal Assassin: After determining Charge Bonus, split through time — pick a second enemy target. Charge to within 1\" of first target, Fight it, then redeploy within 1\" of the second target and Fight it. Same weapon for both. Cannot Fight again that Activation.",
+        "Time Slip: If opponent fails Success Roll targeting this model, redeploy anywhere within 6\" (centre to centre) and 1\"+ from enemies. If retreating, retreat ends after redeployment.",
         "Art of Assassination: Can buy 1 unique ability."
       ],
       "base_equipment": [],
       "unit_upgrades": [
-      ["Hallucinogen Disguise (deploy ignoring INFILTRATOR restrictions)", 20, "Art of Assassination", null, "assassination"],
-      ["Mirage of Time (-1 DICE to attacks targeting this model)", 15, "Art of Assassination", null, "assassination"],
-      ["Secret Paths (delayed deploy after Turn 1)", 10, "Art of Assassination", null, "assassination"],
-      ["Thunderbolt (+2\" Movement)", 20, "Art of Assassination", null, "assassination"]
+      ["Hallucinogen Disguise (deploy ignoring INFILTRATOR restrictions)", 20, "Art of Assassination", 1, "assassination"],
+      ["Mirage of Time (-1 DICE to attacks targeting this model)", 15, "Art of Assassination", 1, "assassination"],
+      ["Secret Paths (delayed deploy after Turn 1)", 10, "Art of Assassination", 1, "assassination"],
+      ["Thunderbolt (+2\" Movement)", 20, "Art of Assassination", 1, "assassination"]
       ]
     },
     {
@@ -88,7 +90,10 @@
       ["Mirage of Time (-1 DICE to attacks targeting)", 15, "Art of Assassination", 1, "assassination"],
       ["Secret Paths (delayed deploy after Turn 1)", 10, "Art of Assassination", 1, "assassination"],
       ["Thunderbolt (+2\" Movement)", 20, "Art of Assassination", 1, "assassination"]
-    ]
+    ],
+    "Azeb": [
+      ["Assassin Acolyte (INFILTRATOR)", 10, "Up to 3 Azebs", 3]
+]
   },
   "cost_overrides": {},
   "stat_overrides": {},
