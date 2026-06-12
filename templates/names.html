@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Name Generator · Warband Forge</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--parchment:#F0E6D0;--parch-mid:#E2D5B8;--parch-dark:#D0C4A4;--ink:#1A1510;--blood:#8B1A1A;--blood-hi:#B22222;--gold:#C9A84C;--gold-dim:#8A7230;--trench:#2A2318;--rust:#6B3A2A;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:clamp(16px,1.4vw+6px,22px);}
+body{font-family:'Crimson Text',Georgia,serif;background:var(--trench);color:var(--parchment);min-height:100dvh;display:flex;flex-direction:column;align-items:center;padding:1.5rem 1rem;}
+
+h1{font-family:'Cinzel',serif;font-size:clamp(1.1rem,3vw,1.6rem);font-weight:700;letter-spacing:0.08em;text-align:center;color:var(--gold);margin-bottom:0.2rem;}
+.subtitle{font-size:0.75rem;color:#706050;font-style:italic;text-align:center;margin-bottom:1.5rem;}
+
+.gen-container{max-width:480px;width:100%;}
+
+/* Faction select */
+label.field-label{font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold-dim);display:block;margin-bottom:0.3rem;}
+select{width:100%;padding:0.5rem 0.6rem;font-family:'Crimson Text',serif;font-size:0.9rem;background:rgba(240,230,208,0.06);border:1px solid var(--gold-dim);color:var(--parchment);appearance:none;-webkit-appearance:none;cursor:pointer;border-radius:0;}
+select:focus{outline:none;border-color:var(--gold);}
+select option{background:var(--trench);color:var(--parchment);}
+
+/* Tier buttons */
+.tier-row{display:flex;gap:0.4rem;margin-top:1rem;}
+.tier-btn{flex:1;padding:0.5rem 0.4rem;font-family:'Cinzel',serif;font-size:0.65rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.03);color:var(--parch-dark);transition:all 0.15s;text-align:center;}
+.tier-btn:hover{border-color:var(--gold-dim);color:var(--parchment);}
+.tier-btn.active{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,0.1);}
+
+/* Result display */
+.result-box{margin-top:1.5rem;min-height:5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid var(--gold-dim);background:linear-gradient(170deg,rgba(240,230,208,0.04),rgba(0,0,0,0.2));padding:1.2rem 1rem;}
+.result-name{font-family:'Cinzel',serif;font-size:clamp(1rem,4vw,1.5rem);font-weight:900;color:var(--parchment);text-align:center;line-height:1.3;min-height:1.5em;word-break:break-word;}
+.result-tier{font-size:0.6rem;color:var(--gold-dim);font-family:'Cinzel',serif;letter-spacing:0.15em;text-transform:uppercase;margin-top:0.4rem;}
+.result-empty{color:#504030;font-style:italic;font-size:0.85rem;}
+
+/* Generate button */
+.gen-btn{width:100%;margin-top:0.8rem;padding:0.55rem 1rem;font-family:'Cinzel',serif;font-size:0.8rem;font-weight:700;letter-spacing:0.1em;cursor:pointer;border:none;background:var(--gold);color:var(--trench);transition:all 0.15s;}
+.gen-btn:hover{background:#D4B85C;}
+.gen-btn:active{transform:scale(0.98);}
+
+/* Reroll */
+.reroll-btn{width:100%;margin-top:0.3rem;padding:0.4rem 1rem;font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.08em;cursor:pointer;border:1px solid rgba(255,255,255,0.1);background:transparent;color:var(--parch-dark);transition:all 0.15s;}
+.reroll-btn:hover{border-color:var(--gold-dim);color:var(--parchment);}
+
+/* History */
+.history{margin-top:1.5rem;width:100%;}
+.history-label{font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.12em;text-transform:uppercase;color:#504030;margin-bottom:0.3rem;}
+.history-list{list-style:none;display:flex;flex-direction:column;gap:0.15rem;}
+.history-list li{font-size:0.78rem;color:#706050;padding:0.2rem 0;border-bottom:1px solid rgba(255,255,255,0.03);display:flex;justify-content:space-between;align-items:baseline;}
+.history-list .h-name{color:var(--parch-dark);}
+.history-list .h-tier{font-family:'Cinzel',serif;font-size:0.5rem;color:#504030;letter-spacing:0.06em;text-transform:uppercase;}
+.history-list .h-copy{font-size:0.55rem;color:var(--gold-dim);cursor:pointer;margin-left:0.4rem;opacity:0.5;transition:opacity 0.15s;}
+.history-list .h-copy:hover{opacity:1;color:var(--gold);}
+
+/* Back link */
+.back-link{margin-top:2rem;font-family:'Cinzel',serif;font-size:0.6rem;color:var(--gold-dim);text-decoration:none;letter-spacing:0.08em;padding:0.3rem 0.8rem;border:1px solid rgba(255,255,255,0.08);transition:all 0.15s;}
+.back-link:hover{border-color:var(--gold);color:var(--gold);}
+
+/* Mobile adjustments */
+@media(max-width:480px){
+  .tier-btn{font-size:0.58rem;padding:0.45rem 0.2rem;}
+  .result-name{font-size:1.1rem;}
+}
+</style>
+</head>
+<body>
+
+<h1>☩ Name Generator</h1>
+<p class="subtitle">Random names for your Trench Crusade warband</p>
+
+<div class="gen-container">
+  <label class="field-label" for="faction-select">Faction / Variant</label>
+  <select id="faction-select">
+    <option value="">— Choose a faction —</option>
+  </select>
+
+  <div class="tier-row">
+    <button class="tier-btn" data-tier="grunt" onclick="selectTier('grunt')">† Grunt</button>
+    <button class="tier-btn" data-tier="elite" onclick="selectTier('elite')">‡ Elite</button>
+    <button class="tier-btn active" data-tier="leader" onclick="selectTier('leader')">☩ Leader</button>
+  </div>
+
+  <div class="result-box">
+    <div class="result-name" id="result-name"><span class="result-empty">Select a faction and generate</span></div>
+    <div class="result-tier" id="result-tier"></div>
+  </div>
+
+  <button class="gen-btn" onclick="generate()">⚔ Generate Name</button>
+  <button class="reroll-btn" onclick="generate()">↻ Reroll</button>
+
+  <div class="history" id="history-section" style="display:none;">
+    <div class="history-label">Recent Names</div>
+    <ul class="history-list" id="history-list"></ul>
+  </div>
+</div>
+
+<a href="/" class="back-link">← Back to Warband Forge</a>
+
+<script>
+let NAMES = {};
+let selectedTier = 'leader';
+let history = [];
+
+async function loadNames() {
+  try {
+    const resp = await fetch('/static/names.json');
+    NAMES = await resp.json();
+    populateFactionSelect();
+  } catch (e) {
+    console.error('Failed to load names.json:', e);
+  }
+}
+
+function populateFactionSelect() {
+  const sel = document.getElementById('faction-select');
+  const keys = Object.keys(NAMES).filter(k => k !== '$schemaVersion').sort();
+  
+  // Group by faction family
+  const groups = {
+    'New Antioch': [], 'Trench Pilgrims': [], 'Iron Sultanate': [],
+    'Heretic Legion': [], 'Black Grail': [], 'Court': [], 'Other': []
+  };
+  
+  keys.forEach(k => {
+    const d = NAMES[k].displayName;
+    if (k.startsWith('court_')) groups['Court'].push(k);
+    else if (['new_antioch','abyssinia','eire_rangers','kingdom_of_alba','papal_states','red_brigade','stosstruppen'].includes(k)) groups['New Antioch'].push(k);
+    else if (['trench_pilgrims','procession_of_the_sacred_affliction','war_pilgrimage_of_saint_methodius','cavalcade_of_the_tenth_plague'].includes(k)) groups['Trench Pilgrims'].push(k);
+    else if (['iron_sultanate','fidai_of_alamut','house_of_wisdom','defenders_of_the_iron_wall'].includes(k)) groups['Iron Sultanate'].push(k);
+    else if (['heretic_legion','naval_heretics','knights_of_avarice','trench_ghosts'].includes(k)) groups['Heretic Legion'].push(k);
+    else if (['cult_of_the_black_grail','dirge','great_hunger'].includes(k)) groups['Black Grail'].push(k);
+    else groups['Other'].push(k);
+  });
+  
+  for (const [groupName, groupKeys] of Object.entries(groups)) {
+    if (groupKeys.length === 0) continue;
+    const optgroup = document.createElement('optgroup');
+    optgroup.label = groupName;
+    groupKeys.forEach(k => {
+      const opt = document.createElement('option');
+      opt.value = k;
+      opt.textContent = NAMES[k].displayName;
+      optgroup.appendChild(opt);
+    });
+    sel.appendChild(optgroup);
+  }
+}
+
+function selectTier(tier) {
+  selectedTier = tier;
+  document.querySelectorAll('.tier-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tier === tier);
+  });
+}
+
+function pick(arr) {
+  if (!arr || arr.length === 0) return '';
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function generate() {
+  const factionKey = document.getElementById('faction-select').value;
+  if (!factionKey || !NAMES[factionKey]) {
+    document.getElementById('result-name').innerHTML = '<span class="result-empty">Choose a faction first</span>';
+    document.getElementById('result-tier').textContent = '';
+    return;
+  }
+  
+  const faction = NAMES[factionKey];
+  const formula = faction.formula?.[selectedTier];
+  if (!formula) {
+    document.getElementById('result-name').innerHTML = '<span class="result-empty">No formula for this tier</span>';
+    return;
+  }
+  
+  // Build name from formula parts
+  let parts = formula.map(field => pick(faction[field] || []));
+  let name = parts.filter(p => p).join(' ');
+  
+  // Enforce length limit
+  const limit = faction.lengthLimit || 30;
+  if (name.length > limit) {
+    // Try without the last part
+    parts.pop();
+    name = parts.filter(p => p).join(' ');
+  }
+  
+  if (!name) {
+    document.getElementById('result-name').innerHTML = '<span class="result-empty">No name data for this faction</span>';
+    return;
+  }
+  
+  const tierLabels = { grunt: '† Troop', elite: '‡ Elite', leader: '☩ Leader' };
+  
+  document.getElementById('result-name').textContent = name;
+  document.getElementById('result-tier').textContent = `${faction.displayName} · ${tierLabels[selectedTier]}`;
+  
+  // Add to history
+  history.unshift({ name, tier: tierLabels[selectedTier], faction: faction.displayName });
+  if (history.length > 10) history.pop();
+  renderHistory();
+}
+
+function renderHistory() {
+  const section = document.getElementById('history-section');
+  const list = document.getElementById('history-list');
+  if (history.length === 0) { section.style.display = 'none'; return; }
+  section.style.display = 'block';
+  list.innerHTML = history.map(h =>
+    `<li><span class="h-name">${h.name}</span><span><span class="h-tier">${h.tier}</span><span class="h-copy" onclick="navigator.clipboard.writeText('${h.name.replace(/'/g,"\\'")}');this.textContent='✓';setTimeout(()=>this.textContent='copy',800)">copy</span></span></li>`
+  ).join('');
+}
+
+// Keyboard shortcut: Enter to generate
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter') generate();
+});
+
+loadNames();
+</script>
+</body>
+</html>

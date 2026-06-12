@@ -254,6 +254,10 @@ def ref_keywords():
 def ref_equipment():
     return render_template('ref_equipment.html')
 
+@app.route('/names')
+def names():
+    return render_template('names.html')
+
 
 # ═══════════════════════════════════════════════════════════════
 # RUN THE SERVER
