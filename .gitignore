@@ -1,0 +1,22 @@
+# ─── Secrets ───────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ─── Python ────────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.venv/
+venv/
+
+# ─── OS junk ───────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ─── Build / runtime artifacts ─────────────────────────────
+*.pdf
+*.zip
+warband_*.pdf

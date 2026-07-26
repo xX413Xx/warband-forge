@@ -16,7 +16,7 @@ WHAT THIS TEACHES:
   - Generating files (PDFs) on the server and sending them back
 """
 
-from flask import Flask, render_template, jsonify, request, send_file
+from flask import Flask, render_template, jsonify, request, send_file, send_from_directory, after_this_request
 import json
 import os
 import tempfile
@@ -173,7 +173,7 @@ def service_worker():
 
 @app.route("/static/<path:filename>")
 def static_files(filename):
-    return send_file(os.path.join(BASE_DIR, "static", filename))
+    return send_from_directory(os.path.join(BASE_DIR, "static"), filename)
 
 @app.route("/.well-known/security.txt")
 def security_txt():
@@ -228,19 +228,22 @@ def generate_pdf():
     tmp_path = tmp.name
     tmp.close()
 
-    try:
-        generate_warband_pdf(warband_name, faction_name, units, tmp_path)
+    generate_warband_pdf(warband_name, faction_name, units, tmp_path)
 
-        return send_file(
-            tmp_path,
-            mimetype="application/pdf",
-            as_attachment=True,
-            download_name=f"{warband_name.replace(' ', '_')}_roster.pdf",
-        )
-    finally:
-        # Clean up temp file after sending
-        # (send_file reads it first, then we delete)
-        pass
+    @after_this_request
+    def cleanup(response):
+        try:
+            os.remove(tmp_path)
+        except OSError:
+            pass
+        return response
+
+    return send_file(
+        tmp_path,
+        mimetype="application/pdf",
+        as_attachment=True,
+        download_name=f"{warband_name.replace(' ', '_')}_roster.pdf",
+    )
 
 @app.route('/reference/quick')
 def ref_quick():
@@ -276,4 +279,4 @@ if __name__ == "__main__":
     print("  ╚═══════════════════════════════════════════════╝")
     print()
 
-    app.run(debug=True, port=5000)
+    app.run(debug=os.environ.get("FLASK_DEBUG") == "1", port=5000)
